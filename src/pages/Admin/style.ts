@@ -8,15 +8,19 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     containerAdmin: {
-        flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        width: '90%',
+        height: '80%',
+        borderRadius: 10
     },
     title: {
         fontFamily: 'Verdana',
+        marginTop: '5%',
         fontSize: 40,
-        justifyContent: 'flex-start',
+        alignSelf: 'flex-start',
+        left: '5%',
         fontWeight: 'bold',
     }
 });
