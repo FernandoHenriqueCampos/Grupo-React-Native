@@ -8,7 +8,8 @@ export default function Admin() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Tela de Home</Text>
+            <Text style={styles.title}>Tela de Admin</Text>
+            <Text style={styles.title}>Responsável por Fernando</Text>
         </View>
     );
 }
