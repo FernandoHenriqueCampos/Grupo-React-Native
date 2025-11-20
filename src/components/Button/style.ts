@@ -3,20 +3,17 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#e9e9e9ff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    containerAdmin: {
-        flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
-        fontFamily: 'Verdana',
-        fontSize: 40,
-        justifyContent: 'flex-start',
+        fontSize: 20,
         fontWeight: 'bold',
+    },
+    button: {
+        backgroundColor: 'skyblue',
+        padding: 10,
+        borderRadius: 5,
     }
 });
