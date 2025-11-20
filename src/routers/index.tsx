@@ -6,6 +6,8 @@ import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro'; 
 import Perfil from '../pages/Perfil';
 import Favoritos from '../pages/Favoritos';
+import Admin from '../pages/Admin';
+import Cursos from '../pages/Cursos';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +20,8 @@ export const Routers = () => {
         <Stack.Screen name="StackCadastro" component={Cadastro} />
         <Stack.Screen name="StackPerfil" component={Perfil} />
         <Stack.Screen name="StackFavoritos" component={Favoritos} />
+        <Stack.Screen name="StackAdmin" component={Admin} />
+        <Stack.Screen name="StackCursos" component={Cursos} />
       </Stack.Navigator>
     </NavigationContainer>
   );
