@@ -15,8 +15,9 @@ interface Animal {
     peso?: number | string;
     porte?: string;
     genero?: string;
+    tipo?: string;
     image?: string;
-    tipo: 'criar' | 'editar';
+    tipoModal: 'criar' | 'editar';
 }
 
 interface PropsModalAdmin {
@@ -36,6 +37,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
     const [porte, setPorte] = useState("");
     const [genero, setGenero] = useState("");
     const [image, setImage] = useState("");
+    const [tipo, setTipo] = useState("");
 
     useEffect(() => {
         if (animal) {
@@ -48,6 +50,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
             setPorte(animal.porte ?? "");
             setGenero(animal.genero ?? "");
             setImage(animal.image ?? "");
+            setTipo(animal.tipo ?? "");
         }
     }, [animal]);
 
@@ -74,6 +77,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 porte,
                 genero,
                 image,
+                tipo
             });
 
             console.log("Atualizado:", data);
@@ -105,8 +109,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
         }
     }
 
-    const exibirEditar = animal?.tipo === "editar";
-    const exibirCriar = animal?.tipo === "criar";
+    const exibirEditar = animal?.tipoModal === "editar";
+    const exibirCriar = animal?.tipoModal === "criar";
 
     return (
         <View style={styles.containerAdmin}>
@@ -119,6 +123,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Peso" value={peso} onChangeText={setPeso}/>
                 <Input title="Porte" value={porte} onChangeText={setPorte}/>
                 <Input title="Gênero" value={genero} onChangeText={setGenero}/>
+                <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
 
                 <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
 
@@ -138,6 +143,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Peso" value={peso} onChangeText={setPeso}/>
                 <Input title="Porte" value={porte} onChangeText={setPorte}/>
                 <Input title="Gênero" value={genero} onChangeText={setGenero}/>
+                <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
 
                 <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
 
@@ -148,7 +154,6 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Button title="Salvar" onPress={postAnimais} />
                 <Button title="Cancelar" onPress={onClose} />
             </View>
-
         </View>
     );
 }

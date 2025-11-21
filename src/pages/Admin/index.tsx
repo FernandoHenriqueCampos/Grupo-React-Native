@@ -22,7 +22,8 @@ export default function Admin() {
         peso?: number | string;
         porte?: string;
         genero?: string;
-        tipo: 'criar' | 'editar';
+        tipo?: string;
+        tipoModal: 'criar' | 'editar';
     };
 
     async function deleteAnimais(id: string | number) {
@@ -38,7 +39,7 @@ export default function Admin() {
 
     async function getAnimais() {
         try {
-            const response = await api.get("animais");
+            const response = await api.get("animais"); 
             setAnimais(response.data);
 
         } catch (error) {
@@ -60,7 +61,8 @@ export default function Admin() {
             peso: "",
             porte: "",
             genero: "",
-            tipo: "criar"
+            tipo: "",
+            tipoModal: "criar"
         });
 
         setModalOpen(true);
@@ -70,7 +72,7 @@ export default function Admin() {
     function abrirModalEditar(animal: Animal) {
         setAnimalSelecionado({
             ...animal,
-            tipo: "editar"
+            tipoModal: "editar"
         });
 
         setModalOpen(true);
