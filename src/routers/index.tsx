@@ -15,12 +15,12 @@ export const Routers = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="StackAdmin" component={Admin} />
         <Stack.Screen name="StackHome" component={Home} />
         <Stack.Screen name="StackLogin" component={Login} />
         <Stack.Screen name="StackCadastro" component={Cadastro} />
         <Stack.Screen name="StackPerfil" component={Perfil} />
         <Stack.Screen name="StackFavoritos" component={Favoritos} />
-        <Stack.Screen name="StackAdmin" component={Admin} />
         <Stack.Screen name="StackCursos" component={Cursos} />
       </Stack.Navigator>
     </NavigationContainer>
