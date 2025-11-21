@@ -19,6 +19,8 @@ export function Routers() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="StackHome" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="StackLogin" component={Login} />
+        <Stack.Screen name="StackAdmin" component={Admin} />
         <Stack.Screen name="StackHome" component={Home} />
         <Stack.Screen name="StackCadastro" component={Cadastro} />
         <Stack.Screen name="StackPerfil" component={Perfil} />
