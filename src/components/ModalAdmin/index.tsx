@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { api } from '../../services/api';
-import * as ImagePicker from 'expo-image-picker';
 
 interface Animal {
     id: string | number;
@@ -49,25 +48,10 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
             setPeso(String(animal.peso ?? ""));
             setPorte(animal.porte ?? "");
             setGenero(animal.genero ?? "");
-            setImage(animal.image ?? ""); 
+            setImage(animal.image ?? "");
             setTipo(animal.tipo ?? "");
         }
     }, [animal]);
-
-    async function selecionarImagem() {
-        const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            quality: 1,
-            base64: true, 
-        });
-
-        if (!result.canceled) {
-            const base64 = result.assets[0].base64;
-
-            setImage(base64 || "");
-        }
-    }
 
     async function putAnimais() {
         try {
@@ -79,10 +63,11 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 peso,
                 porte,
                 genero,
-                image, 
+                image,
                 tipo
             });
 
+            console.log("Atualizado:", data);
             onUpdate(data);
             onClose();
         } catch (error) {
@@ -101,9 +86,9 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 porte,
                 genero,
                 image,
-                tipo
             });
 
+            console.log("Criado:", data);
             onUpdate(data);
             onClose();
         } catch (error) {
@@ -126,15 +111,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Porte" value={porte} onChangeText={setPorte}/>
                 <Input title="Gênero" value={genero} onChangeText={setGenero}/>
                 <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
-
-                <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
-
-                {image !== "" && (
-                    <Image 
-                        source={{ uri: `data:image/jpeg;base64,${image}` }} 
-                        style={styles.preview} 
-                    />
-                )}
+                <Input title="Imagem" value={image} onChangeText={setImage}/>
 
                 <Button title="Salvar" onPress={putAnimais} />
                 <Button title="Cancelar" onPress={onClose} />
@@ -149,15 +126,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Porte" value={porte} onChangeText={setPorte}/>
                 <Input title="Gênero" value={genero} onChangeText={setGenero}/>
                 <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
-
-                <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
-
-                {image !== "" && (
-                    <Image 
-                        source={{ uri: `data:image/jpeg;base64,${image}` }} 
-                        style={styles.preview} 
-                    />
-                )}
+                <Input title="Imagem" value={image} onChangeText={setImage}/>
 
                 <Button title="Salvar" onPress={postAnimais} />
                 <Button title="Cancelar" onPress={onClose} />
