@@ -49,7 +49,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
             setPeso(String(animal.peso ?? ""));
             setPorte(animal.porte ?? "");
             setGenero(animal.genero ?? "");
-            setImage(animal.image ?? "");
+            setImage(animal.image ?? ""); 
             setTipo(animal.tipo ?? "");
         }
     }, [animal]);
@@ -58,12 +58,14 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            base64: true,
             quality: 1,
+            base64: true, 
         });
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            const base64 = result.assets[0].base64;
+
+            setImage(base64 || "");
         }
     }
 
@@ -77,11 +79,10 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 peso,
                 porte,
                 genero,
-                image,
+                image, 
                 tipo
             });
 
-            console.log("Atualizado:", data);
             onUpdate(data);
             onClose();
         } catch (error) {
@@ -100,9 +101,9 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 porte,
                 genero,
                 image,
+                tipo
             });
 
-            console.log("Criado:", data);
             onUpdate(data);
             onClose();
         } catch (error) {
@@ -129,7 +130,10 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
 
                 {image !== "" && (
-                    <Image source={{ uri: image }} style={styles.preview} />
+                    <Image 
+                        source={{ uri: `data:image/jpeg;base64,${image}` }} 
+                        style={styles.preview} 
+                    />
                 )}
 
                 <Button title="Salvar" onPress={putAnimais} />
@@ -149,7 +153,10 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
 
                 {image !== "" && (
-                    <Image source={{ uri: image }} style={styles.preview} />
+                    <Image 
+                        source={{ uri: `data:image/jpeg;base64,${image}` }} 
+                        style={styles.preview} 
+                    />
                 )}
 
                 <Button title="Salvar" onPress={postAnimais} />
