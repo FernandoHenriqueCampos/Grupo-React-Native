@@ -13,11 +13,16 @@ import { styles } from './style';
 import { api } from '../../services/api';
 import { Animal } from '../../@types/animal';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
+import { AnimalModal } from '../../components/AnimalModal';
 
 export function Filhotes() {
     const navigation = useNavigation<any>();
     const [puppies, setPuppies] = useState<Animal[]>([]);
     const [loading, setLoading] = useState(true);
+
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedPuppy, setSelectedPuppy] = useState<Animal | null>(null);
 
     useEffect(() => {
         async function fetchPuppies() {
@@ -40,6 +45,11 @@ export function Filhotes() {
         fetchPuppies();
     }, []);
 
+    function handleOpenModal(animal: Animal) {
+        setSelectedPuppy(animal);
+        setModalVisible(true);
+    }
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
@@ -51,30 +61,34 @@ export function Filhotes() {
                 {loading ? (
                     <ActivityIndicator size="large" color="#FFA500" style={{ marginTop: 50 }} />
                 ) : (
-                    <FlatList
-                        data={puppies}
-                        keyExtractor={(item) => String(item.id)}
+                    <>
+                        <FlatList
+                            data={puppies}
+                            keyExtractor={(item) => String(item.id)}
+                            numColumns={2}
+                            columnWrapperStyle={styles.columnWrapper}
+                            contentContainerStyle={styles.listContent}
+                            renderItem={({ item }) => (
+                                <GridAnimalCard
+                                    name={item.nome}
+                                    breed={item.raca}
+                                    imageUrl={item.image}
+                                    onPress={() => handleOpenModal(item)}
+                                />
+                            )}
+                            ListEmptyComponent={() => (
+                                <Text style={{ textAlign: 'center', color: '#999', marginTop: 40 }}>
+                                    Nenhum filhote encontrado no momento.
+                                </Text>
+                            )}
+                        />
 
-                        numColumns={2}
-                        columnWrapperStyle={styles.columnWrapper}
-                        contentContainerStyle={styles.listContent}
-
-                        renderItem={({ item }) => (
-                            <GridAnimalCard
-                                name={item.nome}
-                                breed={item.raca}
-                                imageUrl={item.image}
-                                onPress={() => {
-                                    console.log("Clicou em:", item.nome);
-                                }}
-                            />
-                        )}
-                        ListEmptyComponent={() => (
-                            <Text style={{ textAlign: 'center', color: '#999', marginTop: 40 }}>
-                                Nenhum filhote encontrado no momento.
-                            </Text>
-                        )}
-                    />
+                        <AnimalModal
+                            visible={modalVisible}
+                            animal={selectedPuppy}
+                            onClose={() => setModalVisible(false)}
+                        />
+                    </>
                 )}
             </View>
         </SafeAreaView>

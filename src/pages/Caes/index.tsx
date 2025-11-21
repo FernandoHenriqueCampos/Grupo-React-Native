@@ -13,11 +13,15 @@ import { styles } from './style';
 import { api } from '../../services/api';
 import { Animal } from '../../@types/animal';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
+import { AnimalModal } from '../../components/AnimalModal';
 
 export function Caes() {
     const navigation = useNavigation<any>();
     const [dogs, setDogs] = useState<Animal[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedDog, setSelectedDog] = useState<Animal | null>(null);
 
     useEffect(() => {
         async function fetchDogs() {
@@ -40,6 +44,11 @@ export function Caes() {
         fetchDogs();
     }, []);
 
+    function handleOpenModal(animal: Animal) {
+        setSelectedDog(animal);
+        setModalVisible(true);
+    }
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
@@ -51,30 +60,33 @@ export function Caes() {
                 {loading ? (
                     <ActivityIndicator size="large" color="#FFA500" style={{ marginTop: 50 }} />
                 ) : (
-                    <FlatList
-                        data={dogs}
-                        keyExtractor={(item) => String(item.id)}
-
-                        numColumns={2}
-                        columnWrapperStyle={styles.columnWrapper}
-                        contentContainerStyle={styles.listContent}
-
-                        renderItem={({ item }) => (
-                            <GridAnimalCard
-                                name={item.nome}
-                                breed={item.raca}
-                                imageUrl={item.image}
-                                onPress={() => {
-                                    console.log("Clicou em:", item.nome);
-                                }}
-                            />
-                        )}
-                        ListEmptyComponent={() => (
-                            <Text style={{ textAlign: 'center', color: '#999', marginTop: 40 }}>
-                                Nenhum cachorro encontrado no momento.
-                            </Text>
-                        )}
-                    />
+                    <>
+                        <FlatList
+                            data={dogs}
+                            keyExtractor={(item) => String(item.id)}
+                            numColumns={2}
+                            columnWrapperStyle={styles.columnWrapper}
+                            contentContainerStyle={styles.listContent}
+                            renderItem={({ item }) => (
+                                <GridAnimalCard
+                                    name={item.nome}
+                                    breed={item.raca}
+                                    imageUrl={item.image}
+                                    onPress={() => handleOpenModal(item)}
+                                />
+                            )}
+                            ListEmptyComponent={() => (
+                                <Text style={{ textAlign: 'center', color: '#999', marginTop: 40 }}>
+                                    Nenhum cachorro encontrado no momento.
+                                </Text>
+                            )}
+                        />
+                        <AnimalModal
+                            visible={modalVisible}
+                            animal={selectedDog}
+                            onClose={() => setModalVisible(false)}
+                        />
+                    </>
                 )}
             </View>
         </SafeAreaView>
