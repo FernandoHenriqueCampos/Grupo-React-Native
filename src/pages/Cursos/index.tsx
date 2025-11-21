@@ -8,7 +8,7 @@ export default function Cursos() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Tela de Home</Text>
+            <Text style={styles.title}>Tela de Cursos</Text>
         </View>
     );
 }
