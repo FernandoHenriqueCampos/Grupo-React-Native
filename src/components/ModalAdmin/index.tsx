@@ -58,6 +58,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
+            base64: true,
             quality: 1,
         });
 
