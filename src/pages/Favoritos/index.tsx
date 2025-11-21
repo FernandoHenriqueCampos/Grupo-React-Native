@@ -9,7 +9,7 @@ export default function Favoritos() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Tela de Cadastro</Text>
+            <Text style={styles.title}>FAvoritos</Text>
         </View>
     );
 }
