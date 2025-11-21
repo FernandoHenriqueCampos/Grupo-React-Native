@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import axios from 'axios';
-import { API_URL } from '../../services/api';
+import { api } from '../../services/api';
 import styles from './style';
 
 interface LoginProps {
@@ -23,7 +23,7 @@ export default function Login({ navigation }: LoginProps) {
     const handleLogin = async () => {
         setLoading(true);
         try {
-            const response = await axios.get<Usuario[]>(`${API_URL}/usuario`);
+            const response = await axios.get<Usuario[]>(`${api}/usuario`);
             const usuarios: Usuario[] = response.data;
 
             const user = usuarios.find(

@@ -1,9 +1,9 @@
 import { View, Text, FlatList, Modal } from 'react-native';
 import { styles } from './style';
 import { useEffect, useState } from 'react';
+import { api } from "../../services/api";
 import CardAdminPet from '../../components/CardAdminPet';
 import ModalAdmin from '../../components/ModalAdmin';
-import { api } from "../../service/api";
 import Button from '../../components/Button';
 
 export default function Admin() {
@@ -76,7 +76,7 @@ export default function Admin() {
         setModalOpen(true);
     }
 
-   function atualizarLista(animalAtualizado: Animal) {
+    function atualizarLista(animalAtualizado: Animal) {
         setAnimais(prev => {
             const existe = prev.some(item => item.id === animalAtualizado.id);
 
@@ -92,10 +92,10 @@ export default function Admin() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>Admin</Text> 
+                <Text style={styles.title}>Admin</Text>
                 <Button
                     title="Novo animal"
-                    onPress={() => {abrirModalCriar()}}
+                    onPress={() => { abrirModalCriar() }}
                 />
             </View>
 
