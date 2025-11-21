@@ -10,13 +10,21 @@ export const styles = StyleSheet.create({
         height: '80%',
         borderRadius: 10
     },
-    title: {
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        width: '100%',
+        height: '10%',
         marginTop: '10%',
+    },
+    title: {
         fontFamily: 'Verdana',
         fontSize: 40,
         alignSelf: 'flex-start',
         left: '5%',
         fontWeight: 'bold',
+        marginTop: '3%',
     },
     flatList: {
         width: '100%',

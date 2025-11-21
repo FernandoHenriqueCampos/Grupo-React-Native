@@ -2,8 +2,9 @@ import { View, Text, FlatList, Modal } from 'react-native';
 import { styles } from './style';
 import { useEffect, useState } from 'react';
 import CardAdminPet from '../../components/CardAdminPet';
-import ModalEditarAdmin from '../../components/ModalEditarAdmin';
+import ModalAdmin from '../../components/ModalAdmin';
 import { api } from "../../service/api";
+import Button from '../../components/Button';
 
 export default function Admin() {
 
@@ -21,6 +22,7 @@ export default function Admin() {
         peso?: number | string;
         porte?: string;
         genero?: string;
+        tipo: 'criar' | 'editar';
     };
 
     async function deleteAnimais(id: string | number) {
@@ -48,22 +50,54 @@ export default function Admin() {
         getAnimais();
     }, []);
 
-    function abrirModal(animal: Animal) {
-        setAnimalSelecionado(animal);
+    function abrirModalCriar() {
+        setAnimalSelecionado({
+            id: "",
+            nome: "",
+            raca: "",
+            idade: "",
+            cor: "",
+            peso: "",
+            porte: "",
+            genero: "",
+            tipo: "criar"
+        });
+
         setModalOpen(true);
     }
 
-    function atualizarLista(animalAtualizado: Animal) {
-        setAnimais(prev =>
-            prev.map(item =>
-                item.id === animalAtualizado.id ? animalAtualizado : item
-            )
-        );
+
+    function abrirModalEditar(animal: Animal) {
+        setAnimalSelecionado({
+            ...animal,
+            tipo: "editar"
+        });
+
+        setModalOpen(true);
     }
-    
+
+   function atualizarLista(animalAtualizado: Animal) {
+        setAnimais(prev => {
+            const existe = prev.some(item => item.id === animalAtualizado.id);
+
+            if (existe) {
+                return prev.map(item =>
+                    item.id === animalAtualizado.id ? animalAtualizado : item
+                );
+            }
+
+            return [animalAtualizado, ...prev];
+        });
+    }
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Admin</Text>
+            <View style={styles.header}>
+                <Text style={styles.title}>Admin</Text> 
+                <Button
+                    title="Novo animal"
+                    onPress={() => {abrirModalCriar()}}
+                />
+            </View>
 
             <FlatList
                 style={styles.flatList}
@@ -75,7 +109,7 @@ export default function Admin() {
                             name={item.nome}
                             race={item.raca}
                             image={item.image}
-                            handleEdit={() => abrirModal(item)}
+                            handleEdit={() => abrirModalEditar(item)}
                             handleDelete={() => deleteAnimais(item.id)}
                         />
                     </View>
@@ -89,7 +123,7 @@ export default function Admin() {
                 animationType="slide"
                 onRequestClose={() => setModalOpen(false)}
             >
-                <ModalEditarAdmin
+                <ModalAdmin
                     animal={animalSelecionado}
                     onClose={() => setModalOpen(false)}
                     onUpdate={atualizarLista}
