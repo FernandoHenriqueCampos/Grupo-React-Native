@@ -8,20 +8,19 @@ import Perfil from '../pages/Perfil';
 import Favoritos from '../pages/Favoritos';
 import Admin from '../pages/Admin';
 import Cursos from '../pages/Cursos';
-
-// Importando as novas telas
 import { Caes } from '../pages/Caes';
 import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
+import Login from '../pages/Login';
 
 const Stack = createNativeStackNavigator();
 
 export function Routers() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="StackHome" screenOptions={{ headerShown: false }}>
-
-        {/* <Stack.Screen name="StackLogin" component={Login} /> */}
+      <Stack.Navigator initialRouteName="StackAdmin" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="StackAdmin" component={Admin} />
+        <Stack.Screen name="StackLogin" component={Login} />
         <Stack.Screen name="StackHome" component={Home} />
         <Stack.Screen name="StackCadastro" component={Cadastro} />
         <Stack.Screen name="StackPerfil" component={Perfil} />
@@ -30,7 +29,6 @@ export function Routers() {
         <Stack.Screen name="StackCaes" component={Caes} />
         <Stack.Screen name="StackGatos" component={Gatos} />
         <Stack.Screen name="StackFilhotes" component={Filhotes} />
-
       </Stack.Navigator>
     </NavigationContainer>
   );
