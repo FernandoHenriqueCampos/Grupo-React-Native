@@ -3,7 +3,7 @@ import { styles } from './style';
 import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { api } from '../../service/api';
+import { api } from '../../services/api';
 import * as ImagePicker from 'expo-image-picker';
 
 interface Animal {
@@ -22,8 +22,8 @@ interface Animal {
 
 interface PropsModalAdmin {
     animal: Animal | null;
-    onClose: () => void;    
-    onUpdate: (animal: Animal) => void; 
+    onClose: () => void;
+    onUpdate: (animal: Animal) => void;
 }
 
 export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmin) {
@@ -81,8 +81,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
             });
 
             console.log("Atualizado:", data);
-            onUpdate(data);  
-            onClose();        
+            onUpdate(data);
+            onClose();
         } catch (error) {
             console.log("Erro ao atualizar:", error);
         }
@@ -102,8 +102,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
             });
 
             console.log("Criado:", data);
-            onUpdate(data);  
-            onClose();        
+            onUpdate(data);
+            onClose();
         } catch (error) {
             console.log("Erro ao criar:", error);
         }
