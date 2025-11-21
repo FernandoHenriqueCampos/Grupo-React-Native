@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { api } from '../../services/api';
-import * as ImagePicker from 'expo-image-picker';
 
 interface Animal {
     id: string | number;
@@ -53,19 +52,6 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
             setTipo(animal.tipo ?? "");
         }
     }, [animal]);
-
-    async function selecionarImagem() {
-        const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            base64: true,
-            quality: 1,
-        });
-
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
-        }
-    }
 
     async function putAnimais() {
         try {
@@ -125,12 +111,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Porte" value={porte} onChangeText={setPorte}/>
                 <Input title="Gênero" value={genero} onChangeText={setGenero}/>
                 <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
-
-                <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
-
-                {image !== "" && (
-                    <Image source={{ uri: image }} style={styles.preview} />
-                )}
+                <Input title="Imagem" value={image} onChangeText={setImage}/>
 
                 <Button title="Salvar" onPress={putAnimais} />
                 <Button title="Cancelar" onPress={onClose} />
@@ -145,12 +126,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Porte" value={porte} onChangeText={setPorte}/>
                 <Input title="Gênero" value={genero} onChangeText={setGenero}/>
                 <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
-
-                <Button title={image ? "Trocar imagem" : "Selecionar imagem"} onPress={selecionarImagem} />
-
-                {image !== "" && (
-                    <Image source={{ uri: image }} style={styles.preview} />
-                )}
+                <Input title="Imagem" value={image} onChangeText={setImage}/>
 
                 <Button title="Salvar" onPress={postAnimais} />
                 <Button title="Cancelar" onPress={onClose} />
