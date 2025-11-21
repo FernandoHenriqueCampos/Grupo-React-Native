@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import CardAdminPet from '../../components/CardAdminPet';
 import ModalEditarAdmin from '../../components/ModalEditarAdmin';
 import { api } from "../../service/api";
-import { useState } from 'react';
 
 export default function Admin() {
 
@@ -60,11 +59,6 @@ export default function Admin() {
                 item.id === animalAtualizado.id ? animalAtualizado : item
             )
         );
-    }
-
-        } catch (error) {
-            console.log("Erro ao atualizar:", error);
-        }
     }
     
     return (
