@@ -26,7 +26,6 @@ export function Routers() {
         <Stack.Screen name="StackCadastro" component={Cadastro} />
         <Stack.Screen name="StackPerfil" component={Perfil} />
         <Stack.Screen name="StackFavoritos" component={Favoritos} />
-        <Stack.Screen name="StackAdmin" component={Admin} />
         <Stack.Screen name="StackCursos" component={Cursos} />
         <Stack.Screen name="StackCaes" component={Caes} />
         <Stack.Screen name="StackGatos" component={Gatos} />

@@ -4,7 +4,7 @@ import { styles } from './style';
 interface propsInput {
     title: string;
     value: string;
-    onChangeText: (value: string) => void;
+    onChangeText: (text: string) => void;
 }
 
 export default function Input({title, value, onChangeText}: propsInput) {
