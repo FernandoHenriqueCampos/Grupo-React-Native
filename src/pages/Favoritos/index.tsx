@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native'; // Trocado ScrollView por FlatList
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Text, FlatList, ActivityIndicator, Alert } from 'react-native'; 
+// CORREÇÃO: Usando a biblioteca nativa do Expo (mesma do PetCard)
+import { Ionicons } from '@expo/vector-icons';
 
-// Caminhos de importação
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext'; 
 import PetCard from '../../components/petcard/PetCard';
@@ -17,36 +17,83 @@ const TEST_MODE = true;
 const MOCK_PETS: Pet[] = [
   { 
     id: '1', 
-    name: 'Rex (Teste)', 
+    name: 'Rex', 
     breed: 'Labrador', 
-    photo: 'https://placedog.net/500', 
+    photo: 'https://images.dog.ceo/breeds/labrador/n02099712_7418.jpg', 
     location: 'São Paulo, SP',
     distance: 2.5
   },
   { 
     id: '2', 
-    name: 'Mia (Teste)', 
-    breed: 'Siames', 
-    photo: 'https://placekitten.com/500', 
+    name: 'Mia', 
+    breed: 'Siamês', 
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Siam_lilacpoint.jpg', 
     location: 'Rio de Janeiro, RJ',
     distance: 10.0
   },
+  { 
+    id: '3', 
+    name: 'Thor', 
+    breed: 'Bulldog Francês', 
+    photo: 'https://images.dog.ceo/breeds/bulldog-french/n02108915_1223.jpg', 
+    location: 'Curitiba, PR',
+    distance: 5.2
+  },
+  { 
+    id: '4', 
+    name: 'Luna', 
+    breed: 'Persa', 
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/1/15/White_Persian_Cat.jpg', 
+    location: 'Belo Horizonte, MG',
+    distance: 15.0
+  },
+  { 
+    id: '5', 
+    name: 'Paçoca', 
+    breed: 'SRD (Vira-lata)', 
+    photo: 'https://images.dog.ceo/breeds/mix/n02104029_110.jpg', 
+    location: 'Campinas, SP',
+    distance: 1.8
+  },
+  { 
+    id: '6', 
+    name: 'Simba', 
+    breed: 'Gato Laranja', 
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_March_2010-1.jpg/1200px-Cat_March_2010-1.jpg', 
+    location: 'Salvador, BA',
+    distance: 8.4
+  },
+  { 
+    id: '7', 
+    name: 'Bella', 
+    breed: 'Golden Retriever', 
+    photo: 'https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg', 
+    location: 'Porto Alegre, RS',
+    distance: 12.5
+  },
+  { 
+    id: '8', 
+    name: 'Frajola', 
+    breed: 'Misto', 
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cow_female_black_white_cat_in_shirt_M0012904.jpg', 
+    location: 'Florianópolis, SC',
+    distance: 3.5
+  }
 ];
 // -----------------------------
 
 const Favoritos: React.FC = () => {
-  // Se estiver em modo teste, ignoramos se o contexto não carregou
-  const { favoritePetIds, isReady: contextIsReady } = useFavorites(); 
+  
+  const { favoritePetIds, isReady: contextIsReady, toggleFavorite } = useFavorites(); 
+  
   const isReady = TEST_MODE ? true : contextIsReady;
 
   const [favoritePets, setFavoritePets] = useState<Pet[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // ESTADOS DO MODAL
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
 
-  // --- Funções de Manipulação do Modal ---
   const handleOpenModal = (pet: Pet) => { 
     setSelectedPet(pet);
     setIsModalVisible(true);
@@ -58,27 +105,50 @@ const Favoritos: React.FC = () => {
   };
 
   const handleAdoptAction = (petId: string) => {
-    console.log(`Ação de Adoção iniciada para o Pet ID: ${petId}`);
-    console.warn(`Obrigado pelo seu interesse em adotar o pet ${petId}!`);
+    console.log(`Interesse no Pet ID: ${petId}`);
+    setIsModalVisible(false);
+    Alert.alert("Sucesso!", "Seu interesse foi registrado.");
   };
 
-  // Efeito para buscar os detalhes dos pets
+  // --- LÓGICA DE REMOVER ---
+  const handleRemovePet = (petId: string) => {
+    Alert.alert(
+      "Remover Favorito",
+      "Tem certeza que deseja remover este pet dos favoritos?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { 
+          text: "Remover", 
+          style: 'destructive',
+          onPress: async () => {
+            // 1. Atualização Otimista (Remove da tela imediatamente)
+            setFavoritePets(currentList => currentList.filter(pet => pet.id !== petId));
+
+            // 2. Lógica Real ou Teste
+            if (TEST_MODE) {
+                console.log(`[TEST_MODE] Pet ${petId} removido visualmente.`);
+            } else {
+                toggleFavorite(petId); 
+            }
+          }
+        }
+      ]
+    );
+  };
+  // ------------------------------
+
   useEffect(() => {
     const loadFavoritePets = async () => {
       setIsLoading(true);
 
-      // --- LÓGICA DE TESTE ---
       if (TEST_MODE) {
-          console.log("⚠️ Carregando Favoritos em MODO TESTE");
           setTimeout(() => {
               setFavoritePets(MOCK_PETS);
               setIsLoading(false);
           }, 800); 
           return;
       }
-      // -----------------------
 
-      // --- LÓGICA REAL ---
       if (!isReady) return; 
 
       try {
@@ -98,7 +168,6 @@ const Favoritos: React.FC = () => {
     loadFavoritePets();
   }, [favoritePetIds, isReady]);
   
-  // Renderização de Loading
   if (isLoading || (!isReady && !TEST_MODE)) {
     return (
       <View style={styles.loadingContainer || {flex: 1, justifyContent:'center', alignItems:'center'}}>
@@ -116,11 +185,11 @@ const Favoritos: React.FC = () => {
       
       {favoritePets.length === 0 ? (
         <View style={styles.emptyContainer}>
-          <Icon name="heart-dislike-outline" size={50} color="#ccc" />
+          {/* CORREÇÃO: Usando <Ionicons> em vez de <Icon> */}
+          <Ionicons name="heart-dislike-outline" size={50} color="#ccc" />
           <Text style={styles.emptyText}>Você não tem favoritos!</Text>
         </View>
       ) : (
-        // --- FLATLIST IMPLEMENTADA ---
         <FlatList 
           data={favoritePets}
           keyExtractor={(pet) => pet.id}
@@ -128,14 +197,14 @@ const Favoritos: React.FC = () => {
             <PetCard 
               key={item.id}
               pet={item}
-              onDetailPress={handleOpenModal} 
+              onDetailPress={handleOpenModal}
+              onRemove={() => handleRemovePet(item.id)} 
             />
           )}
           ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
           contentContainerStyle={styles.scrollContent} 
           showsVerticalScrollIndicator={false}
         />
-        // -----------------------------
       )}
 
       <PetDetailModal
