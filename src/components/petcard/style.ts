@@ -27,9 +27,32 @@ export const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
   },
-  name: { fontSize: 18, fontWeight: 'bold', color: '#333' },
-  details: { fontSize: 14, color: '#666', marginVertical: 2 },
-  distance: { fontSize: 12, color: '#999', marginTop: 5, fontStyle: 'italic' },
+  name: { 
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    color: '#333' 
+  },
+  details: { 
+    fontSize: 14, 
+    color: '#666', 
+    marginVertical: 2 
+  },
+  distance: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 5,
+  },
+  distanceContainer: { 
+    marginTop: 5, 
+    flexDirection: 'row', 
+    alignItems: 'center' 
+  },
+  distanceText: { 
+    fontSize: 12, 
+    color: '#999', 
+    fontStyle: 'italic',
+    marginLeft: 4 
+  },
   favoriteButton: {
     padding: 15,
     justifyContent: 'center',

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './style';
-import { Animal } from '../../@types/animal';
+import { Animal } from '../../@types/types';
 
 interface AnimalModalProps {
     visible: boolean;

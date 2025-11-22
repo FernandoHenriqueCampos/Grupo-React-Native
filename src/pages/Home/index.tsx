@@ -5,9 +5,12 @@ import {
     ImageBackground,
     SafeAreaView,
     StatusBar,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+ 
+
 import { styles } from './style';
 import { AnimalCard } from '../../components/HomeCard';
 import { CATEGORIES } from '../../data/categories';
@@ -29,8 +32,28 @@ export function Home() {
                 <SafeAreaView style={styles.safeArea}>
 
                     <View style={styles.headerContainer}>
-                        <Text style={styles.appTitle}>AdotePet 🐾</Text>
-                        <Text style={styles.subTitle}>Encontre um amigo para a vida toda</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                            <View>
+                                <Text style={styles.appTitle}>AdotePet 🐾</Text>
+                                <Text style={styles.subTitle}>Encontre um amigo para a vida toda</Text>
+                            </View>
+
+                            
+                            <TouchableOpacity 
+                                onPress={() => {
+                                    console.log("Botão Favoritos clicado!");
+                                    
+                                    navigation.navigate('StackFavoritos');
+                                }}
+                                style={{ 
+                                    padding: 10, 
+                                    backgroundColor: 'rgba(255,255,255,0.2)', 
+                                    borderRadius: 20 
+                                }}
+                            >
+                                <Text style={{ fontSize: 30 }}>❤️</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     <FlatList
