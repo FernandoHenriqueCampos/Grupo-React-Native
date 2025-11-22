@@ -8,7 +8,7 @@ import { useFavorites } from '../../context/FavoritesContext';
 import PetCard from '../../components/petcard/PetCard';
 import PetDetailModal from '../../components/modal/PetDetailModal'; // NOVO
 import { Pet } from '../../types'; 
-import { fetchPetDetailsByIds } from '../../service/petService'; 
+import { fetchPetDetailsByIds } from '../../services/petService'; 
 
 // O componente que sua rota espera (export default Favoritos)
 export const Favoritos = () => {
