@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { styles } from './style';
 import { api } from '../../services/api';
-import { Animal } from '../../@types/animal';
+import { Animal } from '../../@types/types';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
 import { AnimalModal } from '../../components/AnimalModal';
 
