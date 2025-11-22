@@ -1,6 +1,3 @@
-// src/types.ts
-
-// --- TIPOS DE DADOS ---
 export interface Pet {
   id: string;
   name: string;
