@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from '../pages/Home';
 import Cadastro from '../pages/Cadastro';
 import Perfil from '../pages/Perfil';
-import Favoritos from '../pages/Favoritos';
+import { Favoritos } from '../pages/Favoritos';
 import Admin from '../pages/Admin';
 import Cursos from '../pages/Cursos';
 import { Caes } from '../pages/Caes';
@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 export function Routers() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="StackHome" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="StackFavoritos" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="StackLogin" component={Login} />
         <Stack.Screen name="StackAdmin" component={Admin} />
         <Stack.Screen name="StackHome" component={Home} />

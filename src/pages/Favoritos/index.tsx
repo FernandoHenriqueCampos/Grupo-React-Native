@@ -1,18 +1,17 @@
 // src/pages/Favoritos/index.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 // Caminhos de importação
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext'; 
 import PetCard from '../../components/petcard/PetCard';
 import PetDetailModal from '../../components/modal/PetDetailModal'; // NOVO
-import { Pet } from '../../types';                      
+import { Pet } from '../../types'; 
 import { fetchPetDetailsByIds } from '../../service/petService'; 
 
 // O componente que sua rota espera (export default Favoritos)
-const Favoritos: React.FC = () => {
+export const Favoritos = () => {
   const { favoritePetIds, isReady } = useFavorites(); 
   const [favoritePets, setFavoritePets] = useState<Pet[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,12 +43,10 @@ const Favoritos: React.FC = () => {
   useEffect(() => {
     const loadFavoritePets = async () => {
       if (!isReady) return; 
+    }
+  }, [isReady]);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Tela de Cadastro</Text>
-        </View>
-      ) : (
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {favoritePets.map(pet => (
             // CONECTA AO HANDLER DO MODAL
@@ -60,7 +57,7 @@ const Favoritos: React.FC = () => {
             />
           ))}
         </ScrollView>
-      )}
+      )
 
       {/* COMPONENTE MODAL RENDERIZADO NO FIM */}
       <PetDetailModal
@@ -69,8 +66,4 @@ const Favoritos: React.FC = () => {
         onClose={handleCloseModal}
         onAdopt={handleAdoptAction}
       />
-    </View>
-  );
 };
-
-export default Favoritos;
