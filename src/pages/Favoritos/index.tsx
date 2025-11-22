@@ -45,31 +45,9 @@ const Favoritos: React.FC = () => {
     const loadFavoritePets = async () => {
       if (!isReady) return; 
 
-      setIsLoading(true);
-      const data = await fetchPetDetailsByIds(favoritePetIds);
-      setFavoritePets(data);
-      setIsLoading(false);
-    };
-    loadFavoritePets();
-  }, [favoritePetIds, isReady]);
-  
-  if (!isReady || isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#4CAF50" />
-        <Text style={{ marginTop: 10 }}>Carregando...</Text>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.headerTitle}>❤️ Meus Pets Favoritos</Text>
-      
-      {favoritePets.length === 0 ? (
-        <View style={styles.emptyContainer}>
-          <Icon name="heart-dislike-outline" size={50} color="#ccc" />
-          <Text style={styles.emptyText}>Você não tem favoritos!</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Tela de Cadastro</Text>
         </View>
       ) : (
         <ScrollView contentContainerStyle={styles.scrollContent}>
