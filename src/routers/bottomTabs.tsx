@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Home } from '../pages/Home';
 import Perfil from '../pages/Perfil';
-import { Favoritos } from '../pages/Favoritos';
+import Favoritos from '../pages/Favoritos';
 import Admin from '../pages/Admin';
 import Cursos from '../pages/Cursos';
 
