@@ -8,6 +8,7 @@ import { Caes } from '../pages/Caes';
 import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
 import Login from '../pages/Login';
+import Cursos from '../pages/Cursos';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,6 +22,7 @@ export function Routers() {
         <Stack.Screen name="StackCaes" component={Caes} />
         <Stack.Screen name="StackGatos" component={Gatos} />
         <Stack.Screen name="StackFilhotes" component={Filhotes} />
+        <Stack.Screen name="StackCursos" component={Cursos} />
       </Stack.Navigator>
     </NavigationContainer>
   );
