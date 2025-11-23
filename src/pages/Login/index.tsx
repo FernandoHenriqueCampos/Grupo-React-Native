@@ -65,7 +65,7 @@ export default function Login({ navigation }: LoginProps) {
             setEmail('');
             setSenha('');
             setError(false);
-            navigation.navigate('StackHome');
+            navigation.navigate('MyTabs');
 
         } catch (err: any) {
             console.error('Erro Login:', err);
