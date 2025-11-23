@@ -41,4 +41,13 @@ export const styles = StyleSheet.create({
     color: '#999',
     marginTop: 10,
   },
+
+  title: {
+    marginTop: '10%',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+  },
 });

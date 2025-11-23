@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { View, Text, FlatList, ActivityIndicator, Alert } from 'react-native'; 
 // CORREÇÃO: Usando a biblioteca nativa do Expo (mesma do PetCard)
 import { Ionicons } from '@expo/vector-icons';
+=======
+import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+>>>>>>> 83bb6f62e097b51519bd21b4cdd521c3e1a9f371
 
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext'; 
 import PetCard from '../../components/petcard/PetCard';
+<<<<<<< HEAD
 import PetDetailModal from '../../components/modal/PetDetailModal';
 import { Pet } from '../../types';                      
 import { fetchPetDetailsByIds } from '../../service/petService'; 
@@ -88,6 +93,15 @@ const Favoritos: React.FC = () => {
   
   const isReady = TEST_MODE ? true : contextIsReady;
 
+=======
+import PetDetailModal from '../../components/modal/PetDetailModal'; // NOVO
+import { Pet } from '../../types'; 
+import { fetchPetDetailsByIds } from '../../services/petService'; 
+
+// O componente que sua rota espera (export default Favoritos)
+export const Favoritos = () => {
+  const { favoritePetIds, isReady } = useFavorites(); 
+>>>>>>> 83bb6f62e097b51519bd21b4cdd521c3e1a9f371
   const [favoritePets, setFavoritePets] = useState<Pet[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -150,6 +164,8 @@ const Favoritos: React.FC = () => {
       }
 
       if (!isReady) return; 
+    }
+  }, [isReady]);
 
       try {
         if (favoritePetIds.length > 0) {
@@ -170,6 +186,7 @@ const Favoritos: React.FC = () => {
   
   if (isLoading || (!isReady && !TEST_MODE)) {
     return (
+<<<<<<< HEAD
       <View style={styles.loadingContainer || {flex: 1, justifyContent:'center', alignItems:'center'}}>
         <ActivityIndicator size="large" color="#4CAF50" />
         <Text style={{ marginTop: 10 }}>
@@ -194,18 +211,29 @@ const Favoritos: React.FC = () => {
           data={favoritePets}
           keyExtractor={(pet) => pet.id}
           renderItem={({ item }) => (
+=======
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          {favoritePets.map(pet => (
+            // CONECTA AO HANDLER DO MODAL
+>>>>>>> 83bb6f62e097b51519bd21b4cdd521c3e1a9f371
             <PetCard 
               key={item.id}
               pet={item}
               onDetailPress={handleOpenModal}
               onRemove={() => handleRemovePet(item.id)} 
             />
+<<<<<<< HEAD
           )}
           ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
           contentContainerStyle={styles.scrollContent} 
           showsVerticalScrollIndicator={false}
         />
       )}
+=======
+          ))}
+        </ScrollView>
+      )
+>>>>>>> 83bb6f62e097b51519bd21b4cdd521c3e1a9f371
 
       <PetDetailModal
         pet={selectedPet}
@@ -213,8 +241,9 @@ const Favoritos: React.FC = () => {
         onClose={handleCloseModal}
         onAdopt={handleAdoptAction}
       />
-    </View>
-  );
 };
+<<<<<<< HEAD
 
 export default Favoritos;
+=======
+>>>>>>> 83bb6f62e097b51519bd21b4cdd521c3e1a9f371
