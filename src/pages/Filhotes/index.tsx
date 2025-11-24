@@ -5,24 +5,28 @@ import {
     FlatList,
     SafeAreaView,
     ActivityIndicator,
-    Alert
+    Alert,
+    ImageBackground
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainerProps, useNavigation } from '@react-navigation/native';
 
 import { styles } from './style';
 import { api } from '../../services/api';
 import { Animal } from '../../@types/types';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
 import { AnimalModal } from '../../components/AnimalModal';
+import { Header } from '../../components/Header';
 
 export function Filhotes() {
-    const navigation = useNavigation<any>();
+    const navigation = useNavigation<NavigationContainerProps>();
     const [puppies, setPuppies] = useState<Animal[]>([]);
     const [loading, setLoading] = useState(true);
 
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedPuppy, setSelectedPuppy] = useState<Animal | null>(null);
+
+    const backgroundUrl = require('../../assets/fundoFilhotes.jpg');
 
     useEffect(() => {
         async function fetchPuppies() {
@@ -51,12 +55,13 @@ export function Filhotes() {
     }
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <ImageBackground
+            source={backgroundUrl}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
             <View style={styles.container}>
-
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Filhotes Disponíveis 🐾</Text>
-                </View>
+                <Header />
 
                 {loading ? (
                     <ActivityIndicator size="large" color="#FFA500" style={{ marginTop: 50 }} />
@@ -91,6 +96,6 @@ export function Filhotes() {
                     </>
                 )}
             </View>
-        </SafeAreaView>
+        </ImageBackground>
     );
 }

@@ -5,23 +5,27 @@ import {
     FlatList,
     SafeAreaView,
     ActivityIndicator,
-    Alert
+    Alert,
+    ImageBackground
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainerProps, useNavigation } from '@react-navigation/native';
 
 import { styles } from './style';
 import { api } from '../../services/api';
 import { Animal } from '../../@types/types';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
 import { AnimalModal } from '../../components/AnimalModal';
+import { Header } from '../../components/Header';
 
 export function Gatos() {
-    const navigation = useNavigation<any>();
+    const navigation = useNavigation<NavigationContainerProps>();
     const [cats, setCats] = useState<Animal[]>([]);
     const [loading, setLoading] = useState(true);
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedCat, setSelectedCat] = useState<Animal | null>(null);
+
+    const backgroundUrl = require('../../assets/fundoGatos.png');
 
     useEffect(() => {
         async function fetchCats() {
@@ -50,12 +54,13 @@ export function Gatos() {
     }
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <ImageBackground
+            source={backgroundUrl}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
+            <Header />
             <View style={styles.container}>
-
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Gatos Disponíveis 🐱</Text>
-                </View>
 
                 {loading ? (
                     <ActivityIndicator size="large" color="#FFA500" style={{ marginTop: 50 }} />
@@ -76,7 +81,7 @@ export function Gatos() {
                                 />
                             )}
                             ListEmptyComponent={() => (
-                                <Text style={{ textAlign: 'center', color: '#999', marginTop: 40 }}>
+                                <Text style={{ textAlign: 'center', color: '#FFF', marginTop: 40 }}>
                                     Nenhum gato encontrado no momento.
                                 </Text>
                             )}
@@ -90,6 +95,6 @@ export function Gatos() {
                     </>
                 )}
             </View>
-        </SafeAreaView>
+        </ImageBackground>
     );
 }
