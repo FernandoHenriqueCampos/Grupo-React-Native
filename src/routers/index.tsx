@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../@types/Types';
+import { RootStackParamList } from '../@types/types';
 
 import { Home } from '../pages/Home';
 import Cadastro from '../pages/Cadastro';
 import Perfil from '../pages/Perfil';
-import { Favoritos } from '../pages/Favoritos';
+import  Favoritos  from '../pages/Favoritos';
 import Admin from '../pages/Admin';
 import Cursos from '../pages/Cursos';
 import { Caes } from '../pages/Caes';
@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export function Routers() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="StackCadastro" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="StackHome" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="StackLogin" component={Login} />
         <Stack.Screen name="StackCadastro" component={Cadastro} />
         <Stack.Screen name="StackHome" component={Home} />

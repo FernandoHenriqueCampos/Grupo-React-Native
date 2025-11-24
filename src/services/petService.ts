@@ -1,74 +1,73 @@
-import { api } from '../services/api';
+import { api } from './api';
 import { Pet } from '../types';
 
-// Interface que define o formato dos dados que vêm da API do colega (em Português)
+// Interface exata baseada no JSON que você forneceu
 interface ApiAnimal {
-  id: string | number;
+  id: string;
   nome: string;
   raca: string;
   image: string;
+  cor: string;
+  peso: number;
+  porte: string;
+  idade: number;
+  genero: string;
   tipo: string;
-  localizacao?: string; // Campo opcional
-  idade?: string;       // Campo opcional
 }
 
-/**
- * Busca os detalhes dos pets favoritos usando a API real.
- * Realiza a conversão (Mapper) dos dados para não quebrar o layout.
- */
 export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Pet[]> => {
-  // Se a lista de IDs favoritos estiver vazia ou nula, retorna array vazio imediatamente
-  if (!ids || ids.length === 0) {
-    return []; 
-  }
+  // Se não tem IDs, retorna vazio
+  if (!ids || ids.length === 0) return []; 
 
   try {
-    // 1. Busca a lista completa de animais da API
+    // 1. Busca todos os animais da API
     const response = await api.get('/animais');
     const todosAnimais: ApiAnimal[] = response.data;
 
-    // 2. Filtra apenas os animais cujos IDs estão na lista de favoritos do usuário
-    // Convertemos ambos para String para evitar erros de comparação
+    // 2. Filtra apenas os que estão nos favoritos (IDs batem?)
     const favoritosDaApi = todosAnimais.filter(animal => 
       ids.includes(String(animal.id))
     );
 
-    // 3. Mapeia os dados: Converte do formato da API (ApiAnimal) para o formato do App (Pet)
+    // 3. Mapeia (Transforma os dados da API nos dados do APP)
     const favoritosFormatados: Pet[] = favoritosDaApi.map(animal => ({
       id: String(animal.id),
-      name: animal.nome,      // De 'nome' (API) para 'name' (Componente)
-      breed: animal.raca,     // De 'raca' (API) para 'breed' (Componente)
-      photo: animal.image,    // De 'image' (API) para 'photo' (Componente)
-      
-      // Preenche campos faltantes com valores padrão
-      location: animal.localizacao || 'Unidade Pet', 
-      distance: 0,             
-      age: animal.idade || 'Idade não informada',
-      species: animal.tipo
+      name: animal.nome,         // JSON 'nome' -> App 'name'
+      breed: animal.raca,        // JSON 'raca' -> App 'breed'
+      photo: animal.image,       // JSON 'image' -> App 'photo'
+      location: 'Abrigo Mock',   // Dado fixo (não tem no JSON)
+      distance: 0,               // Dado fixo
+      description: `Cor: ${animal.cor}, Peso: ${animal.peso}kg`, // Montamos uma descrição
+      sex: animal.genero === 'macho' ? 'male' : 'female',
+      age: `${animal.idade} anos`,
+      species: animal.tipo       // 'gato' ou 'cachorro'
     }));
 
     return favoritosFormatados;
 
   } catch (error) {
-    console.error("Erro ao buscar favoritos na API:", error);
+    console.error("Erro ao buscar favoritos:", error);
     return []; 
   }
 };
 
-// Função auxiliar para buscar todos os pets
+// Função para buscar todos (para a Home, se precisar)
 export const fetchAllPets = async (): Promise<Pet[]> => {
     try {
         const response = await api.get('/animais');
-        return response.data.map((animal: ApiAnimal) => ({
+        const lista: ApiAnimal[] = response.data;
+        
+        return lista.map(animal => ({
             id: String(animal.id),
             name: animal.nome,
             breed: animal.raca,
             photo: animal.image,
-            location: 'Unidade Pet',
-            distance: 0,
+            location: 'Abrigo Mock',
+            distance: 2.5,
+            age: `${animal.idade} anos`
         }));
     } catch (error) {
-        console.error(error);
+        console.error("Erro ao buscar todos:", error);
         return [];
     }
 };
