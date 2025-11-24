@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AnimatedLoadingScreen from './../pages/LoadingScreen';
@@ -10,7 +10,7 @@ import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
 import Login from '../pages/Login';
 import Cursos from '../pages/Cursos';
-import TermoAdocao from '../pages/TermoAdocao';
+import { TermoDeAdocao } from '../pages/TermoAdocao';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,7 +38,7 @@ function InitialStack() {
       <Stack.Screen name="StackGatos" component={Gatos} />
       <Stack.Screen name="StackFilhotes" component={Filhotes} />
       <Stack.Screen name="StackCursos" component={Cursos} />
-      <Stack.Screen name="StackTermoAdocao" component={TermoAdocao} />
+      <Stack.Screen name="StackTermoAdocao" component={TermoDeAdocao} />
     </Stack.Navigator>
   );
 }
