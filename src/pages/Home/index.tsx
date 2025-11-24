@@ -6,6 +6,8 @@ import {
     FlatList
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../@types/types';
 import { styles } from './style';
 import { AnimalCard } from '../../components/HomeCard';
 import { CATEGORIES } from '../../data/categories';
@@ -14,20 +16,16 @@ import { Carousel } from '../../components/Carousel';
 
 const backgroundUrl = require('../../assets/fundoHome.jpg');
 
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
+
 export function Home() {
-    const navigation = useNavigation<any>();
+    const navigation = useNavigation<NavigationProps>();
 
     return (
         <View style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
 
             <Header />
-
-            {/* <ImageBackground
-                source={backgroundUrl}
-                style={styles.backgroundImage}
-                resizeMode="cover"
-            > */}
             <Carousel />
 
             <FlatList
@@ -44,8 +42,6 @@ export function Home() {
                     />
                 )}
             />
-            {/* 
-            </ImageBackground> */}
         </View>
     );
 }
