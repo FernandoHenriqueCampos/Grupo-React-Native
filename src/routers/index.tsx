@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AnimatedLoadingScreen from './../pages/LoadingScreen';
 import { RootStackParamList } from '../@types/types';
 import { MyTabs } from './bottomTabs';
 import Cadastro from '../pages/Cadastro';
@@ -12,18 +13,39 @@ import Cursos from '../pages/Cursos';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+function InitialStack() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <AnimatedLoadingScreen />;
+  }
+
+  return (
+    <Stack.Navigator initialRouteName="MyTabs" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="StackLogin" component={Login} />
+      <Stack.Screen name="StackCadastro" component={Cadastro} />
+      <Stack.Screen name="MyTabs" component={MyTabs} />
+      <Stack.Screen name="StackCaes" component={Caes} />
+      <Stack.Screen name="StackGatos" component={Gatos} />
+      <Stack.Screen name="StackFilhotes" component={Filhotes} />
+      <Stack.Screen name="StackCursos" component={Cursos} />
+    </Stack.Navigator>
+  );
+}
+
+
 export function Routers() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MyTabs" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="StackLogin" component={Login} />
-        <Stack.Screen name="StackCadastro" component={Cadastro} />
-        <Stack.Screen name="MyTabs" component={MyTabs} />
-        <Stack.Screen name="StackCaes" component={Caes} />
-        <Stack.Screen name="StackGatos" component={Gatos} />
-        <Stack.Screen name="StackFilhotes" component={Filhotes} />
-        <Stack.Screen name="StackCursos" component={Cursos} />
-      </Stack.Navigator>
+      <InitialStack />
     </NavigationContainer>
   );
 }
