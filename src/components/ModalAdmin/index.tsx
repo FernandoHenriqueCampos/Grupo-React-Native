@@ -113,8 +113,12 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
                 <Input title="Imagem" value={image} onChangeText={setImage}/>
 
-                <Button title="Salvar" onPress={putAnimais} />
-                <Button title="Cancelar" onPress={onClose} />
+                <Button title="Salvar" onPress={putAnimais} 
+                    backgroundColor="#8A2BE2"
+                    color="#ffffffff"/>
+                <Button title="Cancelar" onPress={onClose} 
+                    backgroundColor="#8A2BE2"
+                    color="#ffffffff"/>
             </View>
 
             <View style={[styles.containerModal, { display: exibirCriar ? "flex" : "none" }]}>
@@ -128,8 +132,12 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                 <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
                 <Input title="Imagem" value={image} onChangeText={setImage}/>
 
-                <Button title="Salvar" onPress={postAnimais} />
-                <Button title="Cancelar" onPress={onClose} />
+                <Button title="Salvar" onPress={postAnimais} 
+                    backgroundColor="#8A2BE2"
+                    color="#ffffffff"/>
+                <Button title="Cancelar" onPress={onClose} 
+                    backgroundColor="#8A2BE2"
+                    color="#ffffffff"/>
             </View>
         </View>
     );
