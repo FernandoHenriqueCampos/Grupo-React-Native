@@ -6,14 +6,13 @@ import {
     Image,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    StyleSheet // Adicionei para caso precise de estilos inline, mas usaremos seu arquivo de estilo
+    StyleSheet 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons'; // Import para o ícone de coração
-
+import { Ionicons } from '@expo/vector-icons'; 
 import { styles } from './style';
 import { Animal } from '../../@types/types';
-import { useFavorites } from '../../context/FavoritesContext'; // Import do Contexto
+import { useFavorites } from '../../context/FavoritesContext'; 
 
 interface AnimalModalProps {
     visible: boolean;
@@ -24,13 +23,12 @@ interface AnimalModalProps {
 export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
     const navigation = useNavigation<any>();
     
-    // 1. Hook dos Favoritos
+    
     const { favoritePetIds, toggleFavorite } = useFavorites();
 
     if (!animal) return null;
 
-    // 2. Verifica se este animal já é favorito
-    // Usamos String() para garantir que comparamos texto com texto
+    
     const isFavorite = favoritePetIds.includes(String(animal.id));
 
     const imageSource = animal.image
@@ -42,7 +40,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
         navigation.navigate('StackCursos');
     }
 
-    // 3. Função para clicar no coração
+    
     function handleFavorite() {
         if (animal) {
             toggleFavorite(String(animal.id));
@@ -60,7 +58,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
                 <TouchableWithoutFeedback onPress={() => { }}>
                     <View style={styles.modalContainer}>
 
-                        {/* --- BOTÃO DE FAVORITAR (NOVO - Canto Superior Esquerdo) --- */}
+                       
                         <TouchableOpacity 
                             onPress={handleFavorite}
                             style={{
@@ -81,7 +79,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
                             />
                         </TouchableOpacity>
 
-                        {/* Botão Fechar (Existente - Canto Superior Direito) */}
+                        
                         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
                             <Text style={styles.closeText}>✕</Text>
                         </TouchableOpacity>
@@ -95,7 +93,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
                         <Text style={styles.title}>{animal.nome}</Text>
                         <Text style={styles.breed}>{animal.raca}</Text>
 
-                        {/* Exibir idade ou outros detalhes se quiser */}
+                        
                         <Text style={{ textAlign: 'center', color: '#666', marginBottom: 15 }}>
                             {animal.idade ? `${animal.idade} anos` : 'Idade não informada'} • {animal.tipo}
                         </Text>

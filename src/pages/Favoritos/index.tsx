@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext';
 import PetCard from '../../components/petcard/PetCard';
@@ -16,23 +15,23 @@ const Favoritos: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   
-  // Controle do Modal
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
 
-  // --- FUNÇÃO DE BUSCA (Reutilizável) ---
+  
   const loadFavoritePets = useCallback(async () => {
-    // Se o contexto ainda não carregou os IDs do celular, não faz nada
+    
     if (!isReady) return;
 
-    // Se não for um refresh manual (puxar pra baixo), mostra loading tela cheia
+    
     if (!isRefreshing) setIsLoading(true);
 
     try {
       if (favoritePetIds.length === 0) {
-        setFavoritePets([]); // Lista vazia
+        setFavoritePets([]);
       } else {
-        // Busca apenas os IDs reais que estão no contexto
+       
         console.log("Buscando na API os IDs:", favoritePetIds);
         const petsData = await fetchPetDetailsByIds(favoritePetIds);
         setFavoritePets(petsData);
@@ -46,12 +45,12 @@ const Favoritos: React.FC = () => {
     }
   }, [favoritePetIds, isReady, isRefreshing]);
 
-  // --- EFEITO: Roda quando abre a tela ou quando a lista de favoritos muda ---
+  
   useEffect(() => {
     loadFavoritePets();
   }, [favoritePetIds, isReady]);
 
-  // --- AÇÕES DO USUÁRIO ---
+  
   
   const handleOpenModal = (pet: Pet) => {
     setSelectedPet(pet);
@@ -79,7 +78,7 @@ const Favoritos: React.FC = () => {
           text: "Remover", 
           style: 'destructive',
           onPress: () => {
-            // Atualização Otimista: Remove da tela antes mesmo do contexto processar
+            
             setFavoritePets(current => current.filter(p => p.id !== petId));
             toggleFavorite(petId);
           }
@@ -93,8 +92,7 @@ const Favoritos: React.FC = () => {
     loadFavoritePets();
   };
 
-  // --- RENDERIZAÇÃO ---
-
+ 
   if (isLoading && !isRefreshing) {
     return (
       <View style={styles.loadingContainer || {flex: 1, justifyContent:'center', alignItems:'center'}}>
@@ -131,7 +129,7 @@ const Favoritos: React.FC = () => {
           contentContainerStyle={styles.scrollContent} 
           showsVerticalScrollIndicator={false}
           
-          // Funcionalidade de "Puxar para atualizar"
+          
           onRefresh={onRefresh}
           refreshing={isRefreshing}
         />

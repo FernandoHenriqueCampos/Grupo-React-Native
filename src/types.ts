@@ -1,4 +1,3 @@
-// --- ENTIDADES (Usadas no App todo) ---
 export interface Pet {
   id: string;
   name: string;
@@ -17,7 +16,7 @@ export interface Pet {
 export interface FavoritesContextType {
   favoritePetIds: string[];
   toggleFavorite: (petId: string) => void;
-  removeFavorite: (petId: string) => void; // Adicionado para bater com a implementação real
+  removeFavorite: (petId: string) => void; 
   isFavorite: (petId: string) => boolean;
   isReady: boolean;
 }

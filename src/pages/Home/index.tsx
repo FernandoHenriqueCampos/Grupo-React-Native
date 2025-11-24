@@ -9,10 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-
 import { useFavorites } from '../../context/FavoritesContext';
-
 import { styles } from './style';
 import { AnimalCard } from '../../components/HomeCard'; 
 import { CATEGORIES } from '../../data/categories';
