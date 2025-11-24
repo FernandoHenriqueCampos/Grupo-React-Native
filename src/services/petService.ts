@@ -1,5 +1,5 @@
 // src/services/petService.ts
-import { Pet } from '../types'; // Importa a interface Pet
+import { Pet } from '../@types/types'; // Importa a interface Pet
 
 // Mock de dados (Simulando uma resposta de API)
 const mockPetData: Pet[] = [

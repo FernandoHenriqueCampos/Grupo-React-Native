@@ -21,11 +21,11 @@ export default function CardAdminPet({ name, race, image, handleEdit, handleDele
             </View>
 
             <TouchableOpacity onPress={handleEdit}>
-                <Text>Editar</Text>
+                <Text style={styles.textButton}>Editar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleDelete}>
-                <Text>Excluir</Text>
+                <Text style={styles.textButton}>Excluir</Text>
             </TouchableOpacity>
         </View>
     );

@@ -7,12 +7,11 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: '#fff',
         borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
         width: '95%',
         height: 50,
         paddingHorizontal: 10,
         gap: 10,
+        boxShadow: "0px 6px 8px rgba(0, 0, 0, 0.12)",
     },
 
     image: {
@@ -26,6 +25,7 @@ export const styles = StyleSheet.create({
     },
 
     title: {
+        color: '#8A2BE2',
         fontFamily: 'Verdana',
         fontSize: 16,
         fontWeight: 'bold',
@@ -36,5 +36,14 @@ export const styles = StyleSheet.create({
         fontFamily: 'Verdana',
         fontSize: 12,
         flexShrink: 1,
+        color: '#8A2BE2',
+        fontWeight: '200',
+    },
+    textButton: {
+        fontFamily: 'Verdana',
+        fontSize: 12,
+        flexShrink: 1,
+        color: '#8A2BE2',
+        fontWeight: 'bold',
     },
 });
