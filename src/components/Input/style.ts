@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
         height: "100%",
         textAlignVertical: "center",
         textAlign: "left",
-        padding: 0,        // <--- ESSENCIAL
-        margin: 0,         // <--- ESSENCIAL
+        padding: 0,       
+        margin: 0,        
         color: "#000",
     },
 });

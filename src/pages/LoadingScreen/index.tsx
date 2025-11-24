@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, Animated, Easing, ImageBackground, Image } from 'react-native';
 import { styles } from './style';
-
+import logoText from '../../assets/adoteLogo.png';
+import logo from '../../assets/logo.png';
 const AnimatedLoadingScreen = () => {
     const pulseAnim = useRef(new Animated.Value(0)).current;
 
@@ -29,22 +30,36 @@ const AnimatedLoadingScreen = () => {
     });
 
     return (
-        <ImageBackground
-            source={require('./../../assets/telacarregamento.png')}
-            style={styles.background}
-            resizeMode="cover"
-        >
-            <View style={styles.overlay}>
-                <Animated.View style={[styles.animatedIconContainer, { transform: [{ scale }] }]}>
-                    <Image
-                        source={require('./../../assets/patinha.jpg')}
-                        style={styles.animatedIcon}
-                    />
-                </Animated.View>
+        // <ImageBackground
+        //     source={require('./../../assets/telacarregamento.png')}
+        //     style={styles.background}
+        //     resizeMode="cover"
+        // >
+        //     <View style={styles.overlay}>
+        //         <Animated.View style={[styles.animatedIconContainer, { transform: [{ scale }] }]}>
+        //             <Image
+        //                 source={require('./../../assets/patinha.jpg')}
+        //                 style={styles.animatedIcon}
+        //             />
+        //         </Animated.View>
 
-                <Text style={styles.loadingText}>Carregando...</Text>
-            </View>
-        </ImageBackground>
+        //         <Text style={styles.loadingText}>Carregando...</Text>
+        //     </View>
+        // </ImageBackground>
+        <View style={styles.container}>
+
+            <Animated.View style={[styles.animatedIconContainer, { transform: [{ scale }] }]}>
+                <Image
+                    source={logo}
+                    style={styles.animatedIcon}
+                />
+            </Animated.View>
+            <Image
+                source={logoText}
+                style={styles.image}
+            />
+            <Text style={styles.loadingText}>Carregando...</Text>
+        </View>
     );
 };
 
