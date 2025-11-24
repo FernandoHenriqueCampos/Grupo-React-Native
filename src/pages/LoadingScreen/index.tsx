@@ -1,0 +1,51 @@
+import React, { useEffect, useRef } from 'react';
+import { View, Text, Animated, Easing, ImageBackground, Image } from 'react-native';
+import { styles } from './style';
+
+const AnimatedLoadingScreen = () => {
+    const pulseAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(pulseAnim, {
+                    toValue: 1,
+                    duration: 1000,
+                    easing: Easing.ease,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(pulseAnim, {
+                    toValue: 0,
+                    duration: 1000,
+                    easing: Easing.ease,
+                    useNativeDriver: true,
+                }),
+            ])
+        ).start();
+    }, [pulseAnim]);
+    const scale = pulseAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [1, 1.15],
+    });
+
+    return (
+        <ImageBackground
+            source={require('./../../assets/telacarregamento.png')}
+            style={styles.background}
+            resizeMode="cover"
+        >
+            <View style={styles.overlay}>
+                <Animated.View style={[styles.animatedIconContainer, { transform: [{ scale }] }]}>
+                    <Image
+                        source={require('./../../assets/patinha.jpg')}
+                        style={styles.animatedIcon}
+                    />
+                </Animated.View>
+
+                <Text style={styles.loadingText}>Carregando...</Text>
+            </View>
+        </ImageBackground>
+    );
+};
+
+export default AnimatedLoadingScreen;
