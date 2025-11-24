@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './style';
-import { Animal } from '../../@types/animal';
+import { Animal } from '../../@types/types';
 
 interface AnimalModalProps {
     visible: boolean;
@@ -28,7 +28,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
 
     function handleAdopt() {
         onClose();
-        navigation.navigate('StackCursos');
+        navigation.navigate('StackTermoAdocao');
     }
 
     return (
