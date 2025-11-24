@@ -31,7 +31,7 @@ const PageCursos: React.FC = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>🎓 Catálogo de Cursos que você ganhou por adotar conosco🎓</Text>
+            <Text style={styles.header}> Catálogo de Cursos que você ganhou por adotar conosco </Text>
 
             <FlatList
                 data={courses}
