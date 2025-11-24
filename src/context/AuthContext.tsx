@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 import { api } from '../services/api';
-import { Usuario } from '../@types/Types';
+import { Usuario } from '../@types/types';
 
 interface AuthContextData {
     signed: boolean;
@@ -43,7 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function signIn(email: string, senha: string) {
         try {
-            const response = await axios.get<Usuario[]>(`${api}/usuario`);
+            const response = await api.get<Usuario[]>('/usuario');
             const usuarios = response.data;
 
             const usuarioEncontrado = usuarios.find(
