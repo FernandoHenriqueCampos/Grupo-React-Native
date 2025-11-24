@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FCD6A9',
+        backgroundColor: '#ffffffff',
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         height: '10%',
-        marginTop: '10%',
     },
     title: {
         fontFamily: 'Verdana',
@@ -24,7 +23,9 @@ export const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         left: '5%',
         fontWeight: 'bold',
-        marginTop: '3%',
+        marginTop: '2%',
+        color: '#8A2BE2',
+        marginRight: '20%',
     },
     flatList: {
         width: '100%',

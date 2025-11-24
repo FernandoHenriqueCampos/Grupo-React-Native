@@ -10,6 +10,7 @@ import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
 import Login from '../pages/Login';
 import Cursos from '../pages/Cursos';
+import TermoAdocao from '../pages/TermoAdocao';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,6 +38,7 @@ function InitialStack() {
       <Stack.Screen name="StackGatos" component={Gatos} />
       <Stack.Screen name="StackFilhotes" component={Filhotes} />
       <Stack.Screen name="StackCursos" component={Cursos} />
+      <Stack.Screen name="StackTermoAdocao" component={TermoAdocao} />
     </Stack.Navigator>
   );
 }

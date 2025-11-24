@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     height: 70,
     width: 300,
     resizeMode: "contain",
-    marginRight: 15,
-    marginLeft: 15,
+    marginRight: '0.5%',
+    marginLeft: '0.5%',
   },
 });

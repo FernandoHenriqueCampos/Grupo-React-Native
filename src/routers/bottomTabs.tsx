@@ -1,5 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { styles } from './style';
+import { Ionicons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Home } from '../pages/Home';
 import Perfil from '../pages/Perfil';
@@ -25,13 +28,54 @@ function HomeStack() {
 }
 
 export function MyTabs() {
+  const insets = useSafeAreaInsets(); 
+
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="TabHome" component={HomeStack} />
-      <Tab.Screen name="TabCursos" component={Cursos} />
-      <Tab.Screen name="TabFavoritos" component={Favoritos} />
-      <Tab.Screen name="TabPerfil" component={Perfil} />
-      <Tab.Screen name="TabAdmin" component={Admin} />
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+
+        tabBarStyle: {
+          ...styles.tabBar,
+          height: 60 + insets.bottom,
+          paddingBottom: insets.bottom,
+          backgroundColor: "#8A2BE2",
+        },
+
+        tabBarLabelStyle: styles.tabLabel,
+        tabBarActiveTintColor: "#ffffff",
+        tabBarInactiveTintColor: "#ffffffa4",
+
+        tabBarIcon: ({ color, size }) => {
+          let iconName: any;
+
+          switch (route.name) {
+            case "Home":
+              iconName = "home";
+              break;
+            case "Cursos":
+              iconName = "book";
+              break;
+            case "Favoritos":
+              iconName = "heart";
+              break;
+            case "Perfil":
+              iconName = "person";
+              break;
+            case "Admin":
+              iconName = "settings";
+              break;
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Cursos" component={Cursos} />
+      <Tab.Screen name="Favoritos" component={Favoritos} />
+      <Tab.Screen name="Perfil" component={Perfil} />
+      <Tab.Screen name="Admin" component={Admin} />
     </Tab.Navigator>
   );
 }

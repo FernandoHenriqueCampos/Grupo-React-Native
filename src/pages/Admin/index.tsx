@@ -5,6 +5,7 @@ import { api } from "../../services/api";
 import CardAdminPet from '../../components/CardAdminPet';
 import ModalAdmin from '../../components/ModalAdmin';
 import Button from '../../components/Button';
+import { Header } from '../../components/Header';
 
 export default function Admin() {
 
@@ -93,11 +94,14 @@ export default function Admin() {
     }
     return (
         <View style={styles.container}>
+            <Header />
             <View style={styles.header}>
-                <Text style={styles.title}>Admin</Text>
+                <Text style={styles.title}>Animais</Text>
                 <Button
                     title="Novo animal"
                     onPress={() => { abrirModalCriar() }}
+                    backgroundColor="#8A2BE2"
+                    color="#ffffffff"
                 />
             </View>
 
