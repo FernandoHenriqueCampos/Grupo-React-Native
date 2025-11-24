@@ -1,4 +1,10 @@
-import { View, TouchableOpacity, Text, Image } from 'react-native';
+import { 
+    View, 
+    Text, 
+    KeyboardAvoidingView, 
+    Platform, 
+    ScrollView 
+} from 'react-native';
 import { styles } from './style';
 import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
@@ -100,45 +106,68 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
     const exibirCriar = animal?.tipoModal === "criar";
 
     return (
-        <View style={styles.containerAdmin}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+        >
+            <View style={styles.containerAdmin}>
 
-            <View style={[styles.containerModal, { display: exibirEditar ? "flex" : "none" }]}>
-                <Input title="Nome" value={nome} onChangeText={setNome}/>
-                <Input title="Raça" value={raca} onChangeText={setRaca}/>
-                <Input title="Idade" value={idade} onChangeText={setIdade}/>
-                <Input title="Cor" value={cor} onChangeText={setCor}/>
-                <Input title="Peso" value={peso} onChangeText={setPeso}/>
-                <Input title="Porte" value={porte} onChangeText={setPorte}/>
-                <Input title="Gênero" value={genero} onChangeText={setGenero}/>
-                <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
-                <Input title="Imagem" value={image} onChangeText={setImage}/>
+                <View style={[styles.containerModal, { display: exibirEditar ? "flex" : "none" }]}>
 
-                <Button title="Salvar" onPress={putAnimais} 
-                    backgroundColor="#8A2BE2"
-                    color="#ffffffff"/>
-                <Button title="Cancelar" onPress={onClose} 
-                    backgroundColor="#8A2BE2"
-                    color="#ffffffff"/>
+                    <ScrollView 
+                        style={{ flex: 1 }} 
+                        contentContainerStyle={{ paddingBottom: 40 }}
+                        showsVerticalScrollIndicator={false}
+                    >
+
+                        <Text style={styles.titleModal}>Editar Animal</Text>
+
+                        <Input title="Nome" value={nome} onChangeText={setNome} icon="paw-outline" />
+                        <Input title="Raça" value={raca} onChangeText={setRaca} icon="layers-outline" />
+                        <Input title="Idade" value={idade} onChangeText={setIdade} icon="hourglass-outline" />
+                        <Input title="Cor" value={cor} onChangeText={setCor} icon="color-palette-outline" />
+                        <Input title="Peso" value={peso} onChangeText={setPeso} icon="barbell-outline" />
+                        <Input title="Porte" value={porte} onChangeText={setPorte} icon="resize-outline" />
+                        <Input title="Gênero" value={genero} onChangeText={setGenero} icon="male-female-outline" />
+                        <Input title="Tipo" value={tipo} onChangeText={setTipo} icon="albums-outline" />
+                        <Input title="Imagem" value={image} onChangeText={setImage} icon="image-outline" />
+
+                        <View style={styles.containerButton}>
+                            <Button title="Salvar" onPress={putAnimais} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={100} paddingVertical={10}/>
+                            <Button title="Cancelar" onPress={onClose} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={90} paddingVertical={10}/>
+                        </View>
+                    </ScrollView>
+                </View>
+
+
+                <View style={[styles.containerModal, { display: exibirCriar ? "flex" : "none" }]}>
+
+                    <ScrollView 
+                        style={{ flex: 1 }} 
+                        contentContainerStyle={{ paddingBottom: 40 }}
+                        showsVerticalScrollIndicator={false}
+                    >
+
+                        <Text style={styles.titleModal}>Criar Animal</Text>
+
+                        <Input title="Nome" value={nome} onChangeText={setNome} icon="paw-outline" />
+                        <Input title="Raça" value={raca} onChangeText={setRaca} icon="layers-outline" />
+                        <Input title="Idade" value={idade} onChangeText={setIdade} icon="hourglass-outline" />
+                        <Input title="Cor" value={cor} onChangeText={setCor} icon="color-palette-outline" />
+                        <Input title="Peso" value={peso} onChangeText={setPeso} icon="barbell-outline" />
+                        <Input title="Porte" value={porte} onChangeText={setPorte} icon="resize-outline" />
+                        <Input title="Gênero" value={genero} onChangeText={setGenero} icon="male-female-outline" />
+                        <Input title="Tipo" value={tipo} onChangeText={setTipo} icon="albums-outline" />
+                        <Input title="Imagem" value={image} onChangeText={setImage} icon="image-outline" />
+
+                        <View style={styles.containerButton}>
+                            <Button title="Salvar" onPress={postAnimais} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={100} paddingVertical={10}/>
+                            <Button title="Cancelar" onPress={onClose} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={90} paddingVertical={10}/>
+                        </View>
+                    </ScrollView>
+                </View>
+
             </View>
-
-            <View style={[styles.containerModal, { display: exibirCriar ? "flex" : "none" }]}>
-                <Input title="Nome" value={nome} onChangeText={setNome}/>
-                <Input title="Raça" value={raca} onChangeText={setRaca}/>
-                <Input title="Idade" value={idade} onChangeText={setIdade}/>
-                <Input title="Cor" value={cor} onChangeText={setCor}/>
-                <Input title="Peso" value={peso} onChangeText={setPeso}/>
-                <Input title="Porte" value={porte} onChangeText={setPorte}/>
-                <Input title="Gênero" value={genero} onChangeText={setGenero}/>
-                <Input title="Tipo" value={tipo} onChangeText={setTipo}/>
-                <Input title="Imagem" value={image} onChangeText={setImage}/>
-
-                <Button title="Salvar" onPress={postAnimais} 
-                    backgroundColor="#8A2BE2"
-                    color="#ffffffff"/>
-                <Button title="Cancelar" onPress={onClose} 
-                    backgroundColor="#8A2BE2"
-                    color="#ffffffff"/>
-            </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
