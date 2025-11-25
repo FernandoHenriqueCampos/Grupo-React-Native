@@ -31,4 +31,6 @@ export type RootStackParamList = {
     StackCaes: undefined;
     StackGatos: undefined;
     StackFilhotes: undefined;
+    StackTermoAdocao: undefined;
+    MyTabs: undefined;
 };

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { api } from './api';
 import { Pet } from '../types';
+=======
+// src/services/petService.ts
+import { Pet } from '../@types/types'; // Importa a interface Pet
+>>>>>>> bfea7f014a8b3e25981ab926d8560d40930f5814
 
 
 interface ApiAnimal {

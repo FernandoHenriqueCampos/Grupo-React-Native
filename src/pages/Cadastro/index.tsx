@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
     View,
     Text,
@@ -12,16 +12,55 @@ import {
     ScrollView,
     SafeAreaView,
     StatusBar,
-    Keyboard
+    Keyboard,
+    Animated
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { isAxiosError } from 'axios';
-import { api } from '../../services/api';
+import { apiUsuarios } from '../../services/api';
 import styles from './style';
-import { RootStackParamList, Usuario } from '../../@types/Types';
+import { RootStackParamList, Usuario } from '../../@types/types';
 
 type CadastroScreenProp = NativeStackNavigationProp<RootStackParamList, 'StackCadastro'>;
+
+type Usuarios = {
+    nome?: string;
+    email?: string;
+    senha?: string;
+    confirmarSenha?: string;
+};
+
+const FadeError = ({ error }: { error?: string }) => {
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        if (error) {
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: true,
+            }).start();
+        } else {
+            fadeAnim.setValue(0);
+        }
+    }, [error]);
+
+    if (!error) return null;
+
+    return (
+        <Animated.View style={{ opacity: fadeAnim }}>
+            <Text style={{
+                color: 'red',
+                marginBottom: 10,
+                alignSelf: 'flex-start',
+                marginLeft: '10%'
+            }}>
+                {error}
+            </Text>
+        </Animated.View>
+    );
+};
 
 export default function Cadastro() {
     const navigation = useNavigation<CadastroScreenProp>();
@@ -31,77 +70,84 @@ export default function Cadastro() {
     const [senha, setSenha] = useState<string>('');
     const [confirmarSenha, setConfirmarSenha] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<Usuarios>({});
 
     const handleCadastro = async () => {
         Keyboard.dismiss();
-        setError(false);
 
-        if (!nome.trim() || !email.trim() || !senha.trim() || !confirmarSenha.trim()) {
-            Alert.alert('Atenção', 'Preencha todos os campos!');
-            setError(true);
-            return;
+        let errors: Usuarios = {};
+        let hasError = false;
+
+        if (!nome.trim()) {
+            errors.nome = 'Nome é obrigatório';
+            hasError = true;
         }
 
-        if (senha !== confirmarSenha) {
-            Alert.alert('Erro', 'As senhas não coincidem.');
-            setError(true);
+        if (!email.trim()) {
+            errors.email = 'E-mail é obrigatório';
+            hasError = true;
+        }
+
+        if (!senha.trim()) {
+            errors.senha = 'Senha é obrigatória';
+            hasError = true;
+        }
+
+        if (!confirmarSenha.trim()) {
+            errors.confirmarSenha = 'Confirmação é obrigatória';
+            hasError = true;
+        }
+
+        if (senha && confirmarSenha && senha !== confirmarSenha) {
+            errors.senha = 'As senhas não coincidem';
+            errors.confirmarSenha = 'As senhas não coincidem';
+            hasError = true;
+        }
+
+        if (hasError) {
+            setFieldErrors(errors);
             return;
         }
 
         setLoading(true);
+        setFieldErrors({});
 
         try {
-            const checkUser = await api.get<Usuario[]>('/usuario', {
-                params: { email: email }
-            });
-
-            if (checkUser.data.length > 0) {
-                Alert.alert('Atenção', 'Este e-mail já está cadastrado.');
-                setError(true);
-                setLoading(false);
-                return;
-            }
-
-            const novoUsuario: Omit<Usuario, 'id'> = {
+            const novoUsuario = {
                 nome,
                 email,
-                senha,
-                perfil: 'user'
+                senha
             };
 
-            await api.post<Usuario>('/usuario', novoUsuario);
+            await apiUsuarios.post<Usuario>('/usuarios', novoUsuario);
 
             Alert.alert('Sucesso', 'Conta criada! Faça login para continuar.', [
                 { text: 'Ir para Login', onPress: () => navigation.navigate('StackLogin') }
             ]);
 
         } catch (error) {
-            console.log("Erro detalhado:", error);
-            setError(true);
+            console.log("Erro no cadastro:", JSON.stringify(error, null, 2));
 
             if (isAxiosError(error)) {
-                if (error.response) {
-                    if (error.response.status === 404) {
-                        Alert.alert('Erro de Conexão', 'Rota não encontrada (404). Verifique se o recurso no MockAPI se chama "usuario".');
-                    } else {
-                        Alert.alert('Erro', `Erro com a conexão com a API. Status: ${error.response.status}`);
-                    }
-                } else if (error.request) {
-                    Alert.alert('Erro', 'Erro com a conexão com a API. Verifique sua internet.');
+                if (error.response?.status === 404) {
+                    Alert.alert('Erro', 'Rota não encontrada (404). Verifique o MockAPI.');
                 } else {
-                    Alert.alert('Erro', 'Não foi possível realizar o cadastro.');
+                    Alert.alert('Erro', 'Falha na conexão com o servidor.');
                 }
             } else {
-                Alert.alert('Erro', 'Ocorreu um erro inesperado no aplicativo.');
+                Alert.alert('Erro', 'Ocorreu um erro inesperado.');
             }
         } finally {
             setLoading(false);
         }
     };
 
-    const clearError = () => {
-        if (error) setError(false);
+    const clearError = (field: keyof Usuarios) => {
+        setFieldErrors(prev => {
+            const newErrors = { ...prev };
+            delete newErrors[field];
+            return newErrors;
+        });
     };
 
     return (
@@ -129,38 +175,44 @@ export default function Cadastro() {
                             <TextInput
                                 placeholder="Nome Completo"
                                 placeholderTextColor="#999"
-                                style={[styles.input, error && !nome ? styles.inputError : null]}
+                                style={[styles.input, !!fieldErrors.nome && styles.inputError]}
                                 value={nome}
-                                onChangeText={(t) => { setNome(t); clearError(); }}
+                                onChangeText={(t) => { setNome(t); clearError('nome'); }}
                             />
+
+                            <FadeError error={fieldErrors.nome} />
 
                             <TextInput
                                 placeholder="E-mail"
                                 placeholderTextColor="#999"
-                                style={[styles.input, error && !email ? styles.inputError : null]}
+                                style={[styles.input, !!fieldErrors.email && styles.inputError]}
                                 keyboardType="email-address"
                                 autoCapitalize="none"
                                 value={email}
-                                onChangeText={(t) => { setEmail(t); clearError(); }}
+                                onChangeText={(t) => { setEmail(t); clearError('email'); }}
                             />
+                            <FadeError error={fieldErrors.email} />
 
                             <TextInput
                                 placeholder="Senha"
                                 placeholderTextColor="#999"
                                 secureTextEntry
-                                style={[styles.input, error && (!senha || senha !== confirmarSenha) ? styles.inputError : null]}
+                                style={[styles.input, !!fieldErrors.senha && styles.inputError]}
                                 value={senha}
-                                onChangeText={(t) => { setSenha(t); clearError(); }}
+                                onChangeText={(t) => { setSenha(t); clearError('senha'); }}
                             />
+                            <FadeError error={fieldErrors.senha} />
 
                             <TextInput
                                 placeholder="Confirmar Senha"
                                 placeholderTextColor="#999"
                                 secureTextEntry
-                                style={[styles.input, error && (!confirmarSenha || senha !== confirmarSenha) ? styles.inputError : null]}
+                                style={[styles.input, !!fieldErrors.confirmarSenha && styles.inputError]}
                                 value={confirmarSenha}
-                                onChangeText={(t) => { setConfirmarSenha(t); clearError(); }}
+                                onChangeText={(t) => { setConfirmarSenha(t); clearError('confirmarSenha'); }}
                             />
+                            <FadeError error={fieldErrors.confirmarSenha} />
+
 
                             <TouchableOpacity
                                 style={styles.button}

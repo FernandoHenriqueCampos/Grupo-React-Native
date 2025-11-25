@@ -1,10 +1,19 @@
 import { ImageSourcePropType } from "react-native";
+import { RootStackParamList } from "../@types/types";
+
+type CategoryItem = {
+  id: string;
+  name: string;
+  description: string;
+  image: ImageSourcePropType;
+  route: keyof RootStackParamList;
+};
 
 const dogImg = require("../assets/goldenHome.jpg");
 const catImg = require("../assets/gatoHome.jpg");
 const dogImg2 = require("../assets/Filhotes.webp");
 
-export const CATEGORIES = [
+export const CATEGORIES: CategoryItem[] = [
   {
     id: "1",
     name: "Cachorros",

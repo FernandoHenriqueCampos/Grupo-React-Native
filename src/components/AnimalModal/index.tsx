@@ -37,7 +37,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
 
     function handleAdopt() {
         onClose();
-        navigation.navigate('StackCursos');
+        navigation.navigate('StackTermoAdocao');
     }
 
     

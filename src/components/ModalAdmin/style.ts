@@ -6,11 +6,19 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    titleModal: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 20,      
+        marginBottom: 20,
+    },
     containerModal: {
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffffff',
         borderRadius: 15,
         width: '95%',
         height: '90%',
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.4)',      
     },
     imagePicker: {
         width: '100%',
@@ -26,5 +34,8 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 10,
         alignSelf: "center"
-    }
+    },
+    containerButton: {
+        gap: 10,
+    },
 });

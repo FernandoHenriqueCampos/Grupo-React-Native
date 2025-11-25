@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react';
 import {
     View,
-    Text,
     ImageBackground,
-    SafeAreaView,
     StatusBar,
     FlatList,
     TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
 import { useFavorites } from '../../context/FavoritesContext';
+=======
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../@types/types';
+>>>>>>> bfea7f014a8b3e25981ab926d8560d40930f5814
 import { styles } from './style';
 import { AnimalCard } from '../../components/HomeCard'; 
 import { CATEGORIES } from '../../data/categories';
+import { Header } from '../../components/Header';
+import { Carousel } from '../../components/Carousel';
 
 const backgroundUrl = require('../../assets/fundoHome.jpg');
 
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
+
 export function Home() {
+<<<<<<< HEAD
     const navigation = useNavigation<any>();
     
     
@@ -38,18 +46,18 @@ export function Home() {
 
     
     const validCount = favoritePetIds.filter(id => id && id.length > 1).length;
+=======
+    const navigation = useNavigation<NavigationProps>();
+>>>>>>> bfea7f014a8b3e25981ab926d8560d40930f5814
 
     return (
         <View style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
 
-            <ImageBackground
-                source={backgroundUrl}
-                style={styles.backgroundImage}
-                resizeMode="cover"
-            >
-                <SafeAreaView style={styles.safeArea}>
+            <Header />
+            <Carousel />
 
+<<<<<<< HEAD
                     <View style={styles.headerContainer}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                             <View>
@@ -107,10 +115,22 @@ export function Home() {
                                 onPress={() => navigation.navigate(item.route)}
                             />
                         )}
+=======
+            <FlatList
+                data={CATEGORIES}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.contentList}
+                renderItem={({ item }) => (
+                    <AnimalCard
+                        name={item.name}
+                        description={item.description}
+                        imageSource={item.image}
+                        onPress={() => navigation.navigate(item.route)}
+>>>>>>> bfea7f014a8b3e25981ab926d8560d40930f5814
                     />
-
-                </SafeAreaView>
-            </ImageBackground>
+                )}
+            />
         </View>
     );
 }
