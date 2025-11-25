@@ -51,6 +51,14 @@ export interface Course {
   url: string;
 }
 
+interface ApiUnit {
+  uid: string;
+  title: string;
+  summary: string | null | undefined;
+  duration_in_minutes: number | null | undefined;
+  url: string;
+}
+
 export const fetchMSLearnCourses = async (): Promise<Course[]> => {
   console.log(
     "DEBUG: EXPO_PUBLIC_USE_MOCK_DATA =",
@@ -75,7 +83,7 @@ export const fetchMSLearnCourses = async (): Promise<Course[]> => {
 
     if (data?.units?.length > 0) {
       const courses = data.units.slice(0, 5).map(
-        (unit: any): Course => ({
+        (unit: ApiUnit): Course => ({
           uid: unit.uid,
           title: unit.title,
           description: unit.summary || "Nenhuma descrição disponível.",
