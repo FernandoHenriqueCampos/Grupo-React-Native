@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   image: {
+    resizeMode: "contain",
     width: "100%",
     height: 200,
   },
