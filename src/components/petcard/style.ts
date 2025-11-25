@@ -2,37 +2,56 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   cardContainer: {
-    flexDirection: 'row',
+    width: '48%',
     backgroundColor: '#fff',
-    borderRadius: 10,
-    marginVertical: 8,
-    marginHorizontal: 15,
+    borderRadius: 12,
+    marginBottom: 16,
     overflow: 'hidden',
-    elevation: 3, 
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 4,
+    position: 'relative',
   },
   touchableCard: {
-    flexDirection: 'row',
-    flex: 1, 
+    flex: 1,
   },
   image: {
-    width: 120,
-    height: 120,
+    width: '100%',
+    height: 120, // Altura fixa
+    backgroundColor: '#e0e0e0',
   },
   infoContainer: {
-    flex: 1,
     padding: 10,
-    justifyContent: 'center',
   },
-  name: { fontSize: 18, fontWeight: 'bold', color: '#333' },
-  details: { fontSize: 14, color: '#666', marginVertical: 2 },
-  distance: { fontSize: 12, color: '#999', marginTop: 5, fontStyle: 'italic' },
-  favoriteButton: {
-    padding: 15,
-    justifyContent: 'center',
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 2,
+  },
+  details: {
+    fontSize: 12,
+    color: '#666',
+    marginBottom: 5,
+  },
+  distanceContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 4,
+  },
+  distanceText: {
+    fontSize: 12,
+    color: '#666',
+    marginLeft: 4,
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 20,
+    padding: 4,
   },
 });

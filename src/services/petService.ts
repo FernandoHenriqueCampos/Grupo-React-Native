@@ -1,59 +1,61 @@
-// src/services/petService.ts
-import { Pet } from '../@types/types'; // Importa a interface Pet
+import { Animal } from '../@types/types'; 
+import { apiPets } from './api'; 
+import { AxiosError } from 'axios'; // Importando AxiosError para melhor tipagem
 
-// Mock de dados (Simulando uma resposta de API)
-const mockPetData: Pet[] = [
-  {
-    id: '1',
-    name: 'Gatito',
-    breed: 'SRD',
-    photo: 'https://picsum.photos/id/237/120/120',
-    location: 'São Paulo - SP',
-    distance: 5,
-  },
-  {
-    id: '2',
-    name: 'Rex',
-    breed: 'Labrador',
-    photo: 'https://picsum.photos/id/1025/120/120',
-    location: 'Rio de Janeiro - RJ',
-    distance: 12,
-  },
-  {
-    id: '3',
-    name: 'Luna',
-    breed: 'Poodle',
-    photo: 'https://picsum.photos/id/1084/120/120',
-    location: 'Belo Horizonte - MG',
-    distance: 8,
-  },
-  {
-    id: '4',
-    name: 'Bolinha',
-    breed: 'SRD',
-    photo: 'https://picsum.photos/id/219/120/120',
-    location: 'Curitiba - PR',
-    distance: 15,
-  },
-];
+const ENDPOINT = '/animais'; 
 
-/**
- * Simula a busca de detalhes de pets com base em uma lista de IDs.
- * Se nenhum ID for fornecido, retorna todos os pets mockados.
- * @param ids Lista de IDs de pets favoritos.
- * @returns Promessa de um array de objetos Pet.
- */
-export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Pet[]> => {
-  // Simula um delay de rede
-  await new Promise(resolve => setTimeout(resolve, 500)); 
-  
-  if (ids.length === 0) {
-    // Se não há IDs nos favoritos, retorna uma lista vazia,
-    // ou você pode retornar uma lista para fins de demonstração inicial.
-    // Vamos retornar a lista mockada para facilitar o teste inicial.
-    return mockPetData.filter(pet => ['1', '2'].includes(pet.id)); // Retorna 2 pets como padrão
+export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]> => {
+  console.log("Buscando na API os IDs:", ids);
+  if (!ids || ids.length === 0) return []; 
+
+  // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---
+  if (!apiPets) {
+    console.error("ERRO CRÍTICO: apiPets não está definido. Verifique a configuração da BASE_URL em src/services/api.ts e suas variáveis de ambiente.");
+    return [];
   }
+  // --------------------------------------------------
 
-  // Filtra os dados mockados para retornar apenas os pets que estão na lista de favoritos (ids)
-  return mockPetData.filter(pet => ids.includes(pet.id));
+  try {
+    // Busca a lista completa (ou o endpoint configurado para buscar todos)
+    const response = await apiPets.get(ENDPOINT); 
+    const todosAnimais: Animal[] = response.data;
+
+    // Filtra no cliente (Front-end) pelos IDs que são favoritos
+    const favoritos = todosAnimais.filter(animal => 
+      ids.includes(String(animal.id))
+    );
+
+    return favoritos;
+
+  } catch (error) {
+    // Tratamento de erro aprimorado
+    if (error instanceof AxiosError) {
+        console.error("Erro Axios ao buscar favoritos:", error.message, error.response?.status);
+    } else {
+        console.error("Erro desconhecido ao buscar favoritos:", error);
+    }
+    return []; 
+  }
+};
+
+export const fetchAllPets = async (): Promise<Animal[]> => {
+    // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---
+    if (!apiPets) {
+      console.error("ERRO CRÍTICO: apiPets não está definido. Verifique a configuração da BASE_URL em src/services/api.ts e suas variáveis de ambiente.");
+      return [];
+    }
+    // --------------------------------------------------
+    
+    try {
+        const response = await apiPets.get(ENDPOINT);
+        
+        return response.data; 
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Erro Axios ao buscar todos os pets:", error.message, error.response?.status);
+        } else {
+            console.error("Erro desconhecido ao buscar todos os pets:", error);
+        }
+        return [];
+    }
 };

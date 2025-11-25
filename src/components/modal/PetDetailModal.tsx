@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { 
   Modal, View, Text, Image, StyleSheet, TouchableOpacity, ScrollView 
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Pet } from '../../types';
-import {styles} from '.././modal/style';
+import Icon from '@expo/vector-icons/Ionicons';
+
+import {styles} from './style';
 
 // Tipagem das Props do Modal
 interface PetDetailModalProps {
-  pet: Pet | null; // Recebe o Pet a ser exibido (ou null se estiver fechado)
+  pet: any | null; // Recebe o Pet a ser exibido (ou null se estiver fechado)
   isVisible: boolean;
   onClose: () => void;
   onAdopt: (petId: string) => void; // Função para simular a intenção de adoção

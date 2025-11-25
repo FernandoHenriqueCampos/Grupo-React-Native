@@ -1,37 +1,41 @@
+import { StyleSheet, Dimensions } from 'react-native';
 
-import { StyleSheet } from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'flex-end', // Abre da parte inferior
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo escuro
+    justifyContent: 'flex-end', 
+    backgroundColor: 'rgba(0,0,0,0.5)', 
   },
   modalView: {
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20,
-    alignItems: 'center',
+    height: height * 0.85, 
+    width: '100%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    maxHeight: '90%', // Altura máxima para não cobrir tudo
+    paddingBottom: 20,
   },
   petImage: {
     width: '100%',
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 15,
+    height: 250,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    resizeMode: 'cover',
+  },
+  scrollContent: {
+    padding: 20,
   },
   header: {
     flexDirection: 'row',
-    width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   petName: {
     fontSize: 28,
@@ -41,34 +45,36 @@ export const styles = StyleSheet.create({
   closeButton: {
     padding: 5,
   },
-  scrollContent: {
-    width: '100%',
-    paddingBottom: 10,
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8, 
   },
   detailText: {
     fontSize: 16,
-    color: '#666',
-    marginVertical: 5,
+    color: '#555',
+    marginLeft: 8, 
   },
   descriptionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 15,
-    marginBottom: 5,
     color: '#333',
+    marginTop: 20,
+    marginBottom: 8,
   },
   descriptionText: {
     fontSize: 16,
-    color: '#777',
-    lineHeight: 22,
+    color: '#666',
+    lineHeight: 24,
+    textAlign: 'justify',
   },
   adoptButton: {
-    backgroundColor: '#FF7A00', // Laranja do mockup
-    borderRadius: 8,
-    padding: 15,
-    width: '100%',
-    marginTop: 20,
+    backgroundColor: '#4CAF50',
+    borderRadius: 12,
+    paddingVertical: 16,
+    marginHorizontal: 20,
     alignItems: 'center',
+    marginBottom: 10, 
   },
   adoptButtonText: {
     color: 'white',
