@@ -50,8 +50,16 @@ export type RootTabParamList = {
     Shop: undefined;
 }
 
+export interface FavoritesContextType {
+    favoritePetIds: string[];
+    toggleFavorite: (petId: string) => void;
+    removeFavorite: (petId: string) => void;
+    isFavorite: (petId: string) => boolean;
+    isReady: boolean;
+}
+
 declare global {
     namespace ReactNavigation {
-        interface RootParamList extends RootStackParamList, RootTabParamList {}
+        interface RootParamList extends RootStackParamList, RootTabParamList { }
     }
 }
