@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { 
   Modal, View, Text, Image, StyleSheet, TouchableOpacity, ScrollView 
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from '@expo/vector-icons/Ionicons';
 
-import {styles} from '../Modal/style';
+import {styles} from './style';
 
 // Tipagem das Props do Modal
 interface PetDetailModalProps {
