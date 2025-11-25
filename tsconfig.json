@@ -5,7 +5,7 @@
     "strict": true,
     "lib": ["dom", "esnext"],
     "target": "es2017",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true
   }
 }
