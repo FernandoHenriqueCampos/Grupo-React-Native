@@ -12,6 +12,7 @@ import { Favoritos } from '../pages/Favoritos';
 import { Caes } from '../pages/Caes';
 import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
+import { ShopScreen } from '../pages/Shop';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,7 +29,7 @@ function HomeStack() {
 }
 
 export function MyTabs() {
-  const insets = useSafeAreaInsets(); 
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
@@ -76,6 +77,7 @@ export function MyTabs() {
       <Tab.Screen name="Favoritos" component={Favoritos} />
       <Tab.Screen name="Perfil" component={Perfil} />
       <Tab.Screen name="Admin" component={Admin} />
+      <Tab.Screen name="Shop" component={ShopScreen} />
     </Tab.Navigator>
   );
 }

@@ -30,7 +30,7 @@ function InitialStack() {
   }
 
   return (
-    <Stack.Navigator initialRouteName="StackCadastro" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="MyTabs" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="StackLogin" component={Login} />
       <Stack.Screen name="StackCadastro" component={Cadastro} />
       <Stack.Screen name="MyTabs" component={MyTabs} />
