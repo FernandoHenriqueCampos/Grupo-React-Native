@@ -2,7 +2,7 @@ import { Animal } from '../@types/types';
 import { apiPets } from './api'; 
 import { AxiosError } from 'axios'; // Importando AxiosError para melhor tipagem
 
-const ENDPOINT = '/'; 
+const ENDPOINT = '/animais'; 
 
 export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]> => {
   console.log("Buscando na API os IDs:", ids);
