@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, FlatList, SafeAreaView } from 'react-native';
 import { CardShop } from '../../components/CardShop';
-import { apiPets } from '../../services/api';
+import { apiShop } from '../../services/api';
 import axios, { AxiosError } from 'axios';
 import { styles } from './style';
 
@@ -24,7 +24,7 @@ export const ShopScreen: React.FC = () => {
                 setLoading(true);
                 setError(null);
 
-                const response = await apiPets.get<Product[]>('/shop');
+                const response = await apiShop.get<Product[]>('/shop');
 
                 setProducts(response.data);
 
