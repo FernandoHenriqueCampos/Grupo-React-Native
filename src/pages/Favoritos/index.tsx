@@ -7,6 +7,7 @@ import PetCard from '../../components/petcard';
 import PetDetailModal from '../../components/ModalFavoritos';
 import { fetchPetDetailsByIds } from '../../services/petService';
 import { Animal } from '../../@types/types';
+import { Header } from '../../components/Header';
 
 export const Favoritos: React.FC = () => {
   const { favoritePetIds, isReady, toggleFavorite } = useFavorites();
@@ -100,6 +101,8 @@ export const Favoritos: React.FC = () => {
 
   return (
     <View style={styles.container}>
+
+      <Header />
       <Text style={styles.headerTitle}>❤️ Meus Favoritos</Text>
 
       {favoritePets.length === 0 ? (
