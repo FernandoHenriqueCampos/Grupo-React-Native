@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -10,24 +10,27 @@ import {
     SafeAreaView,
     StatusBar,
     KeyboardAvoidingView,
-    ScrollView,
     Platform,
     Keyboard
 } from 'react-native';
 
-import { api } from '../../services/api';
+import { isAxiosError } from 'axios';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { apiUsuarios } from '../../services/api';
 import styles from './style';
+import { RootStackParamList } from '../../@types/types';
+
+type LoginScreenProp = NativeStackNavigationProp<RootStackParamList, 'StackLogin'>;
 
 interface LoginProps {
-    navigation: {
-        navigate: (screen: string) => void;
-        reset: (params: any) => void;
-    };
+    navigation: LoginScreenProp;
 }
 
 interface Usuario {
+    id: string;
     email: string;
     senha: string;
+    nome?: string;
 }
 
 export default function Login({ navigation }: LoginProps) {
@@ -35,12 +38,29 @@ export default function Login({ navigation }: LoginProps) {
     const [senha, setSenha] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [usuarios, setUsuarios] = useState<Usuario[]>([])
+
+    const loadingUsuarios = async () => {
+        try {
+            const response = await apiUsuarios.get<Usuario[]>("/usuarios");
+            setUsuarios(response.data);
+        } catch (err) {
+            console.error('Erro ao carregar usuários:', err);
+            if (isAxiosError(err) && (err.response?.status === 404 || err.code === "ERR_NETWORK")) {
+                Alert.alert('Erro', 'Não foi possível carregar os dados de login. Verifique sua conexão e a API.');
+            }
+        }
+    }
 
     const handleLogin = async () => {
         Keyboard.dismiss();
         setError(false);
 
-        if (!email.trim() || !senha.trim()) {
+        const emailSemEspacos = email.trim();
+        const emailFinal = emailSemEspacos.toLowerCase();
+        const senhaFinal = senha.trim();
+
+        if (emailFinal === '' || senhaFinal === '') {
             Alert.alert('Atenção', 'Por favor, preencha e-mail e senha.');
             setError(true);
             return;
@@ -48,34 +68,41 @@ export default function Login({ navigation }: LoginProps) {
 
         setLoading(true);
 
+        const teste = usuarios.find(user => user.email === emailFinal && user.senha === senhaFinal)
+
         try {
-            const response = await api.get<Usuario[]>('/usuario', {
-                params: { email: email }
-            });
-
-            const usuariosEncontrados = response.data;
-
-            if (usuariosEncontrados.length === 0 || usuariosEncontrados[0].senha !== senha) {
-                Alert.alert('Erro', 'E-mail ou senha incorretos.');
+            if (!teste) {
+                Alert.alert('Acesso Negado', 'E-mail ou senha incorretos.');
                 setError(true);
-                setLoading(false);
                 return;
             }
 
             setEmail('');
             setSenha('');
             setError(false);
+
             navigation.navigate('MyTabs');
 
-        } catch (err: any) {
-            console.error('Erro Login:', err);
-            setLoading(false);
+        } catch (err) {
+            console.error('Erro Detalhado Login:', err);
             setError(true);
-            if (err.response && err.response.status === 404) {
-                Alert.alert('Erro', 'E-mail ou senha incorretos.');
+
+            if (isAxiosError(err)) {
+                if (err.response?.status === 404) {
+                    Alert.alert(
+                        'Erro (404)',
+                        'A rota "/usuarios" não foi encontrada na API.'
+                    );
+                } else if (err.code === "ERR_NETWORK") {
+                    Alert.alert('Sem Conexão', 'Verifique sua internet.');
+                } else {
+                    Alert.alert('Erro', `Erro na API: ${err.message}`);
+                }
             } else {
-                Alert.alert('Erro', 'Não foi possível conectar. Verifique sua internet.');
+                Alert.alert('Erro Inesperado', 'Erro interno no app.');
             }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -88,6 +115,10 @@ export default function Login({ navigation }: LoginProps) {
         setSenha(text);
         if (error) setError(false);
     };
+
+    useEffect(() => {
+        loadingUsuarios()
+    }, [])
 
     return (
         <ImageBackground
@@ -102,57 +133,51 @@ export default function Login({ navigation }: LoginProps) {
                     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                     style={styles.keyboardView}
                 >
-                    <ScrollView
-                        contentContainerStyle={styles.scrollContent}
-                        showsVerticalScrollIndicator={false}
-                        keyboardShouldPersistTaps="handled"
-                    >
-                        <View style={styles.box}>
-                            <Text style={styles.title}>Login</Text>
+                    <View style={styles.box}>
+                        <Text style={styles.title}>Login</Text>
 
-                            <TextInput
-                                placeholder="E-mail"
-                                placeholderTextColor="#999"
-                                style={[styles.input, error && styles.inputError]}
-                                onChangeText={handleChangeEmail}
-                                value={email}
-                                keyboardType="email-address"
-                                autoCapitalize="none"
-                                editable={!loading}
-                            />
+                        <TextInput
+                            placeholder="E-mail"
+                            placeholderTextColor="#7D9CB3"
+                            style={[styles.input, error && styles.inputError]}
+                            onChangeText={handleChangeEmail}
+                            value={email}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            editable={!loading}
+                        />
 
-                            <TextInput
-                                placeholder="Senha"
-                                placeholderTextColor="#999"
-                                secureTextEntry
-                                style={[styles.input, error && styles.inputError]}
-                                onChangeText={handleChangeSenha}
-                                value={senha}
-                                editable={!loading}
-                            />
+                        <TextInput
+                            placeholder="Senha"
+                            placeholderTextColor="#7D9CB3"
+                            secureTextEntry
+                            style={[styles.input, error && styles.inputError]}
+                            onChangeText={handleChangeSenha}
+                            value={senha}
+                            editable={!loading}
+                        />
 
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={handleLogin}
-                                disabled={loading}
-                                activeOpacity={0.8}
-                            >
-                                {loading ? (
-                                    <ActivityIndicator color="#FFF" />
-                                ) : (
-                                    <Text style={styles.buttonText}>Entrar</Text>
-                                )}
-                            </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={handleLogin}
+                            disabled={loading}
+                            activeOpacity={0.8}
+                        >
+                            {loading ? (
+                                <ActivityIndicator color="#FFF" />
+                            ) : (
+                                <Text style={styles.buttonText}>Entrar</Text>
+                            )}
+                        </TouchableOpacity>
 
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('StackCadastro')}
-                                disabled={loading}
-                                style={styles.linkContainer}
-                            >
-                                <Text style={styles.linkText}>Criar conta</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('StackCadastro')}
+                            disabled={loading}
+                            style={styles.linkContainer}
+                        >
+                            <Text style={styles.linkText}>Criar conta</Text>
+                        </TouchableOpacity>
+                    </View>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         </ImageBackground>
