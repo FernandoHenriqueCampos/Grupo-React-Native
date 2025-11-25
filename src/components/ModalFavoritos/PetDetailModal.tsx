@@ -4,12 +4,12 @@ import {
 } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-
+import { Animal } from '../../@types/types';
 import {styles} from './style';
 
 // Tipagem das Props do Modal
 interface PetDetailModalProps {
-  pet: any | null; // Recebe o Pet a ser exibido (ou null se estiver fechado)
+  pet: Animal | null; // Recebe o Pet a ser exibido (ou null se estiver fechado)
   isVisible: boolean;
   onClose: () => void;
   onAdopt: (petId: string) => void; // Função para simular a intenção de adoção
@@ -21,7 +21,7 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
   onClose, 
   onAdopt 
 }) => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
 
   if (!pet) return null; // Não renderiza nada se não houver pet
 
@@ -43,7 +43,7 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
           
           {/* Imagem do Pet no Topo */}
           <Image
-            source={{ uri: pet.photo?.replace('120', '300') ?? "https://via.placeholder.com/300" }}
+            source={{ uri: pet.image ?? "https://via.placeholder.com/300" }}
             style={styles.petImage}
           />
 
@@ -52,7 +52,7 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
             
             {/* Cabeçalho e Botão Fechar */}
             <View style={styles.header}>
-              <Text style={styles.petName}>{pet.name}</Text>
+              <Text style={styles.petName}>{pet.nome}</Text>
               <TouchableOpacity onPress={onClose} style={styles.closeButton}>
                 <Icon name="close-circle-outline" size={30} color="#999" />
               </TouchableOpacity>
@@ -60,19 +60,19 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
 
             {/* Detalhes do Pet */}
             <Text style={styles.detailText}>
-              <Icon name="git-branch-outline" size={16} /> Raça: **{pet.breed}**
+              <Icon name="git-branch-outline" size={16} /> Raça: **{pet.raca}**
             </Text>
-            <Text style={styles.detailText}>
-              <Icon name="location-outline" size={16} /> Local: {pet.location}
-            </Text>
-            <Text style={styles.detailText}>
+            {/* <Text style={styles.detailText}>
+              <Icon name="location-outline" size={16} /> Local: {pet.cidade}
+            </Text> */}
+            {/* <Text style={styles.detailText}>
               <Icon name="walk-outline" size={16} /> Distância: {pet.distance} km
-            </Text>
+            </Text> */}
 
             {/* Descrição Simulado (para Modal parecer mais completo) */}
-            <Text style={styles.descriptionTitle}>Sobre {pet.name}:</Text>
+            <Text style={styles.descriptionTitle}>Sobre {pet.nome}:</Text>
             <Text style={styles.descriptionText}>
-              {pet.name} é um pet adorável, resgatado recentemente. Ele é muito brincalhão e se dá bem com crianças. 
+              {pet.nome} é um pet adorável, resgatado recentemente. Ele é muito brincalhão e se dá bem com crianças. 
               Necessita de um lar que possa oferecer muito espaço e carinho.
             </Text>
           </ScrollView>

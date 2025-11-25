@@ -33,4 +33,25 @@ export type RootStackParamList = {
     StackFilhotes: undefined;
     StackTermoAdocao: undefined;
     MyTabs: undefined;
+    Home: undefined;
+    Favoritos: undefined;
+    Cursos: undefined;
+    Perfil: undefined;
+    Admin: undefined;
+    Shop: undefined;
 };
+
+export type RootTabParamList = {
+    Home: undefined;
+    Favoritos: undefined;
+    Cursos: undefined;
+    Perfil: undefined;
+    Admin: undefined;
+    Shop: undefined;
+}
+
+declare global {
+    namespace ReactNavigation {
+        interface RootParamList extends RootStackParamList, RootTabParamList {}
+    }
+}
