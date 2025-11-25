@@ -3,8 +3,8 @@ import { View, Text, FlatList, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext';
-import PetCard from '../../components/petcard/PetCard';
-import PetDetailModal from '../../components/ModalFavoritos/PetDetailModal';
+import PetCard from '../../components/PetCard';
+import PetDetailModal from '../../components/ModalFavoritos';
 import { fetchPetDetailsByIds } from '../../services/petService'; 
 import { Animal } from '../../@types/types';
 
