@@ -5,34 +5,32 @@ import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext';
 import PetCard from '../../components/petcard/PetCard';
 import PetDetailModal from '../../components/modal/PetDetailModal';
-import { Pet } from '../../types';
 import { fetchPetDetailsByIds } from '../../services/petService'; 
+import { Animal } from '../../@types/types';
 
-const Favoritos: React.FC = () => {
+export const Favoritos: React.FC = () => {
   const { favoritePetIds, isReady, toggleFavorite } = useFavorites();
 
-  const [favoritePets, setFavoritePets] = useState<Pet[]>([]);
+  
+  const [favoritePets, setFavoritePets] = useState<Animal[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   
-  
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
+  const [selectedPet, setSelectedPet] = useState<Animal | null>(null);
 
-  
   const loadFavoritePets = useCallback(async () => {
     
     if (!isReady) return;
 
-    
     if (!isRefreshing) setIsLoading(true);
 
     try {
       if (favoritePetIds.length === 0) {
         setFavoritePets([]);
       } else {
-       
         console.log("Buscando na API os IDs:", favoritePetIds);
+        
         const petsData = await fetchPetDetailsByIds(favoritePetIds);
         setFavoritePets(petsData);
       }
@@ -52,7 +50,7 @@ const Favoritos: React.FC = () => {
 
   
   
-  const handleOpenModal = (pet: Pet) => {
+  const handleOpenModal = (pet: Animal) => {
     setSelectedPet(pet);
     setIsModalVisible(true);
   };
@@ -79,8 +77,8 @@ const Favoritos: React.FC = () => {
           style: 'destructive',
           onPress: () => {
             
-            setFavoritePets(current => current.filter(p => p.id !== petId));
-            toggleFavorite(petId);
+            setFavoritePets(current => current.filter(p => String(p.id) !== String(petId)));
+            toggleFavorite(String(petId));
           }
         }
       ]
@@ -117,18 +115,19 @@ const Favoritos: React.FC = () => {
       ) : (
         <FlatList 
           data={favoritePets}
-          keyExtractor={(pet) => pet.id}
+          
+          keyExtractor={(pet) => String(pet.id)}
           renderItem={({ item }) => (
             <PetCard 
-              pet={item}
+              pet={item} 
               onDetailPress={handleOpenModal}
-              onRemove={() => handleRemovePet(item.id)} 
+             
+              onRemove={() => handleRemovePet(String(item.id))} 
             />
           )}
           ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
           contentContainerStyle={styles.scrollContent} 
           showsVerticalScrollIndicator={false}
-          
           
           onRefresh={onRefresh}
           refreshing={isRefreshing}
@@ -139,10 +138,9 @@ const Favoritos: React.FC = () => {
         pet={selectedPet}
         isVisible={isModalVisible}
         onClose={handleCloseModal}
-        onAdopt={handleAdoptAction}
+        onAdopt={(id) => handleAdoptAction(String(id))}
       />
     </View>
   );
 };
 
-export default Favoritos;

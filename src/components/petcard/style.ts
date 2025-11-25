@@ -2,38 +2,39 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   cardContainer: {
-    marginBottom: 20,
-    position: 'relative', 
-  },
-  touchableCard: {
+    width: '48%',
     backgroundColor: '#fff',
-    borderRadius: 16,
-    elevation: 4,
-    shadowColor: '#000',
+    borderRadius: 12,
+    marginBottom: 16,
+    overflow: 'hidden',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    overflow: 'hidden', 
+    shadowRadius: 3,
+    elevation: 4,
+    position: 'relative',
+  },
+  touchableCard: {
+    flex: 1,
   },
   image: {
     width: '100%',
-    height: 180,
-    resizeMode: 'cover',
+    height: 120, // Altura fixa
+    backgroundColor: '#e0e0e0',
   },
   infoContainer: {
-    padding: 16,
-    paddingBottom: 12,
+    padding: 10,
   },
   name: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   details: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#666',
-    marginBottom: 8,
+    marginBottom: 5,
   },
   distanceContainer: {
     flexDirection: 'row',
@@ -42,24 +43,15 @@ export const styles = StyleSheet.create({
   },
   distanceText: {
     fontSize: 12,
-    color: '#888',
+    color: '#666',
     marginLeft: 4,
   },
   favoriteButton: {
     position: 'absolute',
-    bottom: 16, 
-    right: 16,
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    zIndex: 10,
-  }
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 20,
+    padding: 4,
+  },
 });

@@ -1,78 +1,61 @@
-<<<<<<< HEAD
-import { api } from './api';
-import { Pet } from '../types';
-=======
-// src/services/petService.ts
-import { Pet } from '../@types/types'; // Importa a interface Pet
->>>>>>> bfea7f014a8b3e25981ab926d8560d40930f5814
+import { Animal } from '../@types/types'; 
+import { apiPets } from './api'; 
+import { AxiosError } from 'axios'; // Importando AxiosError para melhor tipagem
 
+const ENDPOINT = '/Pet'; 
 
-interface ApiAnimal {
-  id: string;
-  nome: string;
-  raca: string;
-  image: string;
-  cor: string;
-  peso: number;
-  porte: string;
-  idade: number;
-  genero: string;
-  tipo: string;
-}
-
-export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Pet[]> => {
-  
+export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]> => {
+  console.log("Buscando na API os IDs:", ids);
   if (!ids || ids.length === 0) return []; 
 
-  try {
-    
-    const response = await api.get('/animais');
-    const todosAnimais: ApiAnimal[] = response.data;
+  // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---
+  if (!apiPets) {
+    console.error("ERRO CRÍTICO: apiPets não está definido. Verifique a configuração da BASE_URL em src/services/api.ts e suas variáveis de ambiente.");
+    return [];
+  }
+  // --------------------------------------------------
 
-    
-    const favoritosDaApi = todosAnimais.filter(animal => 
+  try {
+    // Busca a lista completa (ou o endpoint configurado para buscar todos)
+    const response = await apiPets.get(ENDPOINT); 
+    const todosAnimais: Animal[] = response.data;
+
+    // Filtra no cliente (Front-end) pelos IDs que são favoritos
+    const favoritos = todosAnimais.filter(animal => 
       ids.includes(String(animal.id))
     );
 
-    
-    const favoritosFormatados: Pet[] = favoritosDaApi.map(animal => ({
-      id: String(animal.id),
-      name: animal.nome,        
-      breed: animal.raca,        
-      photo: animal.image,       
-      location: 'Abrigo Mock',   
-      distance: 0,               
-      description: `Cor: ${animal.cor}, Peso: ${animal.peso}kg`, 
-      sex: animal.genero === 'macho' ? 'male' : 'female',
-      age: `${animal.idade} anos`,
-      species: animal.tipo       
-    }));
-
-    return favoritosFormatados;
+    return favoritos;
 
   } catch (error) {
-    console.error("Erro ao buscar favoritos:", error);
+    // Tratamento de erro aprimorado
+    if (error instanceof AxiosError) {
+        console.error("Erro Axios ao buscar favoritos:", error.message, error.response?.status);
+    } else {
+        console.error("Erro desconhecido ao buscar favoritos:", error);
+    }
     return []; 
   }
 };
 
-
-export const fetchAllPets = async (): Promise<Pet[]> => {
+export const fetchAllPets = async (): Promise<Animal[]> => {
+    // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---
+    if (!apiPets) {
+      console.error("ERRO CRÍTICO: apiPets não está definido. Verifique a configuração da BASE_URL em src/services/api.ts e suas variáveis de ambiente.");
+      return [];
+    }
+    // --------------------------------------------------
+    
     try {
-        const response = await api.get('/animais');
-        const lista: ApiAnimal[] = response.data;
+        const response = await apiPets.get(ENDPOINT);
         
-        return lista.map(animal => ({
-            id: String(animal.id),
-            name: animal.nome,
-            breed: animal.raca,
-            photo: animal.image,
-            location: 'Abrigo Mock',
-            distance: 2.5,
-            age: `${animal.idade} anos`
-        }));
+        return response.data; 
     } catch (error) {
-        console.error("Erro ao buscar todos:", error);
+        if (error instanceof AxiosError) {
+            console.error("Erro Axios ao buscar todos os pets:", error.message, error.response?.status);
+        } else {
+            console.error("Erro desconhecido ao buscar todos os pets:", error);
+        }
         return [];
     }
 };
