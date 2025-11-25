@@ -163,80 +163,74 @@ export default function Cadastro() {
                     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                     style={styles.keyboardView}
                 >
-                    <ScrollView
-                        contentContainerStyle={styles.scrollContent}
-                        showsVerticalScrollIndicator={false}
-                        keyboardShouldPersistTaps="handled"
-                    >
-                        <View style={styles.box}>
-                            <Text style={styles.title}>Junte-se a nós!</Text>
-                            <Text style={styles.subtitle}>Adote, ame e cuide.</Text>
+                    <View style={styles.box}>
+                        <Text style={styles.title}>Junte-se a nós!</Text>
+                        <Text style={styles.subtitle}>Adote, ame e cuide.</Text>
 
-                            <TextInput
-                                placeholder="Nome Completo"
-                                placeholderTextColor="#999"
-                                style={[styles.input, !!fieldErrors.nome && styles.inputError]}
-                                value={nome}
-                                onChangeText={(t) => { setNome(t); clearError('nome'); }}
-                            />
+                        <TextInput
+                            placeholder="Nome Completo"
+                            placeholderTextColor="#999"
+                            style={[styles.input, !!fieldErrors.nome && styles.inputError]}
+                            value={nome}
+                            onChangeText={(t) => { setNome(t); clearError('nome'); }}
+                        />
 
-                            <FadeError error={fieldErrors.nome} />
+                        <FadeError error={fieldErrors.nome} />
 
-                            <TextInput
-                                placeholder="E-mail"
-                                placeholderTextColor="#999"
-                                style={[styles.input, !!fieldErrors.email && styles.inputError]}
-                                keyboardType="email-address"
-                                autoCapitalize="none"
-                                value={email}
-                                onChangeText={(t) => { setEmail(t); clearError('email'); }}
-                            />
-                            <FadeError error={fieldErrors.email} />
+                        <TextInput
+                            placeholder="E-mail"
+                            placeholderTextColor="#999"
+                            style={[styles.input, !!fieldErrors.email && styles.inputError]}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            value={email}
+                            onChangeText={(t) => { setEmail(t); clearError('email'); }}
+                        />
+                        <FadeError error={fieldErrors.email} />
 
-                            <TextInput
-                                placeholder="Senha"
-                                placeholderTextColor="#999"
-                                secureTextEntry
-                                style={[styles.input, !!fieldErrors.senha && styles.inputError]}
-                                value={senha}
-                                onChangeText={(t) => { setSenha(t); clearError('senha'); }}
-                            />
-                            <FadeError error={fieldErrors.senha} />
+                        <TextInput
+                            placeholder="Senha"
+                            placeholderTextColor="#999"
+                            secureTextEntry
+                            style={[styles.input, !!fieldErrors.senha && styles.inputError]}
+                            value={senha}
+                            onChangeText={(t) => { setSenha(t); clearError('senha'); }}
+                        />
+                        <FadeError error={fieldErrors.senha} />
 
-                            <TextInput
-                                placeholder="Confirmar Senha"
-                                placeholderTextColor="#999"
-                                secureTextEntry
-                                style={[styles.input, !!fieldErrors.confirmarSenha && styles.inputError]}
-                                value={confirmarSenha}
-                                onChangeText={(t) => { setConfirmarSenha(t); clearError('confirmarSenha'); }}
-                            />
-                            <FadeError error={fieldErrors.confirmarSenha} />
+                        <TextInput
+                            placeholder="Confirmar Senha"
+                            placeholderTextColor="#999"
+                            secureTextEntry
+                            style={[styles.input, !!fieldErrors.confirmarSenha && styles.inputError]}
+                            value={confirmarSenha}
+                            onChangeText={(t) => { setConfirmarSenha(t); clearError('confirmarSenha'); }}
+                        />
+                        <FadeError error={fieldErrors.confirmarSenha} />
 
 
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={handleCadastro}
-                                disabled={loading}
-                                activeOpacity={0.8}
-                            >
-                                {loading ? (
-                                    <ActivityIndicator color="#FFF" />
-                                ) : (
-                                    <Text style={styles.buttonText}>CRIAR CONTA</Text>
-                                )}
-                            </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={handleCadastro}
+                            disabled={loading}
+                            activeOpacity={0.8}
+                        >
+                            {loading ? (
+                                <ActivityIndicator color="#FFF" />
+                            ) : (
+                                <Text style={styles.buttonText}>CRIAR CONTA</Text>
+                            )}
+                        </TouchableOpacity>
 
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('StackLogin')}
-                                style={styles.linkContainer}
-                            >
-                                <Text style={styles.linkText}>
-                                    Já tem conta? <Text style={styles.linkBold}>Faça login</Text>
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('StackLogin')}
+                            style={styles.linkContainer}
+                        >
+                            <Text style={styles.linkText}>
+                                Já tem conta? <Text style={styles.linkBold}>Faça login</Text>
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         </ImageBackground>
