@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext';
 import PetCard from '../../components/petcard/PetCard';
-import PetDetailModal from '../../components/Modal/PetDetailModal';
+import PetDetailModal from '../../components/ModalFavoritos/PetDetailModal';
 import { fetchPetDetailsByIds } from '../../services/petService'; 
 import { Animal } from '../../@types/types';
 

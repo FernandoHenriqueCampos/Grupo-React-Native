@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 import { 
   Modal, View, Text, Image, StyleSheet, TouchableOpacity, ScrollView 
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-import {styles} from '../Modal/style';
+import {styles} from './style';
 
 // Tipagem das Props do Modal
 interface PetDetailModalProps {
@@ -20,12 +21,14 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
   onClose, 
   onAdopt 
 }) => {
+  const navigation = useNavigation<any>();
+
   if (!pet) return null; // Não renderiza nada se não houver pet
 
-  const handleAdopt = () => {
-    onAdopt(pet.id);
-    onClose(); // Fecha o modal após a ação
-  };
+  function handleAdopt() {
+    onClose();
+    navigation.navigate('StackTermoAdocao');
+  }
 
   return (
     // Componente Modal nativo
@@ -39,7 +42,11 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
         <View style={styles.modalView}>
           
           {/* Imagem do Pet no Topo */}
-          <Image source={{ uri: pet.photo.replace('120', '300') }} style={styles.petImage} />
+          <Image
+            source={{ uri: pet.photo?.replace('120', '300') ?? "https://via.placeholder.com/300" }}
+            style={styles.petImage}
+          />
+
           
           <ScrollView contentContainerStyle={styles.scrollContent}>
             
