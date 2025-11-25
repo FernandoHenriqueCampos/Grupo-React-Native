@@ -66,6 +66,9 @@ export function MyTabs() {
             case "Admin":
               iconName = "settings";
               break;
+            case "Shop":
+              iconName = "cart";
+              break;
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
