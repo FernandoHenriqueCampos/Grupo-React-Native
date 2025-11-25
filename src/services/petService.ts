@@ -5,7 +5,6 @@ import { AxiosError } from 'axios'; // Importando AxiosError para melhor tipagem
 const ENDPOINT = '/animais'; 
 
 export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]> => {
-  console.log("Buscando na API os IDs:", ids);
   if (!ids || ids.length === 0) return []; 
 
   // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---

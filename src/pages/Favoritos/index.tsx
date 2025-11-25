@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { styles } from './style';
 import { useFavorites } from '../../context/FavoritesContext';
 import PetCard from '../../components/petcard/PetCard';
-import PetDetailModal from '../../components/modal/PetDetailModal';
+import PetDetailModal from '../../components/ModalFavoritos/PetDetailModal';
 import { fetchPetDetailsByIds } from '../../services/petService'; 
 import { Animal } from '../../@types/types';
 
@@ -29,7 +29,6 @@ export const Favoritos: React.FC = () => {
       if (favoritePetIds.length === 0) {
         setFavoritePets([]);
       } else {
-        console.log("Buscando na API os IDs:", favoritePetIds);
         
         const petsData = await fetchPetDetailsByIds(favoritePetIds);
         setFavoritePets(petsData);
@@ -61,7 +60,6 @@ export const Favoritos: React.FC = () => {
   };
 
   const handleAdoptAction = (petId: string) => {
-    console.log(`Solicitação de adoção para: ${petId}`);
     setIsModalVisible(false);
     Alert.alert("Sucesso!", "O abrigo foi notificado do seu interesse.");
   };
@@ -121,7 +119,8 @@ export const Favoritos: React.FC = () => {
             <PetCard 
               pet={item} 
               onDetailPress={handleOpenModal}
-             
+              isFavorite={true}
+              onToggleFavorite={() => handleRemovePet(String(item.id))}
               onRemove={() => handleRemovePet(String(item.id))} 
             />
           )}
