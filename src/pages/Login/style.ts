@@ -1,9 +1,11 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     background: {
         flex: 1,
         width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#CCE6F4',
     },
     safeArea: {
@@ -13,83 +15,75 @@ const styles = StyleSheet.create({
     keyboardView: {
         flex: 1,
         width: '100%',
-    },
-    scrollContent: {
-        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 20,
     },
+
     box: {
-        width: '90%',
+        width: '92%',
         maxWidth: 400,
         backgroundColor: '#FFFFFF',
-        borderRadius: 20,
-        padding: 25,
+        borderRadius: 28,
+        paddingVertical: 32,
+        paddingHorizontal: 25,
         alignItems: 'center',
-
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-            },
-            android: {
-                elevation: 6,
-            },
-        }),
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
     },
+
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 30,
+        color: '#000',
+        marginBottom: 25,
         textAlign: 'center',
     },
+
     input: {
         width: '100%',
-        height: 50,
-        backgroundColor: '#E3F2FD',
-        borderRadius: 25,
-        paddingHorizontal: 20,
+        height: 52,
+        backgroundColor: '#CFE6F5',
+        borderRadius: 15,
+        paddingHorizontal: 15,
         marginBottom: 15,
         fontSize: 16,
-        borderWidth: 1,
-        borderColor: '#BBDEFB',
         color: '#333',
     },
+
     inputError: {
+        borderWidth: 1,
         borderColor: '#FF375B',
-        borderWidth: 2,
-        backgroundColor: '#FFF0F3'
     },
+
     button: {
         width: '100%',
-        height: 50,
-        backgroundColor: '#FF8C42',
-        borderRadius: 25,
+        height: 52,
+        backgroundColor: '#ED893E',
+        borderRadius: 26,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-        shadowColor: "#FF8C42",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4.65,
-        elevation: 8,
+        marginTop: 15,
+        marginBottom: 15,
+        elevation: 3,
     },
+
     buttonText: {
         color: '#FFF',
         fontSize: 18,
         fontWeight: 'bold',
     },
+
     linkContainer: {
-        padding: 10,
+        padding: 5,
+        marginTop: 5,
     },
+
     linkText: {
-        color: '#2D72D2',
-        fontSize: 16,
+        color: '#1E60AA',
+        fontSize: 15,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
     }

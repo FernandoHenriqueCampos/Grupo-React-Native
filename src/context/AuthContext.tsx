@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-
-import { api } from '../services/api';
+import { apiUsuarios } from '../services/api';
 import { Usuario } from '../@types/types';
 
 interface AuthContextData {
@@ -43,11 +42,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function signIn(email: string, senha: string) {
         try {
-            const response = await api.get<Usuario[]>('/usuario');
+            const response = await apiUsuarios.get<Usuario[]>('/usuarios');
             const usuarios = response.data;
 
             const usuarioEncontrado = usuarios.find(
-                (u) => u.email === email && u.senha === senha
+                (usuario) => usuario.email === email && usuario.senha === senha
             );
 
             if (usuarioEncontrado) {

@@ -1,11 +1,11 @@
 import { StyleSheet, Platform, StatusBar } from 'react-native';
 
-const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
-
 const styles = StyleSheet.create({
     background: {
         flex: 1,
         width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#CCE6F4',
     },
     safeArea: {
@@ -15,94 +15,91 @@ const styles = StyleSheet.create({
     keyboardView: {
         flex: 1,
         width: '100%',
-    },
-    scrollContent: {
-        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 20,
     },
+
     box: {
-        width: '90%',
+        width: '92%',
         maxWidth: 400,
         backgroundColor: '#FFFFFF',
-        borderRadius: 20,
-        padding: 25,
+        borderRadius: 28,
+        paddingVertical: 32,
+        paddingHorizontal: 25,
         alignItems: 'center',
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-            },
-            android: {
-                elevation: 6,
-            },
-        }),
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
     },
+
     title: {
-        fontSize: 26,
+        fontSize: 28,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#000',
         marginBottom: 5,
         textAlign: 'center',
     },
+
     subtitle: {
         fontSize: 14,
         color: '#666',
         marginBottom: 25,
         textAlign: 'center',
     },
+
     input: {
         width: '100%',
-        height: 50,
-        backgroundColor: '#E3F2FD',
-        borderRadius: 25,
-        paddingHorizontal: 20,
+        height: 52,
+        backgroundColor: '#CFE6F5',
+        borderRadius: 15,
+        paddingHorizontal: 15,
         marginBottom: 15,
         fontSize: 16,
-        borderWidth: 1,
-        borderColor: '#BBDEFB',
         color: '#333',
     },
+
     inputError: {
+        borderWidth: 1,
         borderColor: '#FF375B',
-        borderWidth: 2,
-        backgroundColor: '#FFF0F3'
     },
+
     button: {
         width: '100%',
-        height: 50,
-        backgroundColor: '#FF8C42',
-        borderRadius: 25,
+        height: 52,
+        backgroundColor: '#ED893E',
+        borderRadius: 26,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
-        shadowColor: "#FF8C42",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 4.65,
-        elevation: 8,
+        elevation: 3,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
     },
+
     buttonText: {
         color: '#FFF',
         fontSize: 18,
         fontWeight: 'bold',
     },
+
     linkContainer: {
+        marginTop: 5,
     },
+
     linkText: {
         color: '#666',
-        fontSize: 14,
+        fontSize: 15,
     },
+
     linkBold: {
-        color: '#2D72D2',
+        color: '#1E60AA',
         fontWeight: 'bold',
+        textDecorationLine: 'underline',
     }
 });
 
