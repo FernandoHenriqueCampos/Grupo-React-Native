@@ -1,15 +1,15 @@
-import { 
-    View, 
-    Text, 
-    KeyboardAvoidingView, 
-    Platform, 
-    ScrollView 
+import {
+    View,
+    Text,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView
 } from 'react-native';
 import { styles } from './style';
 import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { api } from '../../services/api';
+import { apiPets } from '../../services/api';
 
 interface Animal {
     id: string | number;
@@ -61,7 +61,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
 
     async function putAnimais() {
         try {
-            const { data } = await api.put(`animais/${id}`, {
+            const { data } = await apiPets.put(`animais/${id}`, {
                 nome,
                 raca,
                 idade,
@@ -83,7 +83,7 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
 
     async function postAnimais() {
         try {
-            const { data } = await api.post(`animais`, {
+            const { data } = await apiPets.post(`animais`, {
                 nome,
                 raca,
                 idade,
@@ -114,8 +114,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
 
                 <View style={[styles.containerModal, { display: exibirEditar ? "flex" : "none" }]}>
 
-                    <ScrollView 
-                        style={{ flex: 1 }} 
+                    <ScrollView
+                        style={{ flex: 1 }}
                         contentContainerStyle={{ paddingBottom: 40 }}
                         showsVerticalScrollIndicator={false}
                     >
@@ -133,8 +133,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                         <Input title="Imagem" value={image} onChangeText={setImage} icon="image-outline" />
 
                         <View style={styles.containerButton}>
-                            <Button title="Salvar" onPress={putAnimais} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={100} paddingVertical={10}/>
-                            <Button title="Cancelar" onPress={onClose} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={90} paddingVertical={10}/>
+                            <Button title="Salvar" onPress={putAnimais} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={100} paddingVertical={10} />
+                            <Button title="Cancelar" onPress={onClose} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={90} paddingVertical={10} />
                         </View>
                     </ScrollView>
                 </View>
@@ -142,8 +142,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
 
                 <View style={[styles.containerModal, { display: exibirCriar ? "flex" : "none" }]}>
 
-                    <ScrollView 
-                        style={{ flex: 1 }} 
+                    <ScrollView
+                        style={{ flex: 1 }}
                         contentContainerStyle={{ paddingBottom: 40 }}
                         showsVerticalScrollIndicator={false}
                     >
@@ -161,8 +161,8 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
                         <Input title="Imagem" value={image} onChangeText={setImage} icon="image-outline" />
 
                         <View style={styles.containerButton}>
-                            <Button title="Salvar" onPress={postAnimais} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={100} paddingVertical={10}/>
-                            <Button title="Cancelar" onPress={onClose} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={90} paddingVertical={10}/>
+                            <Button title="Salvar" onPress={postAnimais} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={100} paddingVertical={10} />
+                            <Button title="Cancelar" onPress={onClose} backgroundColor="#8A2BE2" color="#fff" paddingHorizontal={90} paddingVertical={10} />
                         </View>
                     </ScrollView>
                 </View>

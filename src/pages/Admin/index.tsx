@@ -1,7 +1,7 @@
 import { View, Text, FlatList, Modal } from 'react-native';
 import { styles } from './style';
 import { useEffect, useState } from 'react';
-import { api } from "../../services/api";
+import { apiPets } from "../../services/api";
 import CardAdminPet from '../../components/CardAdminPet';
 import ModalAdmin from '../../components/ModalAdmin';
 import Button from '../../components/Button';
@@ -29,7 +29,7 @@ export default function Admin() {
 
     async function deleteAnimais(id: string | number) {
         try {
-            const response = await api.delete(`animais/${id}`);
+            const response = await apiPets.delete(`animais/${id}`);
             setAnimais(prev => prev.filter(item => item.id !== id));
 
             console.log("Deletado:", response.data);
@@ -40,7 +40,7 @@ export default function Admin() {
 
     async function getAnimais() {
         try {
-            const response = await api.get("animais"); 
+            const response = await apiPets.get("animais");
             setAnimais(response.data);
 
         } catch (error) {

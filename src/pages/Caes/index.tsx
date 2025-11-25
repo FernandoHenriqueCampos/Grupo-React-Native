@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { NavigationContainerProps, useNavigation } from '@react-navigation/native';
 import { styles } from './style';
-import { api } from '../../services/api';
+import { apiPets } from '../../services/api';
 import { Animal } from '../../@types/types';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
 import { AnimalModal } from '../../components/AnimalModal';
@@ -29,7 +29,7 @@ export function Caes() {
     useEffect(() => {
         async function fetchDogs() {
             try {
-                const response = await api.get('/animais');
+                const response = await apiPets.get('/animais');
 
                 const filteredDogs = response.data.filter((item: Animal) =>
                     item.tipo?.toLowerCase() === 'cachorro' || item.tipo?.toLowerCase() === 'dog'

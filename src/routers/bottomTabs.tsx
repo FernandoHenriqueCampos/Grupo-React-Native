@@ -12,7 +12,7 @@ import { Favoritos } from '../pages/Favoritos';
 import { Caes } from '../pages/Caes';
 import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
-import { ShopScreen } from '../pages/Shop';
+import ShopScreen from '../pages/Shop';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
