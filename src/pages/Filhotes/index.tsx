@@ -11,7 +11,7 @@ import {
 import { NavigationContainerProps, useNavigation } from '@react-navigation/native';
 
 import { styles } from './style';
-import { api } from '../../services/api';
+import { apiPets } from '../../services/api';
 import { Animal } from '../../@types/types';
 import { GridAnimalCard } from '../../components/GridAnimalCard';
 import { AnimalModal } from '../../components/AnimalModal';
@@ -31,7 +31,7 @@ export function Filhotes() {
     useEffect(() => {
         async function fetchPuppies() {
             try {
-                const response = await api.get('/animais');
+                const response = await apiPets.get('/animais');
 
                 const filteredPuppies = response.data.filter((item: Animal) =>
                     item.tipo?.toLowerCase() === 'filhote' || item.tipo?.toLowerCase() === 'puppy'
