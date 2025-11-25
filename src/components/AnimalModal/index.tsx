@@ -6,13 +6,13 @@ import {
     Image,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    StyleSheet 
+    StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
 import { styles } from './style';
 import { Animal } from '../../@types/types';
-import { useFavorites } from '../../context/FavoritesContext'; 
+import { useFavorites } from '../../context/FavoritesContext';
 
 interface AnimalModalProps {
     visible: boolean;
@@ -21,14 +21,14 @@ interface AnimalModalProps {
 }
 
 export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
-    const navigation = useNavigation<any>();
-    
-    
+    const navigation = useNavigation();
+
+
     const { favoritePetIds, toggleFavorite } = useFavorites();
 
     if (!animal) return null;
 
-    
+
     const isFavorite = favoritePetIds.includes(String(animal.id));
 
     const imageSource = animal.image
@@ -40,7 +40,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
         navigation.navigate('StackTermoAdocao');
     }
 
-    
+
     function handleFavorite() {
         if (animal) {
             toggleFavorite(String(animal.id));
@@ -58,8 +58,8 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
                 <TouchableWithoutFeedback onPress={() => { }}>
                     <View style={styles.modalContainer}>
 
-                       
-                        <TouchableOpacity 
+
+                        <TouchableOpacity
                             onPress={handleFavorite}
                             style={{
                                 position: 'absolute',
@@ -72,14 +72,14 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
                                 elevation: 5
                             }}
                         >
-                            <Ionicons 
-                                name={isFavorite ? "heart" : "heart-outline"} 
-                                size={28} 
-                                color={isFavorite ? "#FF4081" : "#555"} 
+                            <Ionicons
+                                name={isFavorite ? "heart" : "heart-outline"}
+                                size={28}
+                                color={isFavorite ? "#FF4081" : "#555"}
                             />
                         </TouchableOpacity>
 
-                        
+
                         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
                             <Text style={styles.closeText}>✕</Text>
                         </TouchableOpacity>
@@ -93,7 +93,7 @@ export function AnimalModal({ visible, animal, onClose }: AnimalModalProps) {
                         <Text style={styles.title}>{animal.nome}</Text>
                         <Text style={styles.breed}>{animal.raca}</Text>
 
-                        
+
                         <Text style={{ textAlign: 'center', color: '#666', marginBottom: 15 }}>
                             {animal.idade ? `${animal.idade} anos` : 'Idade não informada'} • {animal.tipo}
                         </Text>
