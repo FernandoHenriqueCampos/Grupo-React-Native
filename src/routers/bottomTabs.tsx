@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { styles } from './style';
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import { RootStackParamList } from '../@types/types';
+import { RootTabParamList } from '../@types/types';
 import { Home } from '../pages/Home';
 import Perfil from '../pages/Perfil';
 import Admin from '../pages/Admin';
@@ -14,8 +15,8 @@ import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
 import ShopScreen from '../pages/Shop';
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function HomeStack() {
   return (
