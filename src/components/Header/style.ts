@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     paddingHorizontal: 15,
     paddingVertical: 10,
     height: 75,
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     height: 70,
     width: 300,
     resizeMode: "contain",
-    marginRight: '0.5%',
-    marginLeft: '0.5%',
+    marginRight: "0.5%",
+    marginLeft: "0.5%",
   },
 });
