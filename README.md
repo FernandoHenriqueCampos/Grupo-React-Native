@@ -67,10 +67,10 @@ O projeto foi construído utilizando as seguintes tecnologias:
 | **Framework** | React Native |
 | **Linguagem** | JavaScript / TypeScript |
 | **Navegação** | React Navigation |
-| **Gerenciamento de Estado** | `Context API` |
-| **Backend / DB** | `MockApi` |
-| **UI / Estilização** | `StyleSheet]` |
-| **Outras Libs** | `Axios, Async Storage]` |
+| **Gerenciamento de Estado** | `[Context API]` |
+| **Backend / DB** | `[MockApi]` |
+| **UI / Estilização** | `[StyleSheet]` |
+| **Outras Libs** | `[Axios, Async Storage]` |
 
 ---
 ## 👥 Equipe
