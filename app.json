@@ -1,16 +1,17 @@
 {
   "expo": {
-    "name": "Grupo-React-Native",
-    "slug": "Grupo-React-Native",
+    "name": "Adote Já",
+    "slug": "Adote Já",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#8A2BE2",
    
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8A2BE2"
     },
     "ios": {
       "supportsTablet": true
@@ -18,13 +19,14 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#8A2BE2"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/logo.png"
+      "favicon": "./assets/logo.png",
+      "backgroundColor": "#8A2BE2"
     }
   }
 }
