@@ -79,7 +79,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 | :--- | :--- |
 | **João Gabriel** | `Home, Shop, Termo de Responsabilidade` |
 | **Miguel** | `[Descreva a contribuição aqui]` |
-| **Fernando** | `[Descreva a contribuição aqui]` |
+| **Fernando** | `Admin, Shop, Sobre, Perfil` |
 | **Jessé** | `[Descreva a contribuição aqui]` |
 | **Gelverson** | `[Descreva a contribuição aqui]` |
 
