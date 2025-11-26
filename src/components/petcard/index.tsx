@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 // Importação correta do tipo Animal
 import { Animal } from '../../@types/types'; 
 // Importação dos estilos
-import { styles } from './style'; 
+import { styles } from "./style"; 
 
 // Interface corrigida para incluir props de favorito (usadas pela Home)
 interface PetCardProps {
