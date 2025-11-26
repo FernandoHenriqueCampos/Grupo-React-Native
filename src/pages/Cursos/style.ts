@@ -5,13 +5,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f0f4f7",
   },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 10,
-    color: "#333",
-  },
   subHeader: {
     fontSize: 14,
     textAlign: "center",

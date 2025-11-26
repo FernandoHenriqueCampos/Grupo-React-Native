@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, ActivityIndicator, SafeAreaView } fro
 import CardCursos from '../../components/CardCursos';
 import { fetchMSLearnCourses, Course } from '../../services/courseService';
 import { styles } from './style';
+import { Header } from '../../components/Header';
 
 const PageCursos: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -32,8 +33,7 @@ const PageCursos: React.FC = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}> Catálogo de Cursos que você ganhou por adotar conosco </Text>
-
+            <Header />
             <FlatList
                 data={courses}
                 keyExtractor={(item) => item.uid}
