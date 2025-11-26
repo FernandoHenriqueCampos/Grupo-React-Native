@@ -83,7 +83,7 @@ export default function ShopScreen() {
                 <Button
                     title={`Ver Carrinho (${cartCount}) - R$ ${cartTotal}`}
                     onPress={() => setShowCart(true)}
-                    color="#28a745"
+                    color="#007bff"
                 />
             </View>
 
