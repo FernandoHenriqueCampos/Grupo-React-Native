@@ -122,7 +122,7 @@ export default function Login({ navigation }: LoginProps) {
 
     return (
         <ImageBackground
-            source={require('../../../src/assets/Tela_Login.jpg')}
+            source={require('../../../src/assets/Tela_Login.png')}
             resizeMode="cover"
             style={styles.background}
         >
