@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    backgroundColor: "#28a745",
+    backgroundColor: "#007bff",
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 5,
