@@ -160,7 +160,6 @@ export default function Cadastro() {
                 <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
 
                 <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                     style={styles.keyboardView}
                 >
                     <View style={styles.box}>

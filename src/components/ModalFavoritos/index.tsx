@@ -7,7 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Animal } from '../../@types/types';
 import {styles} from './style';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
 interface PetDetailModalProps {
   pet: Animal | null; 
   isVisible: boolean;
@@ -23,7 +26,11 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
 }) => {
   const navigation = useNavigation();
 
+<<<<<<< HEAD
   if (!pet) return null;
+=======
+  if (!pet) return null; 
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
 
   function handleAdopt() {
     onClose();
@@ -31,7 +38,10 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
   }
 
   return (
+<<<<<<< HEAD
     
+=======
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
     <Modal
       animationType="slide" 
       transparent={true}
@@ -41,7 +51,10 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           
+<<<<<<< HEAD
           
+=======
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
           <Image
             source={{ uri: pet.image ?? "https://via.placeholder.com/300" }}
             style={styles.petImage}
@@ -50,7 +63,10 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
           
           <ScrollView contentContainerStyle={styles.scrollContent}>
             
+<<<<<<< HEAD
             
+=======
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
             <View style={styles.header}>
               <Text style={styles.petName}>{pet.nome}</Text>
               <TouchableOpacity onPress={onClose} style={styles.closeButton}>
@@ -58,11 +74,18 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
               </TouchableOpacity>
             </View>
 
+<<<<<<< HEAD
             
             <Text style={styles.detailText}>
               <Icon name="git-branch-outline" size={16} /> Raça: **{pet.raca}**
             </Text>
             
+=======
+            <Text style={styles.detailText}>
+              <Icon name="git-branch-outline" size={16} /> Raça: **{pet.raca}**
+            </Text>
+
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
             <Text style={styles.descriptionTitle}>Sobre {pet.nome}:</Text>
             <Text style={styles.descriptionText}>
               {pet.nome} é um pet adorável, resgatado recentemente. Ele é muito brincalhão e se dá bem com crianças. 
@@ -70,7 +93,10 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
             </Text>
           </ScrollView>
 
+<<<<<<< HEAD
           
+=======
+>>>>>>> eb9d85f9e6f3a01a8767e8e746444f4b54dd2bac
           <TouchableOpacity 
             style={styles.adoptButton} 
             onPress={handleAdopt}

@@ -16,6 +16,7 @@ import { useUser } from "../../context/UserContext";
 import { apiUsuarios } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
 import ModalUsuario from "../../components/ModalUsuario";
+import { UsuarioPerfil } from '../../@types/types';
 
 interface OpcaoItem {
   id: string;
@@ -28,7 +29,7 @@ export default function Perfil() {
   const [image, setImage] = useState<string | null>(null);
   const [nomeUsuario, setNomeUsuario] = useState<string>("");
   const screenWidth = Dimensions.get("window").width;
-  const [usuarioSelecionado, setUsuarioSelecionado] = useState<any>(null);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState<UsuarioPerfil | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const atualizarLista = () => getUsuario();
 
@@ -42,7 +43,7 @@ export default function Perfil() {
 
       if (Array.isArray(usuarios)) {
         const usuarioEncontrado = usuarios.find(
-          (u: any) => u.id === idUsuarioLogado
+          (u: UsuarioPerfil) => u.id === idUsuarioLogado
         );
         setNomeUsuario(usuarioEncontrado ? usuarioEncontrado.nome : "Usuário não encontrado");
       } else {
@@ -57,7 +58,10 @@ export default function Perfil() {
 
    function abrirModalEditarNome() {
         setUsuarioSelecionado({
+            id: idUsuarioLogado || "",
             nome: "",
+            email: "",
+            senha: "",
             tipoModal: "editarNome"
         });
 
@@ -66,6 +70,7 @@ export default function Perfil() {
 
     function abrirModalEditarLogin() {
         setUsuarioSelecionado({
+            id: idUsuarioLogado || "",
             nome: "",
             email: "",
             senha: "",
