@@ -41,6 +41,7 @@ const PageCursos: React.FC = () => {
                 contentContainerStyle={styles.listContent}
                 ListEmptyComponent={() => <Text style={styles.errorText}>Nenhum curso encontrado. Verifique sua conexão ou filtros da API.</Text>}
             />
+            <View style={styles.containerAntiTela}/>
         </SafeAreaView>
     );
 };

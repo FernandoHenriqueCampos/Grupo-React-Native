@@ -19,6 +19,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { apiUsuarios } from '../../services/api';
 import styles from './style';
 import { RootStackParamList } from '../../@types/types';
+import { useUser } from '../../context/UserContext';
 
 type LoginScreenProp = NativeStackNavigationProp<RootStackParamList, 'StackLogin'>;
 
@@ -52,6 +53,8 @@ export default function Login({ navigation }: LoginProps) {
         }
     }
 
+    const { setUsuarioLogado, setIdUsuarioLogado } = useUser();
+
     const handleLogin = async () => {
         Keyboard.dismiss();
         setError(false);
@@ -80,6 +83,9 @@ export default function Login({ navigation }: LoginProps) {
             setEmail('');
             setSenha('');
             setError(false);
+
+            setUsuarioLogado(true);
+            setIdUsuarioLogado(teste.id);
 
             navigation.navigate('MyTabs');
 
@@ -122,7 +128,7 @@ export default function Login({ navigation }: LoginProps) {
 
     return (
         <ImageBackground
-            source={require('../../../src/assets/Tela_Login.jpg')}
+            source={require('../../../src/assets/Tela_Login.png')}
             resizeMode="cover"
             style={styles.background}
         >
@@ -138,7 +144,7 @@ export default function Login({ navigation }: LoginProps) {
 
                         <TextInput
                             placeholder="E-mail"
-                            placeholderTextColor="#7D9CB3"
+                            placeholderTextColor="#5e0cafff"
                             style={[styles.input, error && styles.inputError]}
                             onChangeText={handleChangeEmail}
                             value={email}
@@ -149,7 +155,7 @@ export default function Login({ navigation }: LoginProps) {
 
                         <TextInput
                             placeholder="Senha"
-                            placeholderTextColor="#7D9CB3"
+                            placeholderTextColor="#5e0cafff"
                             secureTextEntry
                             style={[styles.input, error && styles.inputError]}
                             onChangeText={handleChangeSenha}

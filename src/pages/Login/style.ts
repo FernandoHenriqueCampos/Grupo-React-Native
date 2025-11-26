@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
 
     box: {
-        width: '92%',
+        width: '100%',
         maxWidth: 400,
         backgroundColor: '#FFFFFF',
         borderRadius: 28,
@@ -32,12 +32,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 5,
+        marginBottom: 80,
     },
 
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#000',
+        color: '#5e0cafff',
         marginBottom: 25,
         textAlign: 'center',
     },
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         height: 52,
-        backgroundColor: '#CFE6F5',
+        backgroundColor: '#ebdcfaff',
         borderRadius: 15,
         paddingHorizontal: 15,
         marginBottom: 15,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 52,
-        backgroundColor: '#ED893E',
+        backgroundColor: '#8A2BE2',
         borderRadius: 26,
         justifyContent: 'center',
         alignItems: 'center',
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     },
 
     linkText: {
-        color: '#1E60AA',
+        color: '#5e0cafff',
         fontSize: 15,
         fontWeight: 'bold',
         textDecorationLine: 'underline',

@@ -11,11 +11,16 @@ import { Filhotes } from '../pages/Filhotes';
 import Login from '../pages/Login';
 import Cursos from '../pages/Cursos';
 import { TermoDeAdocao } from '../pages/TermoAdocao';
+import { useUser } from '../context/UserContext';
+import Admin from '../pages/Admin';
+import Sobre from '../pages/Sobre';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function InitialStack() {
   const [isLoading, setIsLoading] = useState(true);
+
+  const { usuarioLogado } = useUser();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,8 +34,10 @@ function InitialStack() {
     return <AnimatedLoadingScreen />;
   }
 
+  const RotaInicial: keyof RootStackParamList = usuarioLogado ? 'MyTabs' : 'StackLogin';
+
   return (
-    <Stack.Navigator initialRouteName="StackLogin" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName={RotaInicial} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="StackLogin" component={Login} />
       <Stack.Screen name="StackCadastro" component={Cadastro} />
       <Stack.Screen name="MyTabs" component={MyTabs} />
@@ -38,6 +45,8 @@ function InitialStack() {
       <Stack.Screen name="StackGatos" component={Gatos} />
       <Stack.Screen name="StackFilhotes" component={Filhotes} />
       <Stack.Screen name="StackCursos" component={Cursos} />
+      <Stack.Screen name="StackAdmin" component={Admin} />
+      <Stack.Screen name="StackSobre" component={Sobre} />
       <Stack.Screen name="StackTermoAdocao" component={TermoDeAdocao} />
     </Stack.Navigator>
   );
