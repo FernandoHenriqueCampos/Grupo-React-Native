@@ -10,7 +10,6 @@ interface CartScreenProps {
 }
 
 export default function CartScreen({ onClose }: CartScreenProps) {
-    // Busca tudo do contexto global
     const {
         cartItems,
         cartTotal,
