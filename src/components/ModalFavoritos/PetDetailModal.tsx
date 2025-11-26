@@ -7,12 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 import { Animal } from '../../@types/types';
 import {styles} from './style';
 
-// Tipagem das Props do Modal
+
 interface PetDetailModalProps {
-  pet: Animal | null; // Recebe o Pet a ser exibido (ou null se estiver fechado)
+  pet: Animal | null; 
   isVisible: boolean;
   onClose: () => void;
-  onAdopt: (petId: string) => void; // Função para simular a intenção de adoção
+  onAdopt: (petId: string) => void; 
 }
 
 const PetDetailModal: FC<PetDetailModalProps> = ({ 
@@ -23,7 +23,7 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
 }) => {
   const navigation = useNavigation();
 
-  if (!pet) return null; // Não renderiza nada se não houver pet
+  if (!pet) return null; 
 
   function handleAdopt() {
     onClose();
@@ -31,17 +31,17 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
   }
 
   return (
-    // Componente Modal nativo
+    
     <Modal
-      animationType="slide" // Desliza da parte inferior
+      animationType="slide" 
       transparent={true}
       visible={isVisible}
-      onRequestClose={onClose} // Requisito Android para fechar com o botão Voltar
+      onRequestClose={onClose} 
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           
-          {/* Imagem do Pet no Topo */}
+          
           <Image
             source={{ uri: pet.image ?? "https://via.placeholder.com/300" }}
             style={styles.petImage}
@@ -50,7 +50,7 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
           
           <ScrollView contentContainerStyle={styles.scrollContent}>
             
-            {/* Cabeçalho e Botão Fechar */}
+            
             <View style={styles.header}>
               <Text style={styles.petName}>{pet.nome}</Text>
               <TouchableOpacity onPress={onClose} style={styles.closeButton}>
@@ -58,18 +58,11 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
               </TouchableOpacity>
             </View>
 
-            {/* Detalhes do Pet */}
+            
             <Text style={styles.detailText}>
               <Icon name="git-branch-outline" size={16} /> Raça: **{pet.raca}**
             </Text>
-            {/* <Text style={styles.detailText}>
-              <Icon name="location-outline" size={16} /> Local: {pet.cidade}
-            </Text> */}
-            {/* <Text style={styles.detailText}>
-              <Icon name="walk-outline" size={16} /> Distância: {pet.distance} km
-            </Text> */}
-
-            {/* Descrição Simulado (para Modal parecer mais completo) */}
+            
             <Text style={styles.descriptionTitle}>Sobre {pet.nome}:</Text>
             <Text style={styles.descriptionText}>
               {pet.nome} é um pet adorável, resgatado recentemente. Ele é muito brincalhão e se dá bem com crianças. 
@@ -77,7 +70,7 @@ const PetDetailModal: FC<PetDetailModalProps> = ({
             </Text>
           </ScrollView>
 
-          {/* Botão Tenho Interesse (Adoção) */}
+          
           <TouchableOpacity 
             style={styles.adoptButton} 
             onPress={handleAdopt}

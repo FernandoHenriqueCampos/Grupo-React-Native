@@ -1,25 +1,24 @@
 import { Animal } from '../@types/types'; 
 import { apiPets } from './api'; 
-import { AxiosError } from 'axios'; // Importando AxiosError para melhor tipagem
+import { AxiosError } from 'axios'; 
 
 const ENDPOINT = '/animais'; 
 
 export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]> => {
   if (!ids || ids.length === 0) return []; 
 
-  // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---
+  
   if (!apiPets) {
     console.error("ERRO CRÍTICO: apiPets não está definido. Verifique a configuração da BASE_URL em src/services/api.ts e suas variáveis de ambiente.");
     return [];
   }
-  // --------------------------------------------------
-
+  
   try {
-    // Busca a lista completa (ou o endpoint configurado para buscar todos)
+   
     const response = await apiPets.get(ENDPOINT); 
     const todosAnimais: Animal[] = response.data;
 
-    // Filtra no cliente (Front-end) pelos IDs que são favoritos
+    
     const favoritos = todosAnimais.filter(animal => 
       ids.includes(String(animal.id))
     );
@@ -27,7 +26,7 @@ export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]
     return favoritos;
 
   } catch (error) {
-    // Tratamento de erro aprimorado
+    
     if (error instanceof AxiosError) {
         console.error("Erro Axios ao buscar favoritos:", error.message, error.response?.status);
     } else {
@@ -38,12 +37,12 @@ export const fetchPetDetailsByIds = async (ids: string[] = []): Promise<Animal[]
 };
 
 export const fetchAllPets = async (): Promise<Animal[]> => {
-    // --- CORREÇÃO: VERIFICAÇÃO DE INSTÂNCIA DA API ---
+    
     if (!apiPets) {
       console.error("ERRO CRÍTICO: apiPets não está definido. Verifique a configuração da BASE_URL em src/services/api.ts e suas variáveis de ambiente.");
       return [];
     }
-    // --------------------------------------------------
+   
     
     try {
         const response = await apiPets.get(ENDPOINT);
