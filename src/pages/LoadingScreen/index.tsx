@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Animated, Easing, ImageBackground, Image } from 'react-native';
+import { View, Text, Animated, Easing, Image } from 'react-native';
 import { styles } from './style';
 import logoText from '../../assets/adoteLogo.png';
 import logo from '../../assets/logo.png';

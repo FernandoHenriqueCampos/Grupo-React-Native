@@ -12,6 +12,8 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import styles from "./style";
+import { useUser } from "../../context/UserContext";
+import { apiUsuarios } from "../../services/api";
 
 interface OpcaoItem {
   id: string;
@@ -21,7 +23,39 @@ interface OpcaoItem {
 
 export default function Perfil() {
   const [image, setImage] = useState<string | null>(null);
+  const [nomeUsuario, setNomeUsuario] = useState<string>("");
   const screenWidth = Dimensions.get("window").width;
+
+  const { idUsuarioLogado } = useUser();
+
+  async function getUsuario() {
+    try {
+      const response = await apiUsuarios.get("/usuarios");
+      const usuarios = response.data;
+
+      if (Array.isArray(usuarios)) {
+          const usuarioEncontrado = usuarios.find((u: any) => u.id === idUsuarioLogado);
+          if (usuarioEncontrado) {
+            setNomeUsuario(usuarioEncontrado.nome);
+          } else {
+            setNomeUsuario("Usuário não encontrado");
+          }
+      } else {
+           if (usuarios.id === idUsuarioLogado) {
+               setNomeUsuario(usuarios.nome);
+           }
+      }
+
+    } catch (error) {
+      console.log("Erro ao buscar usuario:", error);
+    }
+  }
+
+  useEffect(() => {
+    if (idUsuarioLogado) {
+      getUsuario();
+    }
+  }, [idUsuarioLogado]);
 
   useEffect(() => {
     (async () => {
@@ -73,7 +107,7 @@ export default function Perfil() {
         )}
       </TouchableOpacity>
 
-      <Text style={styles.userName}>Seu Nome Aqui</Text>
+      <Text style={styles.userName}>{nomeUsuario}</Text>
 
       <View style={{ width: "100%", paddingHorizontal: 20 }}>
         {opcoes.map((item) => (

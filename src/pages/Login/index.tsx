@@ -19,6 +19,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { apiUsuarios } from '../../services/api';
 import styles from './style';
 import { RootStackParamList } from '../../@types/types';
+import { useUser } from '../../context/UserContext';
 
 type LoginScreenProp = NativeStackNavigationProp<RootStackParamList, 'StackLogin'>;
 
@@ -52,6 +53,8 @@ export default function Login({ navigation }: LoginProps) {
         }
     }
 
+    const { setUsuarioLogado, setIdUsuarioLogado } = useUser();
+
     const handleLogin = async () => {
         Keyboard.dismiss();
         setError(false);
@@ -80,6 +83,9 @@ export default function Login({ navigation }: LoginProps) {
             setEmail('');
             setSenha('');
             setError(false);
+
+            setUsuarioLogado(true);
+            setIdUsuarioLogado(teste.id);
 
             navigation.navigate('MyTabs');
 
