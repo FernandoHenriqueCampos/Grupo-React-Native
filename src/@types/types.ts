@@ -35,18 +35,14 @@ export type RootStackParamList = {
     MyTabs: undefined;
     Home: undefined;
     Favoritos: undefined;
-    Cursos: undefined;
     Perfil: undefined;
-    Admin: undefined;
     Shop: undefined;
 };
 
 export type RootTabParamList = {
     Home: undefined;
     Favoritos: undefined;
-    Cursos: undefined;
     Perfil: undefined;
-    Admin: undefined;
     Shop: undefined;
 }
 

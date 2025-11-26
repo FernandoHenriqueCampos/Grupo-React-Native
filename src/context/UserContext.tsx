@@ -6,6 +6,7 @@ type UserContextProps = {
   idUsuarioLogado: string | null;
   setUsuarioLogado: (valor: boolean) => void;
   setIdUsuarioLogado: (id: string | null) => void;
+  logout: () => void;
 };
 
 const UserContext = createContext<UserContextProps>({} as UserContextProps);
@@ -31,6 +32,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     loadStorage();
   }, []);
 
+  function logout() {
+    setUsuarioLogado(false);
+    setIdUsuarioLogado(null);
+  }
+
   const setUsuarioLogado = async (valor: boolean) => {
     setUsuarioLogadoState(valor);
     await AsyncStorage.setItem("usuarioLogado", valor ? "true" : "false");
@@ -50,7 +56,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       usuarioLogado,
       idUsuarioLogado,
       setUsuarioLogado,
-      setIdUsuarioLogado
+      setIdUsuarioLogado,
+      logout
     }}>
       {children}
     </UserContext.Provider>

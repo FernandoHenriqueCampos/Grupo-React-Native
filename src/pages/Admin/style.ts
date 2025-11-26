@@ -35,4 +35,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    containerAntiTela: {
+        width: '100%',
+        height: '5%',
+    },
 });

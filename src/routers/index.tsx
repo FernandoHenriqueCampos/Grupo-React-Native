@@ -12,6 +12,7 @@ import Login from '../pages/Login';
 import Cursos from '../pages/Cursos';
 import { TermoDeAdocao } from '../pages/TermoAdocao';
 import { useUser } from '../context/UserContext';
+import Admin from '../pages/Admin';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,6 +44,7 @@ function InitialStack() {
       <Stack.Screen name="StackGatos" component={Gatos} />
       <Stack.Screen name="StackFilhotes" component={Filhotes} />
       <Stack.Screen name="StackCursos" component={Cursos} />
+      <Stack.Screen name="StackAdmin" component={Admin} />
       <Stack.Screen name="StackTermoAdocao" component={TermoDeAdocao} />
     </Stack.Navigator>
   );

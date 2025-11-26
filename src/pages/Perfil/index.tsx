@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  FlatList,
   ScrollView,
   Dimensions
 } from "react-native";
@@ -14,11 +13,13 @@ import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import styles from "./style";
 import { useUser } from "../../context/UserContext";
 import { apiUsuarios } from "../../services/api";
+import { useNavigation } from "@react-navigation/native";
 
 interface OpcaoItem {
   id: string;
   label: string;
   icon: string;
+  onPress?: () => void;
 }
 
 export default function Perfil() {
@@ -26,7 +27,8 @@ export default function Perfil() {
   const [nomeUsuario, setNomeUsuario] = useState<string>("");
   const screenWidth = Dimensions.get("window").width;
 
-  const { idUsuarioLogado } = useUser();
+  const navigation = useNavigation();
+  const { idUsuarioLogado, logout } = useUser();
 
   async function getUsuario() {
     try {
@@ -34,18 +36,15 @@ export default function Perfil() {
       const usuarios = response.data;
 
       if (Array.isArray(usuarios)) {
-          const usuarioEncontrado = usuarios.find((u: any) => u.id === idUsuarioLogado);
-          if (usuarioEncontrado) {
-            setNomeUsuario(usuarioEncontrado.nome);
-          } else {
-            setNomeUsuario("Usuário não encontrado");
-          }
+        const usuarioEncontrado = usuarios.find(
+          (u: any) => u.id === idUsuarioLogado
+        );
+        setNomeUsuario(usuarioEncontrado ? usuarioEncontrado.nome : "Usuário não encontrado");
       } else {
-           if (usuarios.id === idUsuarioLogado) {
-               setNomeUsuario(usuarios.nome);
-           }
+        if (usuarios.id === idUsuarioLogado) {
+          setNomeUsuario(usuarios.nome);
+        }
       }
-
     } catch (error) {
       console.log("Erro ao buscar usuario:", error);
     }
@@ -59,8 +58,7 @@ export default function Perfil() {
 
   useEffect(() => {
     (async () => {
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
         Alert.alert("Permissão necessária", "Habilite o acesso às imagens.");
       }
@@ -83,12 +81,38 @@ export default function Perfil() {
   }
 
   const opcoes: OpcaoItem[] = [
-    { id: "1", label: "Atualizar Perfil", icon: "edit" },
-    { id: "2", label: "Alterar Senha", icon: "lock" },
-    { id: "3", label: "Notificações", icon: "notifications" },
-    { id: "4", label: "Ajuda / Suporte", icon: "chat-bubble-outline" },
-    { id: "5", label: "Sobre", icon: "info-outline" },
-    { id: "6", label: "Sair da Conta", icon: "logout" },
+    { id: "1", 
+      label: "Atualizar Perfil", 
+      icon: "edit" },
+    { id: "2", 
+      label: "Alterar Senha", 
+      icon: "lock" },
+    { id: "3", 
+      label: "Cursos", 
+      icon: "book",
+      onPress: () => {
+        navigation.navigate("StackCursos" as never);
+      },
+    },
+    { id: "4", 
+      label: "Admin", 
+      icon: "settings",
+      onPress: () => {
+        navigation.navigate("StackAdmin" as never);
+      },
+    },
+    { id: "5", 
+      label: "Sobre", 
+      icon: "info-outline" },
+    {
+      id: "6",
+      label: "Sair da Conta",
+      icon: "logout",
+      onPress: () => {
+        logout(); 
+        navigation.navigate("StackLogin" as never); 
+      },
+    },
   ];
 
   return (
@@ -110,26 +134,31 @@ export default function Perfil() {
       <Text style={styles.userName}>{nomeUsuario}</Text>
 
       <View style={{ width: "100%", paddingHorizontal: 20 }}>
-        {opcoes.map((item) => (
-          <View key={item.id} style={styles.optionContainer}>
-            <Text style={styles.optionText}>{item.label}</Text>
+        {opcoes.map((item) => {
+          const Wrapper = item.onPress ? TouchableOpacity : View;
 
-            {item.icon === "edit" && <Feather name="edit" size={24} />}
-            {item.icon === "lock" && <Feather name="lock" size={24} />}
-            {item.icon === "notifications" && (
-              <Ionicons name="notifications-outline" size={25} />
-            )}
-            {item.icon === "chat-bubble-outline" && (
-              <Ionicons name="chatbubble-ellipses-outline" size={25} />
-            )}
-            {item.icon === "info-outline" && (
-              <Ionicons name="information-circle-outline" size={26} />
-            )}
-            {item.icon === "logout" && (
-              <MaterialIcons name="logout" size={26} color="red" />
-            )}
-          </View>
-        ))}
+          return (
+            <Wrapper
+              key={item.id}
+              style={styles.optionContainer}
+              onPress={item.onPress}
+              activeOpacity={0.6}
+            >
+              <Text style={styles.optionText}>{item.label}</Text>
+
+              {item.icon === "edit" && <Feather name="edit" size={24} />}
+              {item.icon === "lock" && <Feather name="lock" size={24} />}
+              {item.icon === "book" && <Feather name="book" size={24} />}
+              {item.icon === "settings" && <Feather name="settings" size={24} />}
+              {item.icon === "info-outline" && (
+                <Ionicons name="information-circle-outline" size={26} />
+              )}
+              {item.icon === "logout" && (
+                <MaterialIcons name="logout" size={26} color="red" />
+              )}
+            </Wrapper>
+          );
+        })}
       </View>
     </ScrollView>
   );

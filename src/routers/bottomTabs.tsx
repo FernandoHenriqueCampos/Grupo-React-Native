@@ -7,8 +7,6 @@ import { RootStackParamList } from '../@types/types';
 import { RootTabParamList } from '../@types/types';
 import { Home } from '../pages/Home';
 import Perfil from '../pages/Perfil';
-import Admin from '../pages/Admin';
-import Cursos from '../pages/Cursos';
 import { Favoritos } from '../pages/Favoritos';
 import { Caes } from '../pages/Caes';
 import { Gatos } from '../pages/Gatos';
@@ -55,17 +53,11 @@ export function MyTabs() {
             case "Home":
               iconName = "home";
               break;
-            case "Cursos":
-              iconName = "book";
-              break;
             case "Favoritos":
               iconName = "heart";
               break;
             case "Perfil":
               iconName = "person";
-              break;
-            case "Admin":
-              iconName = "settings";
               break;
             case "Shop":
               iconName = "cart";
@@ -77,11 +69,9 @@ export function MyTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Cursos" component={Cursos} />
       <Tab.Screen name="Favoritos" component={Favoritos} />
-      <Tab.Screen name="Perfil" component={Perfil} />
-      <Tab.Screen name="Admin" component={Admin} />
       <Tab.Screen name="Shop" component={ShopScreen} />
+      <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
   );
 }

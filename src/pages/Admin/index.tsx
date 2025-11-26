@@ -122,6 +122,7 @@ export default function Admin() {
                 )}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
             />
+            <View style={styles.containerAntiTela}/>
 
             <Modal
                 visible={modalOpen}
