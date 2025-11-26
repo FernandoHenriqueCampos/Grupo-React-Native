@@ -14,8 +14,6 @@ import { CATEGORIES } from '../../data/categories';
 import { Header } from '../../components/Header';
 import { Carousel } from '../../components/Carousel';
 
-const backgroundUrl = require('../../assets/fundoHome.jpg');
-
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export function Home() {
