@@ -1,4 +1,3 @@
-// CardCursos.tsx
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { Course } from '../../services/courseService';
@@ -20,7 +19,7 @@ const CardCursos: React.FC<CardCursosProps> = ({ course }) => {
                 {course.description}
             </Text>
             <View style={styles.infoContainer}>
-                <Text style={styles.infoText}>⏱️ {Math.ceil(course.durationInMinutes / 60)} horas</Text>
+                <Text style={styles.infoText}>⏱️{Math.ceil(course.durationInMinutes / 60)} horas</Text>
                 <Text style={styles.linkText}>Ver Curso </Text>
             </View>
         </TouchableOpacity>

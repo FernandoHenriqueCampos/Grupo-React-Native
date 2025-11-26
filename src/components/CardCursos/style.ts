@@ -12,16 +12,17 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    marginTop: 10,
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#0078d4",
+    color: "#21a9ff",
     marginBottom: 5,
   },
   description: {
     fontSize: 14,
-    color: "#333",
+    color: "#000",
     marginBottom: 10,
   },
   infoContainer: {
@@ -32,12 +33,12 @@ export const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 12,
-    color: "#666",
+    color: "#000",
     fontWeight: "500",
   },
   linkText: {
     fontSize: 14,
-    color: "#0078d4",
+    color: "#21a9ff",
     fontWeight: "bold",
   },
 });
