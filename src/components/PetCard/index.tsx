@@ -3,8 +3,13 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Animal } from '../../@types/types'; 
+<<<<<<< HEAD:src/components/petcard/index.tsx
 
 import { styles } from './style'; 
+=======
+// Importação dos estilos
+import { styles } from "./style"; 
+>>>>>>> 0be5dba4f053a4d8cf2f1203dd5afa414e287d26:src/components/PetCard/index.tsx
 
 
 interface PetCardProps {
