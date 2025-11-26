@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Alert,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Modal
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
@@ -14,6 +15,7 @@ import styles from "./style";
 import { useUser } from "../../context/UserContext";
 import { apiUsuarios } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
+import ModalUsuario from "../../components/ModalUsuario";
 
 interface OpcaoItem {
   id: string;
@@ -26,6 +28,9 @@ export default function Perfil() {
   const [image, setImage] = useState<string | null>(null);
   const [nomeUsuario, setNomeUsuario] = useState<string>("");
   const screenWidth = Dimensions.get("window").width;
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState<any>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const atualizarLista = () => getUsuario();
 
   const navigation = useNavigation();
   const { idUsuarioLogado, logout } = useUser();
@@ -49,6 +54,26 @@ export default function Perfil() {
       console.log("Erro ao buscar usuario:", error);
     }
   }
+
+   function abrirModalEditarNome() {
+        setUsuarioSelecionado({
+            nome: "",
+            tipoModal: "editarNome"
+        });
+
+        setModalOpen(true);
+    }
+
+    function abrirModalEditarLogin() {
+        setUsuarioSelecionado({
+            nome: "",
+            email: "",
+            senha: "",
+            tipoModal: "editarLogin"
+        });
+
+        setModalOpen(true);
+    }
 
   useEffect(() => {
     if (idUsuarioLogado) {
@@ -80,13 +105,32 @@ export default function Perfil() {
     }
   }
 
+  async function updateUsuario() {
+    try {
+      const response = await apiUsuarios.put(`/usuarios/${idUsuarioLogado}`, {
+        nome: nomeUsuario,
+      });
+      alert("Usuario atualizado com sucesso!");
+    } catch (error) {
+      console.log("Erro ao atualizar usuario:", error);
+    }
+  }
+
   const opcoes: OpcaoItem[] = [
     { id: "1", 
       label: "Atualizar Perfil", 
-      icon: "edit" },
+      icon: "edit",
+      onPress: () => {
+        abrirModalEditarNome();
+      },
+    },
     { id: "2", 
       label: "Alterar Senha", 
-      icon: "lock" },
+      icon: "lock",
+      onPress: () => {
+        abrirModalEditarLogin();
+      },
+    },
     { id: "3", 
       label: "Cursos", 
       icon: "book",
@@ -159,6 +203,18 @@ export default function Perfil() {
             </Wrapper>
           );
         })}
+        <Modal
+          visible={modalOpen}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setModalOpen(false)}
+        >
+        <ModalUsuario
+              usuario={usuarioSelecionado}
+              onClose={() => setModalOpen(false)}
+              onUpdate={atualizarLista}
+          />
+        </Modal>
       </View>
     </ScrollView>
   );
