@@ -1,7 +1,5 @@
 <p align="center">
   <img src="https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Native Badge">
-  <img src="https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow?style=for-the-badge" alt="Status Badge">
-  <img src="https://img.shields.io/badge/Adocao-Responsavel-2ECC71?style=for-the-badge&logo=handshake&logoColor=white" alt="Adoção Badge">
 </p>
 
 <h1 align="center">🐾 Adote Já: Hub para Adoção e Cuidados com Pets</h1>
