@@ -138,7 +138,7 @@ export default function Login({ navigation }: LoginProps) {
 
                         <TextInput
                             placeholder="E-mail"
-                            placeholderTextColor="#7D9CB3"
+                            placeholderTextColor="#5e0cafff"
                             style={[styles.input, error && styles.inputError]}
                             onChangeText={handleChangeEmail}
                             value={email}
@@ -149,7 +149,7 @@ export default function Login({ navigation }: LoginProps) {
 
                         <TextInput
                             placeholder="Senha"
-                            placeholderTextColor="#7D9CB3"
+                            placeholderTextColor="#5e0cafff"
                             secureTextEntry
                             style={[styles.input, error && styles.inputError]}
                             onChangeText={handleChangeSenha}

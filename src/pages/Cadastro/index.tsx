@@ -169,7 +169,7 @@ export default function Cadastro() {
 
                         <TextInput
                             placeholder="Nome Completo"
-                            placeholderTextColor="#999"
+                            placeholderTextColor="#5e0cafff"
                             style={[styles.input, !!fieldErrors.nome && styles.inputError]}
                             value={nome}
                             onChangeText={(t) => { setNome(t); clearError('nome'); }}
@@ -179,7 +179,7 @@ export default function Cadastro() {
 
                         <TextInput
                             placeholder="E-mail"
-                            placeholderTextColor="#999"
+                            placeholderTextColor="#5e0cafff"
                             style={[styles.input, !!fieldErrors.email && styles.inputError]}
                             keyboardType="email-address"
                             autoCapitalize="none"
@@ -190,7 +190,7 @@ export default function Cadastro() {
 
                         <TextInput
                             placeholder="Senha"
-                            placeholderTextColor="#999"
+                            placeholderTextColor="#5e0cafff"
                             secureTextEntry
                             style={[styles.input, !!fieldErrors.senha && styles.inputError]}
                             value={senha}
@@ -200,7 +200,7 @@ export default function Cadastro() {
 
                         <TextInput
                             placeholder="Confirmar Senha"
-                            placeholderTextColor="#999"
+                            placeholderTextColor="#5e0cafff"
                             secureTextEntry
                             style={[styles.input, !!fieldErrors.confirmarSenha && styles.inputError]}
                             value={confirmarSenha}
