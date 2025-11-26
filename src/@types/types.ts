@@ -20,6 +20,14 @@ export interface Usuario {
     perfil: 'user' | 'admin';
 }
 
+export interface UsuarioPerfil {
+    id: string;
+    nome: string;
+    email: string;
+    senha: string;
+    tipoModal: 'editarNome' | 'editarLogin';
+}
+
 export type RootStackParamList = {
     StackLogin: undefined;
     StackAdmin: undefined;

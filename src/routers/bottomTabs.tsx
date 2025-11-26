@@ -47,7 +47,7 @@ export function MyTabs() {
         tabBarInactiveTintColor: "#ffffffa4",
 
         tabBarIcon: ({ color, size }) => {
-          let iconName: any;
+          let iconName: keyof typeof Ionicons.glyphMap;
 
           switch (route.name) {
             case "Home":

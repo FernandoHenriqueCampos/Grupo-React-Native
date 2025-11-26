@@ -11,18 +11,12 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { apiUsuarios } from '../../services/api';
 import { useUser } from '../../context/UserContext';
-
-interface Usuario {
-    nome: string;
-    email: string;
-    senha: string;
-    tipoModal: 'editarNome' | 'editarLogin';
-}
+import { UsuarioPerfil } from '../../@types/types';
 
 interface PropsModalUsuario {
-    usuario: Usuario | null;
+    usuario: UsuarioPerfil | null;
     onClose: () => void;
-    onUpdate: (usuario: Usuario) => void;
+    onUpdate: (usuario: UsuarioPerfil) => void;
 }
 
 export default function ModalUsuario({ usuario, onClose, onUpdate }: PropsModalUsuario) {
