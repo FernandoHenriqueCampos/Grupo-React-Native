@@ -147,7 +147,11 @@ export default function Perfil() {
     },
     { id: "5", 
       label: "Sobre", 
-      icon: "info-outline" },
+      icon: "info-outline",
+      onPress: () => {
+        navigation.navigate("StackSobre" as never);
+      },
+    },
     {
       id: "6",
       label: "Sair da Conta",
@@ -160,62 +164,60 @@ export default function Perfil() {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <TouchableOpacity
-        style={[
-          styles.imageContainer,
-          { width: screenWidth * 0.4, height: screenWidth * 0.4 },
-        ]}
-        onPress={pickImage}
-      >
-        {image ? (
-          <Image source={{ uri: image }} style={styles.image} />
-        ) : (
-          <Ionicons name="camera" size={40} color="#777" />
-        )}
-      </TouchableOpacity>
-
-      <Text style={styles.userName}>{nomeUsuario}</Text>
-
-      <View style={{ width: "100%", paddingHorizontal: 20 }}>
-        {opcoes.map((item) => {
-          const Wrapper = item.onPress ? TouchableOpacity : View;
-
-          return (
-            <Wrapper
-              key={item.id}
-              style={styles.optionContainer}
-              onPress={item.onPress}
-              activeOpacity={0.6}
-            >
-              <Text style={styles.optionText}>{item.label}</Text>
-
-              {item.icon === "edit" && <Feather name="edit" size={24} />}
-              {item.icon === "lock" && <Feather name="lock" size={24} />}
-              {item.icon === "book" && <Feather name="book" size={24} />}
-              {item.icon === "settings" && <Feather name="settings" size={24} />}
-              {item.icon === "info-outline" && (
-                <Ionicons name="information-circle-outline" size={26} />
-              )}
-              {item.icon === "logout" && (
-                <MaterialIcons name="logout" size={26} color="red" />
-              )}
-            </Wrapper>
-          );
-        })}
-        <Modal
-          visible={modalOpen}
-          transparent={true}
-          animationType="slide"
-          onRequestClose={() => setModalOpen(false)}
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <TouchableOpacity
+          style={[
+            styles.imageContainer,
+            { width: screenWidth * 0.4, height: screenWidth * 0.4 },
+          ]}
+          onPress={pickImage}
         >
-        <ModalUsuario
-              usuario={usuarioSelecionado}
-              onClose={() => setModalOpen(false)}
-              onUpdate={atualizarLista}
-          />
-        </Modal>
-      </View>
-    </ScrollView>
+          {image ? (
+            <Image source={{ uri: image }} style={styles.image} />
+          ) : (
+            <Ionicons name="camera" size={40} color="#777" />
+          )}
+        </TouchableOpacity>
+        <Text style={styles.userName}>{nomeUsuario}</Text>
+        <View style={{ width: "100%", paddingHorizontal: 20 }}>
+          {opcoes.map((item) => {
+            const Wrapper = item.onPress ? TouchableOpacity : View;
+            return (
+              <Wrapper
+                key={item.id}
+                style={styles.optionContainer}
+                onPress={item.onPress}
+                activeOpacity={0.6}
+              >
+                <Text style={styles.optionText}>{item.label}</Text>
+                {item.icon === "edit" && <Feather name="edit" size={24} />}
+                {item.icon === "lock" && <Feather name="lock" size={24} />}
+                {item.icon === "book" && <Feather name="book" size={24} />}
+                {item.icon === "settings" && <Feather name="settings" size={24} />}
+                {item.icon === "info-outline" && (
+                  <Ionicons name="information-circle-outline" size={26} />
+                )}
+                {item.icon === "logout" && (
+                  <MaterialIcons name="logout" size={26} color="red" />
+                )}
+              </Wrapper>
+            );
+          })}
+          <Modal
+            visible={modalOpen}
+            transparent={true}
+            animationType="slide"
+            onRequestClose={() => setModalOpen(false)}
+          >
+          <ModalUsuario
+                usuario={usuarioSelecionado}
+                onClose={() => setModalOpen(false)}
+                onUpdate={atualizarLista}
+            />
+          </Modal>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
