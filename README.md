@@ -8,14 +8,6 @@
   Um ecossistema móvel completo desenvolvido em React Native, integrando adoção responsável, e-commerce especializado e educação.
 </h4>
 
-<p align="center">
-  <a href="#-visão-geral">Visão Geral</a> •
-  <a href="#-funcionalidades">Funcionalidades</a> •
-  <a href="#-tecnologias">Tecnologias</a> •
-  <a href="#-pré-requisitos">Pré-requisitos</a> •
-  <a href="#-equipe">Equipe</a>
-</p>
-
 ---
 
 ## ✨ Visão Geral
