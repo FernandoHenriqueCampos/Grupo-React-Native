@@ -67,7 +67,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 
 | Membro | Função Principal / Contribuição |
 | :--- | :--- |
-| **João Gabriel** | `Home, Shop, Termo de Responsabilidade` |
+| **João Gabriel** | `Home, Shop, Termo de Responsabilidade, GeminiPet` |
 | **Miguel** | `[Descreva a contribuição aqui]` |
 | **Fernando** | `Admin, Shop, Sobre, Perfil` |
 | **Jessé** | `[Descreva a contribuição aqui]` |
