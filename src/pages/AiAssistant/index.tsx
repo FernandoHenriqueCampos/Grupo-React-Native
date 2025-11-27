@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { styles } from './style';
 import { getAnimalCareTips } from '../../services/aiService';
+import { Header } from '../../components/Header';
 
 export default function AiAssistant() {
     const [inputText, setInputText] = useState('');
@@ -41,7 +42,7 @@ export default function AiAssistant() {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-
+            <Header />
             <View style={styles.content}>
                 <View style={styles.header}>
                     <Text style={styles.brandTitle}>GeminiPet</Text>
