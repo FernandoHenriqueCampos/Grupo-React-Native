@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-    StyleSheet,
     Text,
     View,
     TextInput,
@@ -11,7 +10,6 @@ import {
     SafeAreaView,
     ScrollView,
     StatusBar,
-    Platform
 } from 'react-native';
 import { styles } from './style';
 import { getAnimalCareTips } from '../../services/aiService';

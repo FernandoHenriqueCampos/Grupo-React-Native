@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, FlatList, Image, Dimensions, Animated, ImageSourcePropType, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { View, FlatList, Image, Dimensions, ImageSourcePropType, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { styles } from './style';
 
 const { width } = Dimensions.get('window');
