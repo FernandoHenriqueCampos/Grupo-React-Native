@@ -69,7 +69,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 | :--- | :--- |
 | **João Gabriel** | `Home, Aba ( Cães, Gatos e Filhotes), Shop, Termo de Responsabilidade, GeminiPet` |
 | **Miguel** | `Login e Cadastro` |
-| **Fernando** | `Admin, Shop, Sobre, Perfil` |
+| **Fernando** | `Admin, Shop, Sobre, Perfil, Notificação` |
 | **Jessé** | `[Favoritos, petService, FavoritesContext, ModalFavoritos, PetCard]` |
 | **Gelverson** | `Perfil` |
 
