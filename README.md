@@ -67,10 +67,10 @@ O projeto foi construído utilizando as seguintes tecnologias:
 
 | Membro | Função Principal / Contribuição |
 | :--- | :--- |
-| **João Gabriel** | `Home, Shop, Termo de Responsabilidade` |
-| **Miguel** | `[Descreva a contribuição aqui]` |
+| **João Gabriel** | `Home, Shop, Termo de Responsabilidade, GeminiPet` |
+| **Miguel** | `Login e Cadastro` |
 | **Fernando** | `Admin, Shop, Sobre, Perfil` |
-| **Jessé** | `[Descreva a contribuição aqui]` |
-| **Gelverson** | `[Descreva a contribuição aqui]` |
+| **Jessé** | `[Favoritos, petService, FavoritesContext, ModalFavoritos, PetCard]` |
+| **Gelverson** | `Perfil` |
 
 

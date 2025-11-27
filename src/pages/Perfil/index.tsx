@@ -56,29 +56,27 @@ export default function Perfil() {
     }
   }
 
-   function abrirModalEditarNome() {
-        setUsuarioSelecionado({
-            id: idUsuarioLogado || "",
-            nome: "",
-            email: "",
-            senha: "",
-            tipoModal: "editarNome"
-        });
+  function abrirModalEditarNome() {
+    setUsuarioSelecionado({
+      id: idUsuarioLogado || "",
+      nome: "",
+      email: "",
+      senha: "",
+      tipoModal: "editarNome"
+    });
+    setModalOpen(true);
+  }
 
-        setModalOpen(true);
-    }
-
-    function abrirModalEditarLogin() {
-        setUsuarioSelecionado({
-            id: idUsuarioLogado || "",
-            nome: "",
-            email: "",
-            senha: "",
-            tipoModal: "editarLogin"
-        });
-
-        setModalOpen(true);
-    }
+  function abrirModalEditarLogin() {
+    setUsuarioSelecionado({
+      id: idUsuarioLogado || "",
+      nome: "",
+      email: "",
+      senha: "",
+      tipoModal: "editarLogin"
+    });
+    setModalOpen(true);
+  }
 
   useEffect(() => {
     if (idUsuarioLogado) {
@@ -122,51 +120,27 @@ export default function Perfil() {
   }
 
   const opcoes: OpcaoItem[] = [
-    { id: "1", 
-      label: "Atualizar Perfil", 
-      icon: "edit",
-      onPress: () => {
-        abrirModalEditarNome();
-      },
-    },
-    { id: "2", 
-      label: "Alterar Senha", 
-      icon: "lock",
-      onPress: () => {
-        abrirModalEditarLogin();
-      },
-    },
-    { id: "3", 
-      label: "Cursos", 
-      icon: "book",
-      onPress: () => {
-        navigation.navigate("StackCursos" as never);
-      },
-    },
-    { id: "4", 
-      label: "Admin", 
-      icon: "settings",
-      onPress: () => {
-        navigation.navigate("StackAdmin" as never);
-      },
-    },
-    { id: "5", 
-      label: "Sobre", 
-      icon: "info-outline",
-      onPress: () => {
-        navigation.navigate("StackSobre" as never);
-      },
-    },
+    { id: "1", label: "Atualizar Perfil", icon: "edit", onPress: () => abrirModalEditarNome() },
+    { id: "2", label: "Alterar Senha", icon: "lock", onPress: () => abrirModalEditarLogin() },
+    { id: "3", label: "Cursos", icon: "book", onPress: () => navigation.navigate("StackCursos" as never) },
+    { id: "4", label: "Admin", icon: "settings", onPress: () => navigation.navigate("StackAdmin" as never) },
+    { id: "5", label: "Sobre", icon: "info-outline", onPress: () => navigation.navigate("StackSobre" as never) },
     {
       id: "6",
       label: "Sair da Conta",
       icon: "logout",
       onPress: () => {
-        logout(); 
-        navigation.navigate("StackLogin" as never); 
+        logout();
+        navigation.navigate("StackLogin" as never);
       },
     },
   ];
+
+  const nomeEhDev = nomeUsuario.toLowerCase().includes("dev");
+
+  const opcoesFiltradas = nomeEhDev
+    ? opcoes
+    : opcoes.filter((item) => item.id !== "4");
 
   return (
     <View style={styles.container}>
@@ -184,9 +158,11 @@ export default function Perfil() {
             <Ionicons name="camera" size={40} color="#777" />
           )}
         </TouchableOpacity>
+
         <Text style={styles.userName}>{nomeUsuario}</Text>
+
         <View style={{ width: "100%", paddingHorizontal: 20 }}>
-          {opcoes.map((item) => {
+          {opcoesFiltradas.map((item) => {
             const Wrapper = item.onPress ? TouchableOpacity : View;
             return (
               <Wrapper
@@ -196,6 +172,7 @@ export default function Perfil() {
                 activeOpacity={0.6}
               >
                 <Text style={styles.optionText}>{item.label}</Text>
+
                 {item.icon === "edit" && <Feather name="edit" size={24} />}
                 {item.icon === "lock" && <Feather name="lock" size={24} />}
                 {item.icon === "book" && <Feather name="book" size={24} />}
@@ -209,16 +186,17 @@ export default function Perfil() {
               </Wrapper>
             );
           })}
+
           <Modal
             visible={modalOpen}
             transparent={true}
             animationType="slide"
             onRequestClose={() => setModalOpen(false)}
           >
-          <ModalUsuario
-                usuario={usuarioSelecionado}
-                onClose={() => setModalOpen(false)}
-                onUpdate={atualizarLista}
+            <ModalUsuario
+              usuario={usuarioSelecionado}
+              onClose={() => setModalOpen(false)}
+              onUpdate={atualizarLista}
             />
           </Modal>
         </View>

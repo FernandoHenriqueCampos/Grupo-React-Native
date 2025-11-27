@@ -7,13 +7,10 @@ import {
     ImageBackground,
     Alert,
     ActivityIndicator,
-    SafeAreaView,
-    StatusBar,
-    KeyboardAvoidingView,
-    Platform,
     Keyboard
 } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
 import { isAxiosError } from 'axios';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { apiUsuarios } from '../../services/api';
@@ -40,6 +37,9 @@ export default function Login({ navigation }: LoginProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
+    const [showPassword, setShowPassword] = useState(false);
+
+    const { setUsuarioLogado, setIdUsuarioLogado } = useUser();
 
     const loadingUsuarios = async () => {
         try {
@@ -52,8 +52,6 @@ export default function Login({ navigation }: LoginProps) {
             }
         }
     }
-
-    const { setUsuarioLogado, setIdUsuarioLogado } = useUser();
 
     const handleLogin = async () => {
         Keyboard.dismiss();
@@ -132,59 +130,69 @@ export default function Login({ navigation }: LoginProps) {
             resizeMode="cover"
             style={styles.background}
         >
-            <SafeAreaView style={styles.safeArea}>
-                <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+            <View style={[styles.safeArea, styles.keyboardView]}>
 
-                <KeyboardAvoidingView
-                    style={styles.keyboardView}
-                >
-                    <View style={styles.box}>
-                        <Text style={styles.title}>Login</Text>
+                <View style={styles.box}>
+                    <Text style={styles.title}>Login</Text>
 
-                        <TextInput
-                            placeholder="E-mail"
-                            placeholderTextColor="#5e0cafff"
-                            style={[styles.input, error && styles.inputError]}
-                            onChangeText={handleChangeEmail}
-                            value={email}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            editable={!loading}
-                        />
+                    <TextInput
+                        placeholder="E-mail"
+                        placeholderTextColor="#5e0cafff"
+                        style={[styles.input, error && styles.inputError]}
+                        onChangeText={handleChangeEmail}
+                        value={email}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        editable={!loading}
+                    />
 
+                    <View style={styles.inputContainer}>
                         <TextInput
                             placeholder="Senha"
                             placeholderTextColor="#5e0cafff"
-                            secureTextEntry
-                            style={[styles.input, error && styles.inputError]}
+                            secureTextEntry={!showPassword}
+                            style={[styles.input, styles.passwordInput, error && styles.inputError]}
                             onChangeText={handleChangeSenha}
                             value={senha}
                             editable={!loading}
                         />
 
                         <TouchableOpacity
-                            style={styles.button}
-                            onPress={handleLogin}
+                            style={styles.passwordToggle}
+                            onPress={() => setShowPassword(!showPassword)}
                             disabled={loading}
-                            activeOpacity={0.8}
+                            activeOpacity={0.7}
                         >
-                            {loading ? (
-                                <ActivityIndicator color="#FFF" />
-                            ) : (
-                                <Text style={styles.buttonText}>Entrar</Text>
-                            )}
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('StackCadastro')}
-                            disabled={loading}
-                            style={styles.linkContainer}
-                        >
-                            <Text style={styles.linkText}>Criar conta</Text>
+                            <Ionicons
+                                name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                                size={20}
+                                color="#8A2BE2"
+                            />
                         </TouchableOpacity>
                     </View>
-                </KeyboardAvoidingView>
-            </SafeAreaView>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleLogin}
+                        disabled={loading}
+                        activeOpacity={0.8}
+                    >
+                        {loading ? (
+                            <ActivityIndicator color="#FFF" />
+                        ) : (
+                            <Text style={styles.buttonText}>Entrar</Text>
+                        )}
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('StackCadastro')}
+                        disabled={loading}
+                        style={styles.linkContainer}
+                    >
+                        <Text style={styles.linkText}>Criar conta</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </ImageBackground>
     );
 }

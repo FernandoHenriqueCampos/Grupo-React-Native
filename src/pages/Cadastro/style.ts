@@ -59,10 +59,28 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#333',
     },
-
     inputError: {
         borderWidth: 1,
         borderColor: '#FF375B',
+    },
+
+    inputContainer: {
+        width: '100%',
+        position: 'relative',
+        marginBottom: 15,
+    },
+    passwordInput: {
+        marginBottom: 0,
+        paddingRight: 50,
+    },
+    passwordToggle: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8,
     },
 
     button: {
