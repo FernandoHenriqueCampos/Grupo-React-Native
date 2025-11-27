@@ -164,7 +164,7 @@ export default function Login({ navigation }: LoginProps) {
                             activeOpacity={0.7}
                         >
                             <Ionicons
-                                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                                name={showPassword ? 'eye-outline' : 'eye-off-outline'}
                                 size={20}
                                 color="#8A2BE2"
                             />

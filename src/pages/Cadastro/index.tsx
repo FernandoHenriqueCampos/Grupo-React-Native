@@ -204,7 +204,7 @@ export default function Cadastro() {
                                 activeOpacity={0.7}
                             >
                                 <Ionicons
-                                    name={showSenha ? 'eye-off-outline' : 'eye-outline'}
+                                    name={showSenha ? 'eye-outline' : 'eye-off-outline'}
                                     size={20}
                                     color="#5e0cafff"
                                 />
@@ -227,7 +227,7 @@ export default function Cadastro() {
                                 activeOpacity={0.7}
                             >
                                 <Ionicons
-                                    name={showConfirmarSenha ? 'eye-off-outline' : 'eye-outline'}
+                                    name={showConfirmarSenha ? 'eye-outline' : 'eye-off-outline'}
                                     size={20}
                                     color="#5e0cafff"
                                 />
