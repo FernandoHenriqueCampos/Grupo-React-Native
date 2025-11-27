@@ -15,7 +15,6 @@ import { CATEGORIES } from '../../data/categories';
 import { Header } from '../../components/Header';
 import { Carousel } from '../../components/Carousel';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import ButtonIA from '../../components/ButtonIA';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -47,7 +46,13 @@ export function Home() {
                     />
                 )}
             />
-            <ButtonIA />
+             <TouchableOpacity
+                style={styles.buttonMaintenance}
+                onPress={handleOpenAiAssistant}
+                activeOpacity={0.8}
+            >
+                <Ionicons name="chatbubbles" size={24} color="#890be3ff" />
+            </TouchableOpacity>
         </View>
     );
 }
