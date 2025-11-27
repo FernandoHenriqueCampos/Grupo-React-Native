@@ -12,7 +12,6 @@ import { Caes } from '../pages/Caes';
 import { Gatos } from '../pages/Gatos';
 import { Filhotes } from '../pages/Filhotes';
 import ShopScreen from '../pages/Shop';
-import AiAssistant from '../pages/AiAssistant';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -63,9 +62,6 @@ export function MyTabs() {
             case "Shop":
               iconName = "cart";
               break;
-            case 'AiAssistant':
-              iconName = "chatbubble"
-              break;
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -74,7 +70,6 @@ export function MyTabs() {
     >
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Favoritos" component={Favoritos} />
-      <Tab.Screen name="AiAssistant" component={AiAssistant} />
       <Tab.Screen name="Shop" component={ShopScreen} />
       <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>

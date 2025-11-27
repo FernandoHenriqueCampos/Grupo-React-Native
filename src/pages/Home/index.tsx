@@ -3,7 +3,8 @@ import {
     View,
     ImageBackground,
     StatusBar,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,11 +14,16 @@ import { AnimalCard } from '../../components/HomeCard';
 import { CATEGORIES } from '../../data/categories';
 import { Header } from '../../components/Header';
 import { Carousel } from '../../components/Carousel';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export function Home() {
     const navigation = useNavigation<NavigationProps>();
+
+    function handleOpenAiAssistant() {
+        navigation.navigate('AiAssistant');
+    }
 
     return (
         <View style={styles.container}>
@@ -40,6 +46,13 @@ export function Home() {
                     />
                 )}
             />
+            <TouchableOpacity
+                style={styles.buttonMaintenance}
+                onPress={handleOpenAiAssistant}
+                activeOpacity={0.8}
+            >
+                <Ionicons name="chatbubbles" size={24} color="#890be3ff" />
+            </TouchableOpacity>
         </View>
     );
 }
