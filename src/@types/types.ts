@@ -28,6 +28,12 @@ export interface UsuarioPerfil {
   tipoModal: "editarNome" | "editarLogin";
 }
 
+export interface RegistroImagem {
+  id: string;
+  idUsuario: string;
+  image: string;
+}
+
 export type RootStackParamList = {
   StackLogin: undefined;
   StackAdmin: undefined;

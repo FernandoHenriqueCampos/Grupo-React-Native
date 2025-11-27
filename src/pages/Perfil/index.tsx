@@ -13,10 +13,11 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import styles from "./style";
 import { useUser } from "../../context/UserContext";
-import { apiUsuarios } from "../../services/api";
+import { apiPets, apiUsuarios } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
 import ModalUsuario from "../../components/ModalUsuario";
-import { UsuarioPerfil } from '../../@types/types';
+import { UsuarioPerfil } from "../../@types/types";
+import { RegistroImagem } from "../../@types/types";
 
 interface OpcaoItem {
   id: string;
@@ -28,13 +29,17 @@ interface OpcaoItem {
 export default function Perfil() {
   const [image, setImage] = useState<string | null>(null);
   const [nomeUsuario, setNomeUsuario] = useState<string>("");
+  const [registroImagem, setRegistroImagem] = useState<RegistroImagem | null>(null);
+
   const screenWidth = Dimensions.get("window").width;
+
   const [usuarioSelecionado, setUsuarioSelecionado] = useState<UsuarioPerfil | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const atualizarLista = () => getUsuario();
 
   const navigation = useNavigation();
   const { idUsuarioLogado, logout } = useUser();
+
+  const atualizarLista = () => getUsuario();
 
   async function getUsuario() {
     try {
@@ -85,13 +90,35 @@ export default function Perfil() {
   }, [idUsuarioLogado]);
 
   useEffect(() => {
-    (async () => {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert("Permissão necessária", "Habilite o acesso às imagens.");
+    const initialize = async () => {
+      try {
+        if (idUsuarioLogado) {
+          const response = await apiPets.get("/usuario");
+          const registros: RegistroImagem[] = response.data;
+
+          const registro = registros.find(
+            (item) => item.idUsuario === idUsuarioLogado
+          );
+
+          if (registro) {
+            setRegistroImagem(registro);
+            setImage(registro.image);
+          }
+        }
+
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          Alert.alert("Permissão necessária", "Habilite o acesso às imagens.");
+        }
+
+      } catch (error) {
+        console.log("Erro initialize:", error);
+        Alert.alert("Erro", "Não foi possível carregar seus dados.");
       }
-    })();
-  }, []);
+    };
+
+    initialize();
+  }, [idUsuarioLogado]);
 
   async function pickImage() {
     try {
@@ -101,27 +128,44 @@ export default function Perfil() {
       });
 
       if (!result.canceled) {
-        setImage(result.assets[0].uri);
+        const uri = result.assets[0].uri;
+        setImage(uri);
+        await uploadImageToAPI(uri);
       }
     } catch (error) {
       Alert.alert("Erro", "Não foi possível abrir a galeria.");
     }
   }
 
-  async function updateUsuario() {
+  async function uploadImageToAPI(uri: string) {
+    if (!idUsuarioLogado) return;
+
     try {
-      const response = await apiUsuarios.put(`/usuarios/${idUsuarioLogado}`, {
-        nome: nomeUsuario,
+      if (registroImagem) {
+        const response = await apiPets.put(`/usuario/${registroImagem.id}`, {
+          idUsuario: idUsuarioLogado,
+          image: uri,
+        });
+
+        setRegistroImagem(response.data);
+        return;
+      }
+
+      const response = await apiPets.post("/usuario", {
+        idUsuario: idUsuarioLogado,
+        image: uri,
       });
-      alert("Usuario atualizado com sucesso!");
+
+      setRegistroImagem(response.data);
+
     } catch (error) {
-      console.log("Erro ao atualizar usuario:", error);
+      console.log("Erro ao enviar imagem:", error);
     }
   }
 
   const opcoes: OpcaoItem[] = [
-    { id: "1", label: "Atualizar Perfil", icon: "edit", onPress: () => abrirModalEditarNome() },
-    { id: "2", label: "Alterar Senha", icon: "lock", onPress: () => abrirModalEditarLogin() },
+    { id: "1", label: "Atualizar Perfil", icon: "edit", onPress: abrirModalEditarNome },
+    { id: "2", label: "Alterar Senha", icon: "lock", onPress: abrirModalEditarLogin },
     { id: "3", label: "Cursos", icon: "book", onPress: () => navigation.navigate("StackCursos" as never) },
     { id: "4", label: "Admin", icon: "settings", onPress: () => navigation.navigate("StackAdmin" as never) },
     { id: "5", label: "Sobre", icon: "info-outline", onPress: () => navigation.navigate("StackSobre" as never) },
@@ -145,6 +189,7 @@ export default function Perfil() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+
         <TouchableOpacity
           style={[
             styles.imageContainer,
@@ -164,6 +209,7 @@ export default function Perfil() {
         <View style={{ width: "100%", paddingHorizontal: 20 }}>
           {opcoesFiltradas.map((item) => {
             const Wrapper = item.onPress ? TouchableOpacity : View;
+
             return (
               <Wrapper
                 key={item.id}
@@ -189,7 +235,7 @@ export default function Perfil() {
 
           <Modal
             visible={modalOpen}
-            transparent={true}
+            transparent
             animationType="slide"
             onRequestClose={() => setModalOpen(false)}
           >
