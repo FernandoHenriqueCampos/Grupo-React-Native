@@ -75,3 +75,6 @@ export function MyTabs() {
     </Tab.Navigator>
   );
 }
+
+
+//Uma ameaça foi detectada. Felipe o VASCAÍNO!
