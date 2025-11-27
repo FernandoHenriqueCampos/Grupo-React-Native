@@ -4,12 +4,10 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingTop: Platform.OS === "android" ? 40 : 0,
   },
   content: {
     flex: 1,
     paddingHorizontal: 24,
-    paddingBottom: 20,
   },
   header: {
     alignItems: "center",

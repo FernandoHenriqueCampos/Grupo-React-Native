@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     marginLeft: 80,
     marginBottom: 20,
     fontWeight: "bold",
-    color: "#333",
+    color: "#8a03f8ff",
     paddingHorizontal: 15,
     paddingTop: 20,
     paddingBottom: 15,
