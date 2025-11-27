@@ -1,70 +1,71 @@
 export type Animal = {
-    id: string | number;
-    nome: string;
-    raca: string;
-    image?: string;
-    idade?: string;
-    cor?: string;
-    peso?: number | string;
-    porte?: string;
-    genero?: string;
-    tipo?: string;
-    tipoModal: 'criar' | 'editar';
+  id: string | number;
+  nome: string;
+  raca: string;
+  image?: string;
+  idade?: string;
+  cor?: string;
+  peso?: number | string;
+  porte?: string;
+  genero?: string;
+  tipo?: string;
+  tipoModal: "criar" | "editar";
 };
 
 export interface Usuario {
-    id?: string;
-    nome: string;
-    email: string;
-    senha: string;
-    perfil: 'user' | 'admin';
+  id?: string;
+  nome: string;
+  email: string;
+  senha: string;
+  perfil: "user" | "admin";
 }
 
 export interface UsuarioPerfil {
-    id: string;
-    nome: string;
-    email: string;
-    senha: string;
-    tipoModal: 'editarNome' | 'editarLogin';
+  id: string;
+  nome: string;
+  email: string;
+  senha: string;
+  tipoModal: "editarNome" | "editarLogin";
 }
 
 export type RootStackParamList = {
-    StackLogin: undefined;
-    StackAdmin: undefined;
-    StackHome: undefined;
-    StackCadastro: undefined;
-    StackPerfil: undefined;
-    StackFavoritos: undefined;
-    StackCursos: undefined;
-    StackCaes: undefined;
-    StackGatos: undefined;
-    StackFilhotes: undefined;
-    StackTermoAdocao: undefined;
-    StackSobre: undefined;
-    MyTabs: undefined;
-    Home: undefined;
-    Favoritos: undefined;
-    Perfil: undefined;
-    Shop: undefined;
+  StackLogin: undefined;
+  StackAdmin: undefined;
+  StackHome: undefined;
+  StackCadastro: undefined;
+  StackPerfil: undefined;
+  StackFavoritos: undefined;
+  StackCursos: undefined;
+  StackCaes: undefined;
+  StackGatos: undefined;
+  StackFilhotes: undefined;
+  StackTermoAdocao: undefined;
+  StackSobre: undefined;
+  MyTabs: undefined;
+  Home: undefined;
+  Favoritos: undefined;
+  Perfil: undefined;
+  Shop: undefined;
 };
 
 export type RootTabParamList = {
-    Home: undefined;
-    Favoritos: undefined;
-    Perfil: undefined;
-    Shop: undefined;
-}
+  Home: undefined;
+  Favoritos: undefined;
+  Perfil: undefined;
+  Shop: undefined;
+  AiAssistant: undefined;
+};
 
 export interface FavoritesContextType {
-    favoritePetIds: string[];
-    toggleFavorite: (petId: string) => void;
-    removeFavorite: (petId: string) => void;
-    isFavorite: (petId: string) => boolean;
-    isReady: boolean;
+  favoritePetIds: string[];
+  toggleFavorite: (petId: string) => void;
+  removeFavorite: (petId: string) => void;
+  isFavorite: (petId: string) => boolean;
+  isReady: boolean;
 }
 
 declare global {
-    namespace ReactNavigation {
-        interface RootParamList extends RootStackParamList, RootTabParamList { }
-    }
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList, RootTabParamList {}
+  }
 }
