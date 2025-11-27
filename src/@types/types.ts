@@ -46,6 +46,7 @@ export type RootStackParamList = {
   Favoritos: undefined;
   Perfil: undefined;
   Shop: undefined;
+  AiAssistant: undefined;
 };
 
 export type RootTabParamList = {
@@ -53,7 +54,6 @@ export type RootTabParamList = {
   Favoritos: undefined;
   Perfil: undefined;
   Shop: undefined;
-  AiAssistant: undefined;
 };
 
 export interface FavoritesContextType {
