@@ -6,6 +6,7 @@ import { RootStackParamList } from '../@types/types';
 import { MyTabs } from './bottomTabs';
 import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro';
+import Notificacoes from '../pages/Notificacoes';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -18,6 +19,7 @@ export function Routers() {
       >
         <Stack.Screen name="StackLogin" component={Login} />
         <Stack.Screen name="StackCadastro" component={Cadastro} />
+        <Stack.Screen name="StackNotificacoes" component={Notificacoes} />
         <Stack.Screen name="MyTabs" component={MyTabs} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -15,6 +15,7 @@ import { useUser } from '../context/UserContext';
 import Admin from '../pages/Admin';
 import Sobre from '../pages/Sobre';
 import AiAssistant from '../pages/AiAssistant';
+import Notificacoes from '../pages/Notificacoes';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,11 +50,11 @@ function InitialStack() {
       <Stack.Screen name="StackAdmin" component={Admin} />
       <Stack.Screen name="StackSobre" component={Sobre} />
       <Stack.Screen name="StackTermoAdocao" component={TermoDeAdocao} />
+      <Stack.Screen name="StackNotificacoes" component={Notificacoes} />
       <Stack.Screen name="AiAssistant" component={AiAssistant} />
     </Stack.Navigator>
   );
 }
-
 
 export function Routers() {
   return (

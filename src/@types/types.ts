@@ -47,6 +47,7 @@ export type RootStackParamList = {
   StackFilhotes: undefined;
   StackTermoAdocao: undefined;
   StackSobre: undefined;
+  StackNotificacoes: undefined;
   MyTabs: undefined;
   Home: undefined;
   Favoritos: undefined;

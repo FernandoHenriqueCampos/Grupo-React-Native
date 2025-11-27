@@ -27,4 +27,24 @@ export const styles = StyleSheet.create({
     marginRight: "0.5%",
     marginLeft: "0.5%",
   },
+  bellContainer: {
+    marginLeft: 15,
+  },
+  badge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    backgroundColor: 'red',
+    borderRadius: 8,
+    minWidth: 16,
+    height: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 3,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
 });

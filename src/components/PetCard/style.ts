@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 200, // Altura fixa
+    height: 200, 
     backgroundColor: "#e0e0e0",
   },
   infoContainer: {
