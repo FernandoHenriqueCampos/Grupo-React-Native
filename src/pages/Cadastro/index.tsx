@@ -7,14 +7,11 @@ import {
     ImageBackground,
     Alert,
     ActivityIndicator,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    SafeAreaView,
-    StatusBar,
     Keyboard,
-    Animated
+    Animated,
 } from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { isAxiosError } from 'axios';
@@ -72,11 +69,18 @@ export default function Cadastro() {
     const [loading, setLoading] = useState<boolean>(false);
     const [fieldErrors, setFieldErrors] = useState<Usuarios>({});
 
+    const [showSenha, setShowSenha] = useState(false);
+    const [showConfirmarSenha, setShowConfirmarSenha] = useState(false);
+
+
     const handleCadastro = async () => {
         Keyboard.dismiss();
 
         let errors: Usuarios = {};
         let hasError = false;
+
+        const emailValido = email.trim().includes('@');
+
 
         if (!nome.trim()) {
             errors.nome = 'Nome é obrigatório';
@@ -85,6 +89,9 @@ export default function Cadastro() {
 
         if (!email.trim()) {
             errors.email = 'E-mail é obrigatório';
+            hasError = true;
+        } else if (!emailValido) {
+            errors.email = 'E-mail inválido.';
             hasError = true;
         }
 
@@ -156,12 +163,8 @@ export default function Cadastro() {
             resizeMode="cover"
             style={styles.background}
         >
-            <SafeAreaView style={styles.safeArea}>
-                <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
-
-                <KeyboardAvoidingView
-                    style={styles.keyboardView}
-                >
+            <View style={styles.safeArea}>
+                <View style={styles.keyboardView}>
                     <View style={styles.box}>
                         <Text style={styles.title}>Junte-se a nós!</Text>
                         <Text style={styles.subtitle}>Adote, ame e cuide.</Text>
@@ -173,7 +176,6 @@ export default function Cadastro() {
                             value={nome}
                             onChangeText={(t) => { setNome(t); clearError('nome'); }}
                         />
-
                         <FadeError error={fieldErrors.nome} />
 
                         <TextInput
@@ -187,24 +189,50 @@ export default function Cadastro() {
                         />
                         <FadeError error={fieldErrors.email} />
 
-                        <TextInput
-                            placeholder="Senha"
-                            placeholderTextColor="#5e0cafff"
-                            secureTextEntry
-                            style={[styles.input, !!fieldErrors.senha && styles.inputError]}
-                            value={senha}
-                            onChangeText={(t) => { setSenha(t); clearError('senha'); }}
-                        />
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                placeholder="Senha"
+                                placeholderTextColor="#5e0cafff"
+                                secureTextEntry={!showSenha}
+                                style={[styles.input, styles.passwordInput, !!fieldErrors.senha && styles.inputError]}
+                                value={senha}
+                                onChangeText={(t) => { setSenha(t); clearError('senha'); }}
+                            />
+                            <TouchableOpacity
+                                style={styles.passwordToggle}
+                                onPress={() => setShowSenha(!showSenha)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons
+                                    name={showSenha ? 'eye-off-outline' : 'eye-outline'}
+                                    size={20}
+                                    color="#5e0cafff"
+                                />
+                            </TouchableOpacity>
+                        </View>
                         <FadeError error={fieldErrors.senha} />
 
-                        <TextInput
-                            placeholder="Confirmar Senha"
-                            placeholderTextColor="#5e0cafff"
-                            secureTextEntry
-                            style={[styles.input, !!fieldErrors.confirmarSenha && styles.inputError]}
-                            value={confirmarSenha}
-                            onChangeText={(t) => { setConfirmarSenha(t); clearError('confirmarSenha'); }}
-                        />
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                placeholder="Confirmar Senha"
+                                placeholderTextColor="#5e0cafff"
+                                secureTextEntry={!showConfirmarSenha}
+                                style={[styles.input, styles.passwordInput, !!fieldErrors.confirmarSenha && styles.inputError]}
+                                value={confirmarSenha}
+                                onChangeText={(t) => { setConfirmarSenha(t); clearError('confirmarSenha'); }}
+                            />
+                            <TouchableOpacity
+                                style={styles.passwordToggle}
+                                onPress={() => setShowConfirmarSenha(!showConfirmarSenha)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons
+                                    name={showConfirmarSenha ? 'eye-off-outline' : 'eye-outline'}
+                                    size={20}
+                                    color="#5e0cafff"
+                                />
+                            </TouchableOpacity>
+                        </View>
                         <FadeError error={fieldErrors.confirmarSenha} />
 
 
@@ -230,8 +258,8 @@ export default function Cadastro() {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                </KeyboardAvoidingView>
-            </SafeAreaView>
+                </View>
+            </View>
         </ImageBackground>
     );
 }
