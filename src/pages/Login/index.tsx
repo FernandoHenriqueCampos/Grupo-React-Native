@@ -56,6 +56,7 @@ export default function Login({ navigation }: LoginProps) {
     const handleLogin = async () => {
         Keyboard.dismiss();
         setError(false);
+        
 
         const emailSemEspacos = email.trim();
         const emailFinal = emailSemEspacos.toLowerCase();
@@ -196,3 +197,7 @@ export default function Login({ navigation }: LoginProps) {
         </ImageBackground>
     );
 }
+
+// Aviso sério:
+// Se remover este código, o Flamengo perde o próximo clássico.
+// Não testei, mas também não quero testar.

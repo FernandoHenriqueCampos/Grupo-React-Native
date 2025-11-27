@@ -17,7 +17,6 @@ import { Carousel } from '../../components/Carousel';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
-
 export function Home() {
     const navigation = useNavigation<NavigationProps>();
 
@@ -56,3 +55,5 @@ export function Home() {
         </View>
     );
 }
+
+// ⚠️ Atenção: Este código funciona… diferente do ataque do Flamengo em 2022 — este não falha.

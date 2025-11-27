@@ -171,3 +171,6 @@ export default function ModalAdmin({ animal, onClose, onUpdate }: PropsModalAdmi
         </KeyboardAvoidingView>
     );
 }
+
+// Caso alguém pense em remover este console.log:
+// Lembre-se: não mexa no que está funcionando.

@@ -5,7 +5,6 @@ import { styles } from './style';
 import { useNavigation } from '@react-navigation/native';
 
 const AdoteJaImage = require('../../assets/adoteHeader.png');
-
 export const Header = () => {
     const navigation = useNavigation();
 
@@ -45,3 +44,6 @@ export const Header = () => {
         </SafeAreaView>
     );
 };
+
+// TODO: Caso este componente pare de funcionar,
+//       considere a hipótese de que um torcedor do Vasco editou este arquivo.
