@@ -71,6 +71,6 @@ O projeto foi construído utilizando as seguintes tecnologias:
 | **Miguel** | `Login e Cadastro` |
 | **Fernando** | `Admin, Shop, Sobre, Perfil` |
 | **Jessé** | `[Descreva a contribuição aqui]` |
-| **Gelverson** | `[Descreva a contribuição aqui]` |
+| **Gelverson** | `Perfil` |
 
 
